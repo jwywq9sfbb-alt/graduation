@@ -13,19 +13,21 @@
         .container { width: 92%; max-width: 1000px; margin: 20px auto; }
         h2 { color: #3d5a45; border-left: 5px solid #8eb69b; padding-left: 15px; margin-top: 50px; }
 
-        /* 管理員標示燈 */
-        #admin-status { display: none; background: #e74c3c; color: white; text-align: center; padding: 5px; font-weight: bold; animation: blink 1.5s infinite; }
-        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.5;} 100% {opacity: 1;} }
+        /* 管理員紅條標示 */
+        #admin-status { display: none; background: #e74c3c; color: white; text-align: center; padding: 8px; font-weight: bold; animation: blink 1.5s infinite; position: sticky; top: 0; z-index: 2000; }
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.7;} 100% {opacity: 1;} }
 
-        /* IG 按鈕 */
-        .ig-btn-container { text-align: center; margin: 30px 0; }
+        /* IG 大按鈕 */
+        .ig-btn-container { text-align: center; margin: 20px 0 40px 0; }
         .ig-large-btn {
             display: inline-flex; align-items: center;
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: white !important; padding: 14px 28px; border-radius: 50px;
-            text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
+            color: white !important; padding: 15px 30px; border-radius: 50px;
+            text-decoration: none; font-weight: bold; font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
         }
-        .ig-large-btn img { width: 24px; height: 24px; margin-right: 10px; }
+        .ig-large-btn img { width: 26px; height: 26px; margin-right: 12px; }
+        .ig-large-btn:hover { transform: scale(1.05); }
 
         /* 照片牆 */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
@@ -37,7 +39,7 @@
         .teacher-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
         .audio-btn { background: #4a6d53; color: white; border: none; padding: 10px; border-radius: 20px; cursor: pointer; width: 100%; font-weight: bold; }
 
-        /* 地圖 */
+        /* 地圖座標 */
         #map-container { position: relative; display: inline-block; width: 100%; border-radius: 15px; overflow: hidden; border: 4px solid #3d5a45; }
         .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 42px; height: 42px; cursor: pointer; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; z-index: 10; }
         .map-point-btn span { position: absolute; top: -8px; right: -8px; background: #e67e22; color: white; font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; }
@@ -64,9 +66,10 @@
 </nav>
 
 <div class="container">
+    
     <div class="ig-btn-container">
         <a href="https://www.instagram.com/ctbc114_gsa/" target="_blank" class="ig-large-btn">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG icon">
             追蹤 114級畢聯會 IG
         </a>
     </div>
@@ -79,11 +82,12 @@
     <section id="qa">
         <h2>📮 拾起心聲</h2>
         <div id="adminArea" style="display:none; background:#fffbe6; padding:15px; border-radius:10px; margin-bottom:20px; border:1px dashed #d4a373;">
-            <p><strong>🔒 待處理留言</strong></p><div id="pendingList"></div>
+            <p><strong>🔒 待處理留言 (管理員專用)</strong></p>
+            <div id="pendingList"></div>
         </div>
-        <div style="background: white; padding: 20px; border-radius: 15px;">
+        <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
             <textarea id="qInput" placeholder="留下你想說的話..."></textarea>
-            <button class="post-btn" style="background:#4a6d53; color:white; border:none; padding:10px; width:100%; border-radius:8px; cursor:pointer;" onclick="postQ()">送出心聲</button>
+            <button class="post-btn" style="background:#4a6d53; color:white; border:none; padding:12px; width:100%; border-radius:8px; cursor:pointer; font-weight:bold;" onclick="postQ()">送出心聲</button>
             <div id="publicList" style="margin-top:20px;"></div>
         </div>
     </section>
@@ -97,7 +101,7 @@
         <h2>📍 拾葉地圖：校園座標</h2>
         <div style="text-align: center;">
             <div id="map-container">
-                <img src="photos/5.jpg" style="width: 100%;">
+                <img src="photos/5.jpg" style="width: 100%; display: block;">
                 <button class="map-point-btn" style="top: 20%; left: 15%;" onclick="showMapPhoto('photos/6.jpg', '校園角落 6')">🍀<span>6</span></button>
                 <button class="map-point-btn" style="top: 20%; left: 35%;" onclick="showMapPhoto('photos/7.jpg', '校園角落 7')">🍀<span>7</span></button>
                 <button class="map-point-btn" style="top: 20%; left: 55%;" onclick="showMapPhoto('photos/8.jpg', '校園角落 8')">🍀<span>8</span></button>
@@ -127,7 +131,7 @@
     const db = firebase.database();
     let isAdmin = false;
 
-    // 初始化渲染
+    // 渲染 UI
     document.getElementById('galleryGrid').innerHTML = [1,2,3,4].map(n => `<div class="photo-item"><img src="photos/${n}.jpg"></div>`).join('');
     document.getElementById('teacherGrid').innerHTML = [16,17,18,19,20,21,22,23,24,25].map(n => `
         <div class="teacher-card">
@@ -139,7 +143,7 @@
 
     function playAudio(id) {
         document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
-        document.getElementById(`audio-${id}`).play().catch(e => console.log("音檔未就緒"));
+        document.getElementById(`audio-${id}`).play().catch(e => console.log("聲音尚未上傳"));
     }
 
     function showMapPhoto(url, text) { alert(text); window.open(url, '_blank'); }
@@ -165,7 +169,7 @@
         if (!input.value.trim()) return;
         db.ref('qa_list').push({ question: input.value, answer: "" });
         input.value = "";
-        alert("已送出，等待畢聯會拾起回覆！");
+        alert("已送出！");
     }
 
     db.ref('qa_list').on('value', snap => {
@@ -177,13 +181,13 @@
         `).join('') || "目前尚無回覆。";
         if (isAdmin) {
             document.getElementById('pendingList').innerHTML = items.filter(([k, v]) => !v.answer).map(([k, v]) => `
-                <div style="margin-bottom:10px;">${v.question} <button onclick="replyQ('${k}')">回覆</button></div>
+                <div style="margin-bottom:10px; padding:5px; border-bottom:1px solid #ddd;">${v.question} <button onclick="replyQ('${k}')" style="float:right;">回覆</button></div>
             `).join('');
         }
     });
 
     function loginAdmin() {
-        if(prompt("請輸入管理密碼：") === "114gsa 0609") {
+        if(prompt("Admin 密碼：") === "114gsa 0609") {
             isAdmin = true;
             document.getElementById('adminArea').style.display = 'block';
             document.getElementById('admin-status').style.display = 'block';
@@ -192,12 +196,9 @@
     }
 
     function replyQ(id) {
-        const a = prompt("回覆內容：");
+        const a = prompt("請回覆：");
         if(a) db.ref('qa_list/' + id).update({ answer: a });
     }
 </script>
 </body>
 </html>
-
-</html>
-
