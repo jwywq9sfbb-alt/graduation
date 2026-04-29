@@ -48,6 +48,10 @@
             <span id="days">00</span>天 <span id="hours">00</span>時 <span id="minutes">00</span>分 <span id="seconds">00</span>秒
         </div>
     </div>
+
+    <div style="margin-top: 12px; font-size: 0.85rem; opacity: 0.8;">
+        🍃 已有 <span id="viewCount" style="font-weight:bold;">...</span> 位拾葉者到訪
+    </div>
 </header>
 
 <nav>
@@ -81,6 +85,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
 <script>
+    // Firebase 配置
     const firebaseConfig = {
         apiKey: "AIzaSyAPh-eTbUvGLFKFvTByfnGLJwja2bH4iKQ",
         authDomain: "graduation-cdb95.firebaseapp.com",
@@ -93,6 +98,8 @@
     const PASS = "114gsa 0609";
     let isAdmin = false;
 
+    // --- 3. 照片列表（請根據 GitHub 真實路徑二選一） ---
+    // 如果你已經把照片移到第一層且改名，請用 "photos/1.jpg"
     const myPhotos = [
         "photos/1.jpg",
         "photos/2.jpg",
@@ -102,6 +109,7 @@
 
     function renderPhotos() {
         const grid = document.getElementById('galleryGrid');
+        if (!grid) return;
         grid.innerHTML = myPhotos.map(url => `
             <div class="photo-item">
                 <img src="${url}" onerror="this.src='https://via.placeholder.com/180?text=Wait+Update'">
@@ -109,6 +117,14 @@
         `).join('');
     }
 
+    // --- 4. 瀏覽人數邏輯 ---
+    const viewRef = db.ref('view_count');
+    viewRef.transaction((curr) => (curr || 0) + 1);
+    viewRef.on('value', (snap) => {
+        document.getElementById('viewCount').innerText = snap.val() || 0;
+    });
+
+    // --- 5. 倒數計時邏輯 ---
     function updateCountdown() {
         const graduationDate = new Date("June 9, 2026 00:00:00").getTime();
         const now = new Date().getTime();
@@ -130,11 +146,16 @@
         document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
     }
 
+    // --- 6. 留言板邏輯 ---
     db.ref('qa_list').on('value', (snap) => {
         const data = snap.val();
         const publicList = document.getElementById('publicList');
         const pendingList = document.getElementById('pendingList');
-        if (!data) { publicList.innerHTML = "目前尚無回覆。"; pendingList.innerHTML = "無留言。"; return; }
+        if (!data) { 
+            publicList.innerHTML = "目前尚無回覆。"; 
+            if(isAdmin) pendingList.innerHTML = "無留言。";
+            return; 
+        }
 
         const items = Object.values(data).reverse();
         publicList.innerHTML = items.filter(i => i.answer !== "").map(i => `
@@ -184,6 +205,7 @@
         if (confirm("確定要拋棄這片葉子嗎？")) db.ref('qa_list/' + id).remove();
     }
 
+    // 啟動
     setInterval(updateCountdown, 1000);
     updateCountdown();
     renderPhotos();
