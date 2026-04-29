@@ -30,7 +30,7 @@
         #timer { font-size: 1.4rem; font-weight: bold; letter-spacing: 1px; }
         .view-count-text { margin-top: 12px; font-size: 0.85rem; opacity: 0.8; }
 
-        /* --- 拾葉地圖 (5.jpg 是底圖，6-15 是按鈕) --- */
+        /* --- 拾葉地圖 座標系統 --- */
         #map-container { position: relative; display: inline-block; width: 100%; max-width: 900px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 3px solid #3d5a45; background: #fff; }
         .map-point-btn {
             position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%;
@@ -38,21 +38,19 @@
             display: flex; justify-content: center; align-items: center; font-size: 1.1rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.3); transition: 0.2s; z-index: 10;
         }
-        .map-point-btn:hover { transform: translate(-50%, -50%) scale(1.2); z-index: 100; }
+        .map-point-btn:hover { transform: translate(-50%, -50%) scale(1.2); z-index: 100; background: #f0fdf4; }
         .map-point-btn span { position: absolute; top: -8px; right: -8px; background: #e67e22; color: white; font-size: 0.65rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; }
 
-        /* --- 照片牆 (1-4.jpg) --- */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .photo-item img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; transition: 0.3s; }
-        .photo-item img:hover { transform: scale(1.02); }
-
-        /* --- 留言板 --- */
+        /* --- 照片牆與留言板 --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        .photo-item img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; }
         .qa-container { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         textarea { width: 100%; height: 80px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; resize: none; box-sizing: border-box; }
         .post-btn { background: #4a6d53; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; }
         .qa-item { border-bottom: 1px solid #eee; padding: 15px 0; }
         .answer { background: #f9fdfa; padding: 10px; border-left: 3px solid #8eb69b; margin-top: 8px; font-size: 0.95rem; }
 
+        /* 管理員登入 */
         .admin-login { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; color: rgba(255,255,255,0.5); cursor: pointer; }
     </style>
 </head>
@@ -77,7 +75,7 @@
 
 <nav>
     <a href="#interactive-map">回憶地圖</a>
-    <a href="#photos">拾葉瞬間</a>
+    <a href="#photos">回憶照片牆</a>
     <a href="#qa">留言提議</a>
 </nav>
 
@@ -91,31 +89,30 @@
     </div>
 
     <section id="interactive-map">
-        <h2>📍 拾葉地圖：校園座標</h2>
-        <p style="text-align: center; font-size: 0.9rem; color: #666; margin-bottom: 15px;">點擊地圖上的幸運草，拾起那裡的校園回憶</p>
+        <h2>📍 拾葉地圖：回憶座標</h2>
+        <p style="text-align: center; font-size: 0.9rem; color: #666;">點擊幸運草拾起片段 (底圖使用 5.jpg)</p>
         
         <div style="text-align: center;">
             <div id="map-container">
-                <img src="photos/5.jpg" style="display: block; width: 100%; height: auto;" onerror="this.src='https://via.placeholder.com/800x500?text=請上傳5.jpg作為地圖背景'">
+                <img src="photos/5.jpg" style="display: block; width: 100%; height: auto;" onerror="this.src='https://via.placeholder.com/800x500?text=Please+Upload+5.jpg'">
 
-                <button class="map-point-btn" style="top: 15%; left: 15%;" onclick="showMapPhoto('photos/6.jpg', '校園回憶 6')">🍀<span>6</span></button>
-                <button class="map-point-btn" style="top: 15%; left: 35%;" onclick="showMapPhoto('photos/7.jpg', '校園回憶 7')">🍀<span>7</span></button>
-                <button class="map-point-btn" style="top: 15%; left: 55%;" onclick="showMapPhoto('photos/8.jpg', '校園回憶 8')">🍀<span>8</span></button>
-                <button class="map-point-btn" style="top: 15%; left: 75%;" onclick="showMapPhoto('photos/9.jpg', '校園回憶 9')">🍀<span>9</span></button>
-                <button class="map-point-btn" style="top: 40%; left: 20%;" onclick="showMapPhoto('photos/10.jpg', '校園回憶 10')">🍀<span>10</span></button>
-                <button class="map-point-btn" style="top: 40%; left: 40%;" onclick="showMapPhoto('photos/11.jpg', '校園回憶 11')">🍀<span>11</span></button>
-                <button class="map-point-btn" style="top: 40%; left: 60%;" onclick="showMapPhoto('photos/12.jpg', '校園回憶 12')">🍀<span>12</span></button>
-                <button class="map-point-btn" style="top: 40%; left: 80%;" onclick="showMapPhoto('photos/13.jpg', '校園回憶 13')">🍀<span>13</span></button>
-                <button class="map-point-btn" style="top: 70%; left: 30%;" onclick="showMapPhoto('photos/14.jpg', '校園回憶 14')">🍀<span>14</span></button>
-                <button class="map-point-btn" style="top: 70%; left: 70%;" onclick="showMapPhoto('photos/15.jpg', '校園回憶 15')">🍀<span>15</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 20%;" onclick="showMapPhoto('photos/1.jpg', '點位 1 的回憶')">🍀<span>1</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 40%;" onclick="showMapPhoto('photos/2.jpg', '點位 2 的回憶')">🍀<span>2</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 60%;" onclick="showMapPhoto('photos/3.jpg', '點位 3 的回憶')">🍀<span>3</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 80%;" onclick="showMapPhoto('photos/4.jpg', '點位 4 的回憶')">🍀<span>4</span></button>
+                <button class="map-point-btn" style="top: 40%; left: 20%;" onclick="showMapPhoto('...', '點位 5')">🍀<span>5</span></button>
+                <button class="map-point-btn" style="top: 40%; left: 40%;" onclick="showMapPhoto('...', '點位 6')">🍀<span>6</span></button>
+                <button class="map-point-btn" style="top: 40%; left: 60%;" onclick="showMapPhoto('...', '點位 7')">🍀<span>7</span></button>
+                <button class="map-point-btn" style="top: 40%; left: 80%;" onclick="showMapPhoto('...', '點位 8')">🍀<span>8</span></button>
+                <button class="map-point-btn" style="top: 60%; left: 35%;" onclick="showMapPhoto('...', '點位 9')">🍀<span>9</span></button>
+                <button class="map-point-btn" style="top: 60%; left: 65%;" onclick="showMapPhoto('...', '點位 10')">🍀<span>10</span></button>
             </div>
         </div>
     </section>
 
     <section id="photos">
         <h2>🍃 拾葉・瞬間</h2>
-        <div class="gallery-grid" id="galleryGrid">
-            </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
     </section>
 
     <section id="qa">
@@ -136,6 +133,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
 <script>
+    // Firebase 設定
     const firebaseConfig = {
         apiKey: "AIzaSyAPh-eTbUvGLFKFvTByfnGLJwja2bH4iKQ",
         authDomain: "graduation-cdb95.firebaseapp.com",
@@ -146,21 +144,27 @@
     const db = firebase.database();
     let isAdmin = false;
 
-    // --- 1. 照片牆邏輯 (1-4 號圖) ---
-    const momentPhotos = ["photos/1.jpg", "photos/2.jpg", "photos/3.jpg", "photos/4.jpg"];
-    function renderMoments() {
-        document.getElementById('galleryGrid').innerHTML = momentPhotos.map(url => `
-            <div class="photo-item"><img src="${url}" loading="lazy" onerror="this.src='https://via.placeholder.com/200x200?text=照片讀取中'"></div>
+    // 照片列表
+    const myPhotos = ["photos/1.jpg", "photos/2.jpg", "photos/3.jpg", "photos/4.jpg"];
+
+    function renderPhotos() {
+        document.getElementById('galleryGrid').innerHTML = myPhotos.map(url => `
+            <div class="photo-item"><img src="${url}" onerror="this.src='https://via.placeholder.com/150?text=Wait+Update'"></div>
         `).join('');
     }
 
-    // --- 2. 地圖照片跳轉 ---
-    function showMapPhoto(url, title) {
-        alert("【拾起回憶】\n正在查看：" + title);
-        window.open(url, '_blank'); // 先用簡單的開新視窗，你也可以改成 Modal
+    // 地圖點擊功能
+    function showMapPhoto(url, text) {
+        alert("【拾起回憶】\n" + text);
+        // 未來這裡可以改成彈出漂亮的視窗
     }
 
-    // --- 3. 倒數計時器 ---
+    // 瀏覽人數
+    const viewRef = db.ref('view_count');
+    viewRef.transaction(c => (c || 0) + 1);
+    viewRef.on('value', s => { document.getElementById('viewCount').innerText = s.val() || 0; });
+
+    // 倒數計時
     function updateCountdown() {
         const target = new Date("June 9, 2026 00:00:00").getTime();
         const now = new Date().getTime();
@@ -176,18 +180,14 @@
         document.getElementById("seconds").innerText = s < 10 ? "0"+s : s;
     }
 
-    // --- 4. 瀏覽人數與留言板 (與之前相同) ---
-    const viewRef = db.ref('view_count');
-    viewRef.transaction(c => (c || 0) + 1);
-    viewRef.on('value', s => { document.getElementById('viewCount').innerText = s.val() || 0; });
-
+    // 留言板邏輯
     function postQ() {
         const input = document.getElementById('qInput');
         if (!input.value.trim()) return;
         const ref = db.ref('qa_list').push();
         ref.set({ id: ref.key, question: input.value, answer: "" });
         input.value = "";
-        alert("留言成功！等待管理員拾起回覆。");
+        alert("心聲已拾起！");
     }
 
     db.ref('qa_list').on('value', snap => {
@@ -196,7 +196,8 @@
         const items = Object.values(data).reverse();
         document.getElementById('publicList').innerHTML = items.filter(i => i.answer).map(i => `
             <div class="qa-item"><b>Q:</b> ${i.question}<div class="answer"><b>🌿 回覆：</b>${i.answer}</div></div>
-        `).join('') || "目前還沒有回覆。";
+        `).join('') || "尚無回覆留言。";
+
         if (isAdmin) {
             document.getElementById('pendingList').innerHTML = items.filter(i => !i.answer).map(i => `
                 <div style="margin-bottom:10px;">${i.question} <button onclick="replyQ('${i.id}')">回覆</button></div>
@@ -205,24 +206,21 @@
     });
 
     function loginAdmin() {
-        if(prompt("請輸入畢聯會管理密碼：") === "114gsa 0609") {
+        if(prompt("密碼：") === "114gsa 0609") {
             isAdmin = true;
             document.getElementById('adminArea').style.display = 'block';
-            alert("管理員登入成功");
+            alert("管理員已登入");
         }
     }
 
     function replyQ(id) {
-        const a = prompt("請輸入回覆內容：");
+        const a = prompt("回覆內容：");
         if(a) db.ref('qa_list/' + id).update({ answer: a });
     }
 
     setInterval(updateCountdown, 1000);
-    renderMoments();
+    renderPhotos();
     updateCountdown();
-</script>
-</body>
-</html>
 </script>
 </body>
 </html>
