@@ -3,87 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中信國際高中114級畢聯會</title>
+    <title>中信國際高中114級畢聯會 | 拾葉</title>
     <style>
-        /* 主題顏色：拾葉綠 */
-        body { font-family: "Microsoft JhengHei", sans-serif; background: #f0f4f2; margin: 0; color: #2c3e50; }
-        header { background: #3d5a45; color: white; padding: 2.5rem 1rem; text-align: center; position: relative; }
-        .admin-login { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.2); color: white; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
-        nav { display: flex; justify-content: center; background: #4a6d53; padding: 10px; position: sticky; top: 0; z-index: 1000; }
-        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-        .container { width: 90%; max-width: 1000px; margin: 20px auto; }
-        
-        /* 倒數計時器樣式 */
-        #countdown-box { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px; margin-top: 15px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); }
-        #timer { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; }
-        .sub-slogan { font-size: 1rem; font-weight: normal; opacity: 0.9; margin-top: 10px; font-style: italic; }
+        /* --- 基礎森林系風格 --- */
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #f0f4f2; margin: 0; color: #2c3e50; line-height: 1.6; }
+        header { background: #3d5a45; color: white; padding: 3rem 1rem; text-align: center; position: relative; }
+        nav { display: flex; justify-content: center; background: #4a6d53; padding: 12px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        .container { width: 92%; max-width: 1000px; margin: 20px auto; }
+        h2 { color: #3d5a45; border-left: 5px solid #8eb69b; padding-left: 15px; margin-top: 40px; }
 
-        /* 照片牆 */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
-        .photo-item { width: 100%; height: 180px; }
-        .photo-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        /* --- IG 大按鈕 --- */
+        .ig-btn-container { text-align: center; margin: 30px 0; }
+        .ig-large-btn {
+            display: inline-flex; align-items: center;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white !important; padding: 14px 28px; border-radius: 50px;
+            text-decoration: none; font-weight: bold; font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
+        }
+        .ig-large-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        .ig-large-btn img { width: 24px; height: 24px; margin-right: 10px; }
 
-        /* QA 區 */
-        .qa-container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        textarea { width: 100%; height: 100px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; resize: none; box-sizing: border-box; margin-bottom: 10px; }
-        .post-btn { background: #4a6d53; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
-        .qa-item { border-bottom: 1px solid #eee; padding: 20px 0; }
-        .answer { background: #f7faf8; padding: 15px; border-left: 4px solid #8eb69b; margin-top: 10px; border-radius: 4px; }
-        .del-btn { background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
-        
-        #adminArea { display: none; background: #fffbe6; padding: 20px; border-radius: 12px; border: 2px dashed #d4a373; margin-bottom: 30px; }
-        h2 { color: #3d5a45; }
+        /* --- 倒數計時與人數 --- */
+        #countdown-box { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 12px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); margin-top: 15px; }
+        #timer { font-size: 1.4rem; font-weight: bold; letter-spacing: 1px; }
+        .view-count-text { margin-top: 12px; font-size: 0.85rem; opacity: 0.8; }
+
+        /* --- 拾葉地圖 座標系統 --- */
+        #map-container { position: relative; display: inline-block; width: 100%; max-width: 900px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 3px solid #3d5a45; background: #fff; }
+        .map-point-btn {
+            position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%;
+            width: 40px; height: 40px; cursor: pointer; transform: translate(-50%, -50%);
+            display: flex; justify-content: center; align-items: center; font-size: 1.1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3); transition: 0.2s; z-index: 10;
+        }
+        .map-point-btn:hover { transform: translate(-50%, -50%) scale(1.2); z-index: 100; background: #f0fdf4; }
+        .map-point-btn span { position: absolute; top: -8px; right: -8px; background: #e67e22; color: white; font-size: 0.65rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; }
+
+        /* --- 照片牆與留言板 --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        .photo-item img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; }
+        .qa-container { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        textarea { width: 100%; height: 80px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; resize: none; box-sizing: border-box; }
+        .post-btn { background: #4a6d53; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; }
+        .qa-item { border-bottom: 1px solid #eee; padding: 15px 0; }
+        .answer { background: #f9fdfa; padding: 10px; border-left: 3px solid #8eb69b; margin-top: 8px; font-size: 0.95rem; }
+
+        /* 管理員登入 */
+        .admin-login { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; color: rgba(255,255,255,0.5); cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="admin-login" id="loginLabel" onclick="loginAdmin()">管理員登入</div>
-    <h1>🍀 中信國際高中114級畢聯會</h1>
-    <div class="sub-slogan">在散落的回憶裡拾起最初的幸運</div>
+    <div class="admin-login" onclick="loginAdmin()">Admin</div>
+    <h1>🍀 中信國際高中 114 級畢聯會</h1>
+    <p style="opacity: 0.9; font-style: italic;">在散落的回憶裡拾起最初的幸運</p>
     
     <div id="countdown-box">
-        <div style="font-size: 0.9rem; margin-bottom: 5px; opacity: 0.9;">🍂 距離「拾葉」畢業典禮還有</div>
+        <div style="font-size: 0.8rem; margin-bottom: 5px;">🍂 距離「拾葉」畢業典禮還有</div>
         <div id="timer">
             <span id="days">00</span>天 <span id="hours">00</span>時 <span id="minutes">00</span>分 <span id="seconds">00</span>秒
         </div>
     </div>
 
-    <div style="margin-top: 12px; font-size: 0.85rem; opacity: 0.8;">
+    <div class="view-count-text">
         🍃 已有 <span id="viewCount" style="font-weight:bold;">...</span> 位拾葉者到訪
     </div>
-    <div style="text-align: center; margin: 20px 0;">
-    <a href="https://www.instagram.com/ctbc114_gsa/" target="_blank" class="ig-large-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG">
-        追蹤 114級畢聯會 IG
-    </a>
-</div>
-
 </header>
 
 <nav>
+    <a href="#interactive-map">回憶地圖</a>
     <a href="#photos">回憶照片牆</a>
-    <a href="#qa">匿名提議區</a>
+    <a href="#qa">留言提議</a>
 </nav>
 
 <div class="container">
+    
+    <div class="ig-btn-container">
+        <a href="https://www.instagram.com/ctbc114_gsa/" target="_blank" class="ig-large-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG">
+            追蹤 114級畢聯會 IG
+        </a>
+    </div>
+
+    <section id="interactive-map">
+        <h2>📍 拾葉地圖：回憶座標</h2>
+        <p style="text-align: center; font-size: 0.9rem; color: #666;">點擊幸運草拾起片段 (底圖使用 5.jpg)</p>
+        
+        <div style="text-align: center;">
+            <div id="map-container">
+                <img src="photos/5.jpg" style="display: block; width: 100%; height: auto;" onerror="this.src='https://via.placeholder.com/800x500?text=Please+Upload+5.jpg'">
+
+                <button class="map-point-btn" style="top: 20%; left: 20%;" onclick="showMapPhoto('photos/1.jpg', '點位 1 的回憶')">🍀<span>1</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 40%;" onclick="showMapPhoto('photos/2.jpg', '點位 2 的回憶')">🍀<span>2</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 60%;" onclick="showMapPhoto('photos/3.jpg', '點位 3 的回憶')">🍀<span>3</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 80%;" onclick="showMapPhoto('photos/4.jpg', '點位 4 的回憶')">🍀<span>4</span></button>
+                <button class="map-point-btn" style="top: 40%; left: 20%;" onclick="showMapPhoto('...', '點位 5')">🍀<span>5</span></button>
+                <button class="map-point-btn" style="top: 40%; left: 40%;" onclick="showMapPhoto('...', '點位 6')">🍀<span>6</span></button>
+                <button class="map-point-btn" style="top: 40%; left: 60%;" onclick="showMapPhoto('...', '點位 7')">🍀<span>7</span></button>
+                <button class="map-point-btn" style="top: 40%; left: 80%;" onclick="showMapPhoto('...', '點位 8')">🍀<span>8</span></button>
+                <button class="map-point-btn" style="top: 60%; left: 35%;" onclick="showMapPhoto('...', '點位 9')">🍀<span>9</span></button>
+                <button class="map-point-btn" style="top: 60%; left: 65%;" onclick="showMapPhoto('...', '點位 10')">🍀<span>10</span></button>
+            </div>
+        </div>
+    </section>
+
     <section id="photos">
-        <h2 style="border-left: 5px solid #8eb69b; padding-left: 15px;">🍃 拾葉・瞬間</h2>
+        <h2>🍃 拾葉・瞬間</h2>
         <div class="gallery-grid" id="galleryGrid"></div>
     </section>
 
-    <section id="qa" style="margin-top: 50px;">
-        <h2 style="border-left: 5px solid #8eb69b; padding-left: 15px;">📮 拾起心聲</h2>
-        <div id="adminArea">
-            <h3>🔒 管理模式：待審核內容</h3>
+    <section id="qa">
+        <h2>📮 拾起心聲</h2>
+        <div id="adminArea" style="display:none; background:#fffbe6; padding:15px; border-radius:10px; margin-bottom:20px; border:1px dashed #d4a373;">
+            <p><strong>🔒 管理員模式</strong></p>
             <div id="pendingList">載入中...</div>
-            <button onclick="location.reload()" style="margin-top:10px;">登出系統</button>
         </div>
         <div class="qa-container">
-            <textarea id="qInput" placeholder="在這裡留下你的提議或悄悄話..."></textarea>
+            <textarea id="qInput" placeholder="留言並拾起這片葉子..."></textarea>
             <button class="post-btn" onclick="postQ()">送出心聲</button>
-            <h3 style="margin-top:30px;">💬 已回覆內容</h3>
-            <div id="publicList">載入中...</div>
+            <div id="publicList" style="margin-top:20px;">載入中...</div>
         </div>
     </section>
 </div>
@@ -92,130 +133,95 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
 <script>
-    // Firebase 配置
+    // Firebase 設定
     const firebaseConfig = {
         apiKey: "AIzaSyAPh-eTbUvGLFKFvTByfnGLJwja2bH4iKQ",
         authDomain: "graduation-cdb95.firebaseapp.com",
         databaseURL: "https://graduation-cdb95-default-rtdb.firebaseio.com",
         projectId: "graduation-cdb95"
     };
-
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    const PASS = "114gsa 0609";
     let isAdmin = false;
 
-    // --- 3. 照片列表（請根據 GitHub 真實路徑二選一） ---
-    // 如果你已經把照片移到第一層且改名，請用 "photos/1.jpg"
-    const myPhotos = [
-        "photos/1.jpg",
-        "photos/2.jpg",
-        "photos/3.jpg",
-        "photos/4.jpg"
-    ];
+    // 照片列表
+    const myPhotos = ["photos/1.jpg", "photos/2.jpg", "photos/3.jpg", "photos/4.jpg"];
 
     function renderPhotos() {
-        const grid = document.getElementById('galleryGrid');
-        if (!grid) return;
-        grid.innerHTML = myPhotos.map(url => `
-            <div class="photo-item">
-                <img src="${url}" onerror="this.src='https://via.placeholder.com/180?text=Wait+Update'">
-            </div>
+        document.getElementById('galleryGrid').innerHTML = myPhotos.map(url => `
+            <div class="photo-item"><img src="${url}" onerror="this.src='https://via.placeholder.com/150?text=Wait+Update'"></div>
         `).join('');
     }
 
-    // --- 4. 瀏覽人數邏輯 ---
-    const viewRef = db.ref('view_count');
-    viewRef.transaction((curr) => (curr || 0) + 1);
-    viewRef.on('value', (snap) => {
-        document.getElementById('viewCount').innerText = snap.val() || 0;
-    });
-
-    // --- 5. 倒數計時邏輯 ---
-    function updateCountdown() {
-        const graduationDate = new Date("June 9, 2026 00:00:00").getTime();
-        const now = new Date().getTime();
-        const gap = graduationDate - now;
-
-        if (gap <= 0) {
-            document.getElementById("countdown-box").innerHTML = "🎉 畢業快樂！願每片葉子都帶給你幸運 🎉";
-            return;
-        }
-
-        const d = Math.floor(gap / (1000 * 60 * 60 * 24));
-        const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((gap % (1000 * 60)) / 1000);
-
-        document.getElementById("days").innerText = d;
-        document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
-        document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
-        document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+    // 地圖點擊功能
+    function showMapPhoto(url, text) {
+        alert("【拾起回憶】\n" + text);
+        // 未來這裡可以改成彈出漂亮的視窗
     }
 
-    // --- 6. 留言板邏輯 ---
-    db.ref('qa_list').on('value', (snap) => {
-        const data = snap.val();
-        const publicList = document.getElementById('publicList');
-        const pendingList = document.getElementById('pendingList');
-        if (!data) { 
-            publicList.innerHTML = "目前尚無回覆。"; 
-            if(isAdmin) pendingList.innerHTML = "無留言。";
-            return; 
-        }
+    // 瀏覽人數
+    const viewRef = db.ref('view_count');
+    viewRef.transaction(c => (c || 0) + 1);
+    viewRef.on('value', s => { document.getElementById('viewCount').innerText = s.val() || 0; });
 
+    // 倒數計時
+    function updateCountdown() {
+        const target = new Date("June 9, 2026 00:00:00").getTime();
+        const now = new Date().getTime();
+        const gap = target - now;
+        if (gap <= 0) { document.getElementById("timer").innerText = "畢業快樂！"; return; }
+        const d = Math.floor(gap / 86400000);
+        const h = Math.floor((gap % 86400000) / 3600000);
+        const m = Math.floor((gap % 3600000) / 60000);
+        const s = Math.floor((gap % 60000) / 1000);
+        document.getElementById("days").innerText = d;
+        document.getElementById("hours").innerText = h < 10 ? "0"+h : h;
+        document.getElementById("minutes").innerText = m < 10 ? "0"+m : m;
+        document.getElementById("seconds").innerText = s < 10 ? "0"+s : s;
+    }
+
+    // 留言板邏輯
+    function postQ() {
+        const input = document.getElementById('qInput');
+        if (!input.value.trim()) return;
+        const ref = db.ref('qa_list').push();
+        ref.set({ id: ref.key, question: input.value, answer: "" });
+        input.value = "";
+        alert("心聲已拾起！");
+    }
+
+    db.ref('qa_list').on('value', snap => {
+        const data = snap.val();
+        if (!data) return;
         const items = Object.values(data).reverse();
-        publicList.innerHTML = items.filter(i => i.answer !== "").map(i => `
-            <div class="qa-item">
-                <div class="question">Q: ${i.question}</div>
-                <div class="answer"><strong>🌿 拾葉者回覆：</strong>${i.answer}</div>
-                ${isAdmin ? `<button class="del-btn" onclick="deleteQA('${i.id}')">刪除此則</button>` : ''}
-            </div>
-        `).join('') || "目前尚無刊登。";
+        document.getElementById('publicList').innerHTML = items.filter(i => i.answer).map(i => `
+            <div class="qa-item"><b>Q:</b> ${i.question}<div class="answer"><b>🌿 回覆：</b>${i.answer}</div></div>
+        `).join('') || "尚無回覆留言。";
 
         if (isAdmin) {
-            pendingList.innerHTML = items.filter(i => i.answer === "").map(i => `
-                <div class="qa-item">
-                    <div>${i.question}</div>
-                    <button style="background:#4a6d53; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="replyQA('${i.id}')">回覆</button>
-                    <button class="del-btn" style="margin-top:0" onclick="deleteQA('${i.id}')">刪除</button>
-                </div>
-            `).join('') || "沒有待處理留言。";
+            document.getElementById('pendingList').innerHTML = items.filter(i => !i.answer).map(i => `
+                <div style="margin-bottom:10px;">${i.question} <button onclick="replyQ('${i.id}')">回覆</button></div>
+            `).join('');
         }
     });
 
     function loginAdmin() {
-        if(prompt("請輸入管理員密碼：") === PASS) {
+        if(prompt("密碼：") === "114gsa 0609") {
             isAdmin = true;
             document.getElementById('adminArea').style.display = 'block';
-            document.getElementById('loginLabel').innerText = "✅ 拾葉管理中";
-            renderPhotos();
-            alert("歡迎回來，管理員！");
+            alert("管理員已登入");
         }
     }
 
-    function postQ() {
-        const el = document.getElementById('qInput');
-        if (!el.value.trim()) return;
-        const ref = db.ref('qa_list').push();
-        ref.set({ id: ref.key, question: el.value, answer: "" });
-        el.value = "";
-        alert("心聲已拾起，請靜候回覆！");
+    function replyQ(id) {
+        const a = prompt("回覆內容：");
+        if(a) db.ref('qa_list/' + id).update({ answer: a });
     }
 
-    function replyQA(id) {
-        const ans = prompt("請輸入回覆內容：");
-        if (ans) db.ref('qa_list/' + id).update({ answer: ans });
-    }
-
-    function deleteQA(id) {
-        if (confirm("確定要拋棄這片葉子嗎？")) db.ref('qa_list/' + id).remove();
-    }
-
-    // 啟動
     setInterval(updateCountdown, 1000);
-    updateCountdown();
     renderPhotos();
+    updateCountdown();
 </script>
 </body>
 </html>
+
