@@ -5,334 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>畢聯會專屬空間</title>
     <style>
-        /* --- 1. 基礎樣式設計 --- */
-        body {
-            font-family: "Microsoft JhengHei", Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            background-color: #f4f7f6;
-            color: #333;
-        }
+        body { font-family: "Microsoft JhengHei", sans-serif; line-height: 1.6; margin: 0; background-color: #f4f7f6; }
+        header { background: #2c3e50; color: white; padding: 2rem 1rem; text-align: center; position: relative; }
+        
+        /* 右上角管理登入按鈕 */
+        .admin-login { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.2); color: white; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
+        .admin-login:hover { background: rgba(255,255,255,0.4); }
 
-        header {
-            background: #2c3e50;
-            color: white;
-            padding: 2.5rem 1rem;
-            text-align: center;
-        }
+        nav { display: flex; justify-content: center; background: #34495e; padding: 10px; position: sticky; top: 0; z-index: 1000; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .container { width: 90%; max-width: 800px; margin: 20px auto; }
+        
+        /* QA 區塊 */
+        .qa-container { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        textarea { width: 100%; height: 80px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; resize: none; box-sizing: border-box; margin-bottom: 10px; }
+        .post-btn { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
+        
+        /* 留言項目樣式 */
+        .qa-item { border-bottom: 1px solid #eee; padding: 15px 0; }
+        .tag-pending { background: #e67e22; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; margin-left: 10px; }
+        .question { color: #2c3e50; font-weight: bold; }
+        .answer { background: #f0f9ff; padding: 12px; border-left: 4px solid #27ae60; margin-top: 10px; border-radius: 4px; }
+        .reply-btn { background: #27ae60; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
 
-        nav {
-            display: flex;
-            justify-content: center;
-            background: #34495e;
-            padding: 10px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            color: #e67e22;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 20px auto;
-        }
-
-        h2 {
-            border-left: 5px solid #e67e22;
-            padding-left: 15px;
-            margin-top: 50px;
-            color: #2c3e50;
-        }
-
-        /* --- 2. 道具購物區樣式 --- */
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .item-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: transform 0.2s;
-        }
-
-        .item-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .buy-btn {
-            display: inline-block;
-            background: #e67e22;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        /* --- 3. 照片牆樣式 --- */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
-        .gallery img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        /* --- 4. 匿名 QA 專用樣式 --- */
-        .qa-container {
-            background: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .input-group textarea {
-            width: 100%;
-            height: 100px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            resize: none;
-            box-sizing: border-box;
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .input-group button {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .input-group button:hover {
-            background: #2980b9;
-        }
-
-        .qa-list {
-            margin-top: 30px;
-        }
-
-        .qa-item {
-            border-bottom: 1px solid #eee;
-            padding: 20px 0;
-        }
-
-        .question {
-            color: #2c3e50;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .question::before {
-            content: "Q:";
-            color: #e67e22;
-            margin-right: 8px;
-        }
-
-        .answer {
-            background: #f0f9ff;
-            padding: 15px;
-            border-left: 4px solid #27ae60;
-            margin-left: 20px;
-            border-radius: 4px;
-            color: #34495e;
-            font-size: 0.95rem;
-        }
-
-        .no-answer {
-            color: #3498db;
-            cursor: pointer;
-            text-decoration: underline;
-            font-size: 0.85rem;
-            margin-left: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            margin-top: 60px;
-            background: #2c3e50;
-            color: white;
-        }
+        #adminArea { display: none; background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed #e67e22; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>🎓 畢業生聯合會</h1>
-        <p>道具購物 ‧ 回憶紀錄 ‧ 匿名諮詢</p>
-    </header>
+<header>
+    <div class="admin-login" onclick="loginAdmin()">管理員登入</div>
+    <h1>🎓 畢聯會服務站</h1>
+    <p>匿名提問（回覆後才會刊登）</p>
+</header>
 
-    <nav>
-        <a href="#shop">道具購物</a>
-        <a href="#photos">精彩瞬間</a>
-        <a href="#qa">匿名 QA</a>
-    </nav>
+<nav>
+    <a href="#qa">QA 提問專區</a>
+</nav>
 
-    <div class="container">
+<div class="container">
+    <section id="qa">
+        <div id="adminArea">
+            <h3>🔒 管理員模式：待處理留言</h3>
+            <div id="pendingList">載入中...</div>
+            <button onclick="location.reload()" style="margin-top:10px;">登出/關閉</button>
+        </div>
+
+        <div class="qa-container">
+            <textarea id="qInput" placeholder="有什麼建議嗎？請匿名留言...（管理員回覆後才會顯示在下方）"></textarea>
+            <button class="post-btn" onclick="postQ()">送出提問</button>
+            
+            <h2 style="margin-top:40px; border-left: 5px solid #27ae60; padding-left: 10px;">💡 已刊登回覆</h2>
+            <div id="publicList">尚未有刊登的回覆。</div>
+        </div>
+    </section>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyC6CBs03jrW3nbJoR1fwYuOb9KRJ-ED2rY",
+        authDomain: "realtime-database-d5eee.firebaseapp.com",
+        databaseURL: "https://realtime-database-d5eee-default-rtdb.firebaseio.com",
+        projectId: "realtime-database-d5eee",
+        storageBucket: "realtime-database-d5eee.firebasestorage.app",
+        messagingSenderId: "381343804684",
+        appId: "1:381343804684:web:abfa9db66b058ae99c6d29"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const PASS = "114gsa 0609"; // 你的管理密碼
+    let isAdmin = false;
+
+    // 監聽資料庫
+    db.ref('qa_list').on('value', (snap) => {
+        const data = snap.val();
+        renderLists(data);
+    });
+
+    function renderLists(data) {
+        const publicList = document.getElementById('publicList');
+        const pendingList = document.getElementById('pendingList');
         
-        <section id="shop">
-            <h2>🛒 典禮道具採購</h2>
-            <div class="shop-grid">
-                <div class="item-card">
-                    <h3>客製化畢業熊</h3>
-                    <p>讓小熊穿上你的學院袍</p>
-                    <p><strong>價格：$350</strong></p>
-                    <a href="https://shopee.tw" target="_blank" class="buy-btn">前往賣場</a>
-                </div>
-                <div class="item-card">
-                    <h3>典禮彩色煙霧</h3>
-                    <p>拍出最有質感的畢業照</p>
-                    <p><strong>價格：$120</strong></p>
-                    <a href="#" class="buy-btn">前往賣場</a>
-                </div>
-                <div class="item-card">
-                    <h3>閃光加油棒</h3>
-                    <p>晚會必備炒熱氣氛神器</p>
-                    <p><strong>價格：$50</strong></p>
-                    <a href="#" class="buy-btn">前往賣場</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="photos">
-            <h2>📸 精彩瞬間</h2>
-            <div class="gallery">
-                <img src="https://images.unsplash.com/photo-1523050853064-8521ef199847?w=400" alt="畢業照1">
-                <img src="https://images.unsplash.com/photo-1541339907198-e08756ebafe3?w=400" alt="畢業照2">
-                <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=400" alt="畢業照3">
-                <img src="https://images.unsplash.com/photo-1525921429624-479b6a29d84c?w=400" alt="畢業照4">
-            </div>
-        </section>
-
-        <section id="qa">
-            <h2>💬 匿名 QA 討論區</h2>
-            <div class="qa-container">
-                <div class="input-group">
-                    <textarea id="questionInput" placeholder="有什麼想問畢聯會的嗎？請在這裡匿名留言..."></textarea>
-                    <button onclick="postQuestion()">送出提問</button>
-                </div>
-                <div id="qaList" class="qa-list">
-                    </div>
-            </div>
-        </section>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 畢聯會版權所有 | 清大電機資工學士班 實作練習</p>
-    </footer>
-
-    <script>
-        // 設定管理員密碼
-        const ADMIN_PASS = "114gsa 0609";
-
-        // 頁面載入時讀取舊有資料
-        window.onload = function() {
-            renderQA();
-        };
-
-        // 發布提問
-        function postQuestion() {
-            const input = document.getElementById('questionInput');
-            const text = input.value.trim();
-            
-            if (text === "") {
-                alert("內容不能是空的喔！");
-                return;
-            }
-
-            const qaData = JSON.parse(localStorage.getItem('nthu_qa')) || [];
-            
-            const newQA = {
-                id: Date.now(),
-                question: text,
-                answer: "" // 初始回覆為空
-            };
-
-            qaData.push(newQA);
-            localStorage.setItem('nthu_qa', JSON.stringify(qaData));
-            
-            input.value = ""; // 清空輸入框
-            renderQA(); // 重新渲染列表
+        if (!data) {
+            publicList.innerHTML = "目前尚無回覆。";
+            pendingList.innerHTML = "無待處理留言。";
+            return;
         }
 
-        // 顯示 QA 列表
-        function renderQA() {
-            const qaList = document.getElementById('qaList');
-            const qaData = JSON.parse(localStorage.getItem('nthu_qa')) || [];
-            
-            if (qaData.length === 0) {
-                qaList.innerHTML = "<p style='color:#999;'>目前尚無提問。</p>";
-                return;
-            }
-
-            // 使用 reverse() 讓最新提問排在最上面
-            qaList.innerHTML = qaData.map(item => `
+        const allItems = Object.values(data).reverse();
+        
+        // 1. 渲染「已刊登」列表 (有 answer 的)
+        const publicHtml = allItems
+            .filter(item => item.answer !== "")
+            .map(item => `
                 <div class="qa-item">
-                    <div class="question">${item.question}</div>
-                    <div id="box-${item.id}">
-                        ${item.answer 
-                            ? `<div class="answer"><strong>💡 畢聯會回覆：</strong>${item.answer}</div>` 
-                            : `<span class="no-answer" onclick="reply('${item.id}')">回覆此提問...</span>`
-                        }
-                    </div>
+                    <div class="question">Q: ${item.question}</div>
+                    <div class="answer"><strong>💡 畢聯會回覆：</strong>${item.answer}</div>
                 </div>
-            `).reverse().join('');
-        }
+            `).join('');
+        publicList.innerHTML = publicHtml || "尚未有刊登的回覆。";
 
-        // 管理員回覆功能
-        function reply(id) {
-            const pass = prompt("請輸入管理員密碼：");
-            
-            if (pass === ADMIN_PASS) {
-                const response = prompt("驗證成功！請輸入您的回覆：");
-                
-                if (response && response.trim() !== "") {
-                    let qaData = JSON.parse(localStorage.getItem('nthu_qa'));
-                    const index = qaData.findIndex(item => item.id == id);
-                    
-                    if (index !== -1) {
-                        qaData[index].answer = response;
-                        localStorage.setItem('nthu_qa', JSON.stringify(qaData));
-                        renderQA();
-                    }
-                }
-            } else if (pass !== null) {
-                alert("密碼錯誤，無法回覆！");
-            }
+        // 2. 渲染「管理員待處理」列表 (沒 answer 的)
+        if (isAdmin) {
+            const pendingHtml = allItems
+                .filter(item => item.answer === "")
+                .map(item => `
+                    <div class="qa-item">
+                        <div class="question">${item.question} <span class="tag-pending">待審核</span></div>
+                        <button class="reply-btn" onclick="replyQ('${item.id}')">回覆並刊登</button>
+                    </div>
+                `).join('');
+            pendingList.innerHTML = pendingHtml || "暫無新留言。";
         }
-    </script>
+    }
+
+    // 匿名送出
+    function postQ() {
+        const el = document.getElementById('qInput');
+        if(!el.value.trim()) return alert("請輸入內容");
+        const ref = db.ref('qa_list').push();
+        ref.set({ id: ref.key, question: el.value, answer: "" });
+        el.value = "";
+        alert("提問已送出！請等待管理員審核回覆。");
+    }
+
+    // 登入功能
+    function loginAdmin() {
+        const p = prompt("請輸入管理員密碼：");
+        if (p === PASS) {
+            isAdmin = true;
+            document.getElementById('adminArea').style.display = 'block';
+            db.ref('qa_list').once('value', (snap) => renderLists(snap.val()));
+            alert("登入成功，已開啟待審核清單。");
+        } else if (p !== null) {
+            alert("密碼錯誤！");
+        }
+    }
+
+    // 回覆並刊登
+    function replyQ(id) {
+        const ans = prompt("請輸入回覆內容（送出後將立即刊登到首頁）：");
+        if (ans && ans.trim() !== "") {
+            db.ref('qa_list/' + id).update({ answer: ans });
+        }
+    }
+</script>
 </body>
 </html>
