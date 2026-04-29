@@ -13,11 +13,11 @@
         .container { width: 92%; max-width: 1000px; margin: 20px auto; }
         h2 { color: #3d5a45; border-left: 5px solid #8eb69b; padding-left: 15px; margin-top: 50px; }
 
-        /* --- 管理員紅條標示 (確保標示存在) --- */
+        /* 管理員紅條標示 */
         #admin-status { display: none; background: #e74c3c; color: white; text-align: center; padding: 8px; font-weight: bold; animation: blink 1.5s infinite; position: sticky; top: 0; z-index: 2000; }
         @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.7;} 100% {opacity: 1;} }
 
-        /* --- IG 大按鈕 (位置：拾葉瞬間上方) --- */
+        /* IG 大按鈕 */
         .ig-btn-container { text-align: center; margin: 20px 0 40px 0; }
         .ig-large-btn {
             display: inline-flex; align-items: center;
@@ -27,7 +27,7 @@
         }
         .ig-large-btn img { width: 24px; height: 24px; margin-right: 10px; }
 
-        /* --- 照片牆 & 老師牆 --- */
+        /* 照片牆 & 老師牆 */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
         .photo-item img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; }
         .teacher-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
@@ -35,11 +35,7 @@
         .teacher-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
         .audio-btn { background: #4a6d53; color: white; border: none; padding: 10px; border-radius: 20px; cursor: pointer; width: 100%; font-weight: bold; }
 
-        /* --- 留言板樣式 (紅色刪除按鈕用) --- */
-        .qa-item { border-bottom: 1px solid #eee; padding: 15px 0; position: relative; }
-        .delete-btn { background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; margin-left: 10px; }
-
-        /* --- 地圖 --- */
+        /* 地圖 */
         #map-container { position: relative; display: inline-block; width: 100%; border-radius: 15px; overflow: hidden; border: 4px solid #3d5a45; }
         .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 42px; height: 42px; cursor: pointer; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; z-index: 10; }
         .map-point-btn span { position: absolute; top: -8px; right: -8px; background: #e67e22; color: white; font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; }
@@ -86,7 +82,7 @@
             <div id="pendingList"></div>
         </div>
         <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-            <textarea id="qInput" style="width:100%; height:100px; padding:10px; border-radius:8px; border:1px solid #ddd;" placeholder="留下你想說的話..."></textarea>
+            <textarea id="qInput" style="width:100%; height:100px; padding:10px; border-radius:8px; border:1px solid #ddd; box-sizing: border-box;" placeholder="留下你想說的話..."></textarea>
             <button style="background:#4a6d53; color:white; border:none; padding:12px; width:100%; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:10px;" onclick="postQ()">送出心聲</button>
             <div id="publicList" style="margin-top:20px;"></div>
         </div>
@@ -102,11 +98,16 @@
         <div style="text-align: center;">
             <div id="map-container">
                 <img src="photos/5.jpg" style="width: 100%; display: block;">
-                <script>
-                    for(let i=6; i<=15; i++){
-                        document.write(`<button class="map-point-btn" style="top:${20 + (i-6)*5}%; left:${10 + (i-6)*8}%;" onclick="showMapPhoto('photos/${i}.jpg', '校園角落 ${i}')">🍀<span>${i}</span></button>`);
-                    }
-                </script>
+                <button class="map-point-btn" style="top: 20%; left: 15%;" onclick="showMapPhoto('photos/6.jpg', '校園角落 6')">🍀<span>6</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 35%;" onclick="showMapPhoto('photos/7.jpg', '校園角落 7')">🍀<span>7</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 55%;" onclick="showMapPhoto('photos/8.jpg', '校園角落 8')">🍀<span>8</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 75%;" onclick="showMapPhoto('photos/9.jpg', '校園角落 9')">🍀<span>9</span></button>
+                <button class="map-point-btn" style="top: 50%; left: 20%;" onclick="showMapPhoto('photos/10.jpg', '校園角落 10')">🍀<span>10</span></button>
+                <button class="map-point-btn" style="top: 50%; left: 40%;" onclick="showMapPhoto('photos/11.jpg', '校園角落 11')">🍀<span>11</span></button>
+                <button class="map-point-btn" style="top: 50%; left: 60%;" onclick="showMapPhoto('photos/12.jpg', '校園角落 12')">🍀<span>12</span></button>
+                <button class="map-point-btn" style="top: 50%; left: 80%;" onclick="showMapPhoto('photos/13.jpg', '校園角落 13')">🍀<span>13</span></button>
+                <button class="map-point-btn" style="top: 80%; left: 30%;" onclick="showMapPhoto('photos/14.jpg', '校園角落 14')">🍀<span>14</span></button>
+                <button class="map-point-btn" style="top: 80%; left: 70%;" onclick="showMapPhoto('photos/15.jpg', '校園角落 15')">🍀<span>15</span></button>
             </div>
         </div>
     </section>
@@ -126,7 +127,7 @@
     const db = firebase.database();
     let isAdmin = false;
 
-    // 初始化渲染
+    // --- UI 渲染 ---
     document.getElementById('galleryGrid').innerHTML = [1,2,3,4].map(n => `<div class="photo-item"><img src="photos/${n}.jpg"></div>`).join('');
     document.getElementById('teacherGrid').innerHTML = [16,17,18,19,20,21,22,23,24,25].map(n => `
         <div class="teacher-card">
@@ -138,12 +139,12 @@
 
     function playAudio(id) {
         document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
-        document.getElementById(`audio-${id}`).play().catch(e => console.log("聲音檔未上傳"));
+        document.getElementById(`audio-${id}`).play().catch(e => console.log("聲音未準備好"));
     }
 
     function showMapPhoto(url, text) { alert(text); window.open(url, '_blank'); }
 
-    // 倒數計時
+    // --- 倒數 ---
     function updateCountdown() {
         const target = new Date("June 9, 2026 00:00:00").getTime();
         const now = new Date().getTime();
@@ -158,70 +159,74 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // --- 留言板核心 (含紅色的刪除功能) ---
+    // --- 留言板邏輯 (修正後：核心渲染函數) ---
+    function renderQA() {
+        db.ref('qa_list').once('value', snap => {
+            const data = snap.val();
+            const publicList = document.getElementById('publicList');
+            const pendingList = document.getElementById('pendingList');
+            if (!data) { publicList.innerHTML = "目前尚無回覆。"; pendingList.innerHTML = ""; return; }
+
+            const items = Object.entries(data).reverse();
+
+            // 已回覆區
+            publicList.innerHTML = items.filter(([k,v]) => v.answer).map(([k,v]) => `
+                <div style="border-bottom:1px solid #eee; padding:15px 0; position:relative;">
+                    <b>問：</b>${v.question}
+                    <div style="background:#f9fdfa; padding:10px; border-left:4px solid #8eb69b; margin-top:8px;">
+                        <b>🌿 回覆：</b>${v.answer}
+                    </div>
+                    ${isAdmin ? `<button onclick="deleteQ('${k}')" style="background:#e74c3c; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; position:absolute; right:0; top:15px;">紅色刪除</button>` : ''}
+                </div>
+            `).join('') || "目前尚無回覆。";
+
+            // 管理待處理區
+            if (isAdmin) {
+                pendingList.innerHTML = items.filter(([k,v]) => !v.answer).map(([k,v]) => `
+                    <div style="background:white; padding:10px; border-bottom:1px dashed #ccc; margin-bottom:10px;">
+                        ${v.question}
+                        <div style="margin-top:8px;">
+                            <button onclick="replyQ('${k}')" style="background:#4a6d53; color:white; border:none; padding:4px 12px; border-radius:4px; cursor:pointer;">回覆</button>
+                            <button onclick="deleteQ('${k}')" style="background:#e74c3c; color:white; border:none; padding:4px 12px; border-radius:4px; cursor:pointer; margin-left:8px;">紅色刪除</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        });
+    }
+
+    // 監聽變動就刷頁面
+    db.ref('qa_list').on('value', renderQA);
+
     function postQ() {
         const input = document.getElementById('qInput');
         if (!input.value.trim()) return;
         db.ref('qa_list').push({ question: input.value, answer: "" });
         input.value = "";
-        alert("已送出！");
+        alert("送出成功！");
     }
 
-    db.ref('qa_list').on('value', snap => {
-        const data = snap.val();
-        if (!data) {
-            document.getElementById('publicList').innerHTML = "目前尚無回覆。";
-            document.getElementById('pendingList').innerHTML = "";
-            return;
-        }
-        const items = Object.entries(data).reverse();
-
-        // 公開列表
-        document.getElementById('publicList').innerHTML = items.filter(([k,v]) => v.answer).map(([k,v]) => `
-            <div class="qa-item">
-                <b>問：</b>${v.question}
-                <div style="background:#f9fdfa; padding:10px; border-left:4px solid #8eb69b; margin-top:8px; position:relative;">
-                    <b>🌿 回覆：</b>${v.answer}
-                    ${isAdmin ? `<button class="delete-btn" onclick="deleteQ('${k}')">刪除</button>` : ''}
-                </div>
-            </div>
-        `).join('') || "目前尚無回覆。";
-
-        // 管理員待處理
-        if (isAdmin) {
-            document.getElementById('pendingList').innerHTML = items.filter(([k,v]) => !v.answer).map(([k,v]) => `
-                <div style="margin-bottom:10px; padding:10px; border-bottom:1px dashed #ccc; background:white;">
-                    ${v.question} 
-                    <div style="margin-top:5px;">
-                        <button onclick="replyQ('${k}')" style="background:#4a6d53; color:white; border:none; padding:4px 10px; border-radius:4px; cursor:pointer;">回覆</button>
-                        <button onclick="deleteQ('${k}')" style="background:#e74c3c; color:white; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; margin-left:5px;">刪除</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-    });
-
-    // 管理員登入
     function loginAdmin() {
-        if(prompt("Admin 密碼：") === "114gsa 0609") {
+        if(prompt("密碼：") === "114gsa 0609") {
             isAdmin = true;
             document.getElementById('adminArea').style.display = 'block';
             document.getElementById('admin-status').style.display = 'block';
-            alert("管理員模式啟動");
-            // 重新觸發留言板更新以顯示刪除按鈕
-            db.ref('qa_list').once('value', () => {}); 
+            alert("管理者模式啟動，紅色刪除按鈕已就緒。");
+            renderQA(); // 強制刷一次把按鈕刷出來
         }
     }
 
     function replyQ(id) {
-        const a = prompt("回覆內容：");
+        const a = prompt("回覆：");
         if(a) db.ref('qa_list/' + id).update({ answer: a });
     }
 
-    // 刪除功能
     function deleteQ(id) {
         if(confirm("確定要刪除這條留言嗎？")) {
-            db.ref('qa_list/' + id).remove().then(() => alert("已刪除"));
+            db.ref('qa_list/' + id).remove().then(() => {
+                alert("已刪除");
+                renderQA();
+            });
         }
     }
 </script>
