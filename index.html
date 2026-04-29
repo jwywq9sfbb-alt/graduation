@@ -3,25 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>畢聯會專屬空間</title>
+    <title>畢聯會服務站</title>
     <style>
-        body { font-family: "Microsoft JhengHei", sans-serif; line-height: 1.6; margin: 0; background-color: #f4f7f6; }
-        header { background: #2c3e50; color: white; padding: 2rem 1rem; text-align: center; position: relative; }
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #f4f7f6; margin: 0; color: #333; }
+        header { background: #2c3e50; color: white; padding: 2.5rem 1rem; text-align: center; position: relative; }
         .admin-login { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.2); color: white; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
         nav { display: flex; justify-content: center; background: #34495e; padding: 10px; position: sticky; top: 0; z-index: 1000; }
         nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-        .container { width: 90%; max-width: 800px; margin: 20px auto; }
-        .qa-container { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        textarea { width: 100%; height: 80px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; resize: none; box-sizing: border-box; margin-bottom: 10px; }
-        .post-btn { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
-        .qa-item { border-bottom: 1px solid #eee; padding: 15px 0; }
-        .question { color: #2c3e50; font-weight: bold; }
-        .answer { background: #f0f9ff; padding: 12px; border-left: 4px solid #27ae60; margin-top: 10px; border-radius: 4px; }
-        .btn-group { margin-top: 10px; }
-        .reply-btn { background: #27ae60; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; }
-        .del-btn { background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
-        #adminArea { display: none; background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed #e67e22; }
-        .tag-pending { background: #e67e22; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; margin-left: 10px; }
+        .container { width: 90%; max-width: 1000px; margin: 20px auto; }
+        
+        /* 照片牆 */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        .photo-item { width: 100%; height: 180px; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        /* QA 區 */
+        .qa-container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        textarea { width: 100%; height: 100px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; resize: none; box-sizing: border-box; margin-bottom: 10px; }
+        .post-btn { background: #3498db; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
+        .qa-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+        .answer { background: #f0f9ff; padding: 15px; border-left: 4px solid #27ae60; margin-top: 10px; border-radius: 4px; }
+        .del-btn { background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        
+        #adminArea { display: none; background: #fff3e0; padding: 20px; border-radius: 12px; border: 2px dashed #e67e22; margin-bottom: 30px; }
     </style>
 </head>
 <body>
@@ -29,24 +33,29 @@
 <header>
     <div class="admin-login" id="loginLabel" onclick="loginAdmin()">管理員登入</div>
     <h1>🎓 畢聯會服務站</h1>
-    <p>匿名提問（審核回覆制）</p>
+    <p>回憶紀錄 ‧ 匿名提問</p>
 </header>
 
-<nav><a href="#qa">QA 提問專區</a></nav>
+<nav><a href="#photos">照片牆</a><a href="#qa">提問專區</a></nav>
 
 <div class="container">
-    <section id="qa">
+    <section id="photos">
+        <h2 style="border-left: 5px solid #e67e22; padding-left: 15px;">📸 精彩紀錄</h2>
+        <div class="gallery-grid" id="galleryGrid">
+            </div>
+    </section>
+
+    <section id="qa" style="margin-top: 50px;">
+        <h2 style="border-left: 5px solid #3498db; padding-left: 15px;">💬 匿名提議區</h2>
         <div id="adminArea">
-            <h3>🔒 管理員模式：待處理留言</h3>
+            <h3>🔒 管理模式：待審核內容</h3>
             <div id="pendingList">載入中...</div>
             <button onclick="location.reload()" style="margin-top:10px;">登出系統</button>
         </div>
-
         <div class="qa-container">
-            <textarea id="qInput" placeholder="有什麼建議嗎？請匿名留言..."></textarea>
+            <textarea id="qInput" placeholder="留言後請靜候管理員審核回覆..."></textarea>
             <button class="post-btn" onclick="postQ()">送出提議</button>
-            
-            <h2 style="margin-top:40px; border-left: 5px solid #27ae60; padding-left: 10px;">💡 已刊登回覆</h2>
+            <h3 style="margin-top:30px;">💡 已刊登回覆</h3>
             <div id="publicList">載入中...</div>
         </div>
     </section>
@@ -56,104 +65,92 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
 <script>
+    // 你的 Firebase 配置 (僅用於留言板)
     const firebaseConfig = {
-        apiKey: "AIzaSyC6CBs03jrW3nbJoR1fwYuOb9KRJ-ED2rY",
-        authDomain: "realtime-database-d5eee.firebaseapp.com",
-        databaseURL: "https://realtime-database-d5eee-default-rtdb.firebaseio.com",
-        projectId: "realtime-database-d5eee",
-        storageBucket: "realtime-database-d5eee.firebasestorage.app",
-        messagingSenderId: "381343804684",
-        appId: "1:381343804684:web:abfa9db66b058ae99c6d29"
+        apiKey: "AIzaSyAPh-eTbUvGLFKFvTByfnGLJwja2bH4iKQ",
+        authDomain: "graduation-cdb95.firebaseapp.com",
+        databaseURL: "https://graduation-cdb95-default-rtdb.firebaseio.com",
+        projectId: "graduation-cdb95"
     };
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     const PASS = "114gsa 0609";
     let isAdmin = false;
-    let currentData = null; // 存儲當前資料庫內容
 
-    // 監聽資料庫
+    // --- 照片功能：手動載入你 GitHub photos 資料夾的照片 ---
+    // 請確保你在 GitHub 的 photos 資料夾裡有 1.jpg, 2.jpg, 3.jpg, 4.jpg
+    const myPhotos = [
+        "photos/1.jpg",
+        "photos/2.jpg",
+        "photos/3.jpg",
+        "photos/4.jpg"
+    ];
+
+    function renderPhotos() {
+        const grid = document.getElementById('galleryGrid');
+        grid.innerHTML = myPhotos.map(url => `
+            <div class="photo-item">
+                <img src="${url}" onerror="this.src='https://via.placeholder.com/180?text=Loading+Fail'">
+            </div>
+        `).join('');
+    }
+    renderPhotos();
+
+    // --- QA 功能 ---
     db.ref('qa_list').on('value', (snap) => {
-        currentData = snap.val();
-        renderLists();
-    });
-
-    function renderLists() {
+        const data = snap.val();
         const publicList = document.getElementById('publicList');
         const pendingList = document.getElementById('pendingList');
-        
-        if (!currentData) {
-            publicList.innerHTML = "目前尚無回覆。";
-            pendingList.innerHTML = "無待處理留言。";
-            return;
-        }
+        if (!data) { publicList.innerHTML = "目前尚無回覆。"; pendingList.innerHTML = "無留言。"; return; }
 
-        const allItems = Object.values(currentData).reverse();
-        
-        // 1. 渲染「已刊登」列表
-        publicList.innerHTML = allItems
-            .filter(item => item.answer !== "")
-            .map(item => `
-                <div class="qa-item">
-                    <div class="question">Q: ${item.question}</div>
-                    <div class="answer"><strong>💡 畢聯會回覆：</strong>${item.answer}</div>
-                    ${isAdmin ? `<button class="del-btn" style="margin-top:10px;" onclick="deleteQ('${item.id}')">刪除此則</button>` : ''}
-                </div>
-            `).join('') || "目前尚無刊登內容。";
+        const items = Object.values(data).reverse();
+        publicList.innerHTML = items.filter(i => i.answer !== "").map(i => `
+            <div class="qa-item">
+                <div class="question">Q: ${i.question}</div>
+                <div class="answer"><strong>💡 畢聯會回覆：</strong>${i.answer}</div>
+                ${isAdmin ? `<button class="del-btn" onclick="deleteQA('${i.id}')">刪除此則</button>` : ''}
+            </div>
+        `).join('') || "目前尚無刊登。";
 
-        // 2. 渲染「待處理」列表 (管理員限定)
         if (isAdmin) {
-            pendingList.innerHTML = allItems
-                .filter(item => item.answer === "")
-                .map(item => `
-                    <div class="qa-item">
-                        <div class="question">${item.question} <span class="tag-pending">待審核</span></div>
-                        <div class="btn-group">
-                            <button class="reply-btn" onclick="replyQ('${item.id}')">回覆並刊登</button>
-                            <button class="del-btn" onclick="deleteQ('${item.id}')">直接刪除</button>
-                        </div>
-                    </div>
-                `).join('') || "暫無新留言。";
+            pendingList.innerHTML = items.filter(i => i.answer === "").map(i => `
+                <div class="qa-item">
+                    <div>${i.question}</div>
+                    <button style="background:#27ae60; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="replyQA('${i.id}')">回覆</button>
+                    <button class="del-btn" style="margin-top:0" onclick="deleteQA('${i.id}')">直接刪除</button>
+                </div>
+            `).join('') || "沒有待處理留言。";
         }
-    }
+    });
 
     function loginAdmin() {
-        if(prompt("管理員密碼：") === PASS) {
+        if(prompt("請輸入管理員密碼：") === PASS) {
             isAdmin = true;
             document.getElementById('adminArea').style.display = 'block';
-            document.getElementById('loginLabel').innerText = "✅ 管理員已登入";
-            alert("管理員模式已開啟，刪除按鈕已顯示。");
-            renderLists(); // 重要：登入後立刻重新渲染列表
-        } else {
-            alert("密碼錯誤");
-        }
-    }
-
-    function deleteQ(id) {
-        if (confirm("確定要刪除這則留言嗎？")) {
-            db.ref('qa_list/' + id).remove()
-                .then(() => alert("已成功刪除"))
-                .catch(err => alert("失敗：" + err));
+            document.getElementById('loginLabel').innerText = "✅ 管理模式";
+            renderPhotos();
+            alert("登入成功！");
         }
     }
 
     function postQ() {
         const el = document.getElementById('qInput');
-        if(!el.value.trim()) return alert("請輸入內容");
+        if (!el.value.trim()) return;
         const ref = db.ref('qa_list').push();
         ref.set({ id: ref.key, question: el.value, answer: "" });
         el.value = "";
-        alert("已成功送出提問，請靜候管理員審核回覆！");
+        alert("提問已送出，請靜候審核！");
     }
 
-    function replyQ(id) {
+    function replyQA(id) {
         const ans = prompt("請輸入回覆內容：");
-        if (ans && ans.trim() !== "") {
-            db.ref('qa_list/' + id).update({ answer: ans });
-        }
+        if (ans) db.ref('qa_list/' + id).update({ answer: ans });
+    }
+
+    function deleteQA(id) {
+        if (confirm("刪除此提問？")) db.ref('qa_list/' + id).remove();
     }
 </script>
 </body>
 </html>
-
-
