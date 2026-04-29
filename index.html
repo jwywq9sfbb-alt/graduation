@@ -7,56 +7,47 @@
     <style>
         body { font-family: "Microsoft JhengHei", sans-serif; line-height: 1.6; margin: 0; background-color: #f4f7f6; }
         header { background: #2c3e50; color: white; padding: 2rem 1rem; text-align: center; position: relative; }
-        
-        /* 右上角管理登入按鈕 */
         .admin-login { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.2); color: white; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
-        .admin-login:hover { background: rgba(255,255,255,0.4); }
-
         nav { display: flex; justify-content: center; background: #34495e; padding: 10px; position: sticky; top: 0; z-index: 1000; }
         nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
         .container { width: 90%; max-width: 800px; margin: 20px auto; }
-        
-        /* QA 區塊 */
         .qa-container { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         textarea { width: 100%; height: 80px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; resize: none; box-sizing: border-box; margin-bottom: 10px; }
         .post-btn { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
-        
-        /* 留言項目樣式 */
         .qa-item { border-bottom: 1px solid #eee; padding: 15px 0; }
-        .tag-pending { background: #e67e22; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; margin-left: 10px; }
         .question { color: #2c3e50; font-weight: bold; }
         .answer { background: #f0f9ff; padding: 12px; border-left: 4px solid #27ae60; margin-top: 10px; border-radius: 4px; }
-        .reply-btn { background: #27ae60; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
-
+        .btn-group { margin-top: 10px; }
+        .reply-btn { background: #27ae60; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; }
+        .del-btn { background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
         #adminArea { display: none; background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed #e67e22; }
+        .tag-pending { background: #e67e22; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; margin-left: 10px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="admin-login" onclick="loginAdmin()">管理員登入</div>
+    <div class="admin-login" id="loginLabel" onclick="loginAdmin()">管理員登入</div>
     <h1>🎓 畢聯會服務站</h1>
-    <p>匿名提問（回覆後才會刊登）</p>
+    <p>匿名提問（審核回覆制）</p>
 </header>
 
-<nav>
-    <a href="#qa">QA 提問專區</a>
-</nav>
+<nav><a href="#qa">QA 提問專區</a></nav>
 
 <div class="container">
     <section id="qa">
         <div id="adminArea">
             <h3>🔒 管理員模式：待處理留言</h3>
             <div id="pendingList">載入中...</div>
-            <button onclick="location.reload()" style="margin-top:10px;">登出/關閉</button>
+            <button onclick="location.reload()" style="margin-top:10px;">登出系統</button>
         </div>
 
         <div class="qa-container">
-            <textarea id="qInput" placeholder="有什麼建議嗎？請匿名留言...（管理員回覆後才會顯示在下方）"></textarea>
-            <button class="post-btn" onclick="postQ()">送出提問</button>
+            <textarea id="qInput" placeholder="有什麼建議嗎？請匿名留言..."></textarea>
+            <button class="post-btn" onclick="postQ()">送出提議</button>
             
             <h2 style="margin-top:40px; border-left: 5px solid #27ae60; padding-left: 10px;">💡 已刊登回覆</h2>
-            <div id="publicList">尚未有刊登的回覆。</div>
+            <div id="publicList">載入中...</div>
         </div>
     </section>
 </div>
@@ -77,78 +68,86 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    const PASS = "114gsa 0609"; // 你的管理密碼
+    const PASS = "114gsa 0609";
     let isAdmin = false;
+    let currentData = null; // 存儲當前資料庫內容
 
     // 監聽資料庫
     db.ref('qa_list').on('value', (snap) => {
-        const data = snap.val();
-        renderLists(data);
+        currentData = snap.val();
+        renderLists();
     });
 
-    function renderLists(data) {
+    function renderLists() {
         const publicList = document.getElementById('publicList');
         const pendingList = document.getElementById('pendingList');
         
-        if (!data) {
+        if (!currentData) {
             publicList.innerHTML = "目前尚無回覆。";
             pendingList.innerHTML = "無待處理留言。";
             return;
         }
 
-        const allItems = Object.values(data).reverse();
+        const allItems = Object.values(currentData).reverse();
         
-        // 1. 渲染「已刊登」列表 (有 answer 的)
-        const publicHtml = allItems
+        // 1. 渲染「已刊登」列表
+        publicList.innerHTML = allItems
             .filter(item => item.answer !== "")
             .map(item => `
                 <div class="qa-item">
                     <div class="question">Q: ${item.question}</div>
                     <div class="answer"><strong>💡 畢聯會回覆：</strong>${item.answer}</div>
+                    ${isAdmin ? `<button class="del-btn" style="margin-top:10px;" onclick="deleteQ('${item.id}')">刪除此則</button>` : ''}
                 </div>
-            `).join('');
-        publicList.innerHTML = publicHtml || "尚未有刊登的回覆。";
+            `).join('') || "目前尚無刊登內容。";
 
-        // 2. 渲染「管理員待處理」列表 (沒 answer 的)
+        // 2. 渲染「待處理」列表 (管理員限定)
         if (isAdmin) {
-            const pendingHtml = allItems
+            pendingList.innerHTML = allItems
                 .filter(item => item.answer === "")
                 .map(item => `
                     <div class="qa-item">
                         <div class="question">${item.question} <span class="tag-pending">待審核</span></div>
-                        <button class="reply-btn" onclick="replyQ('${item.id}')">回覆並刊登</button>
+                        <div class="btn-group">
+                            <button class="reply-btn" onclick="replyQ('${item.id}')">回覆並刊登</button>
+                            <button class="del-btn" onclick="deleteQ('${item.id}')">直接刪除</button>
+                        </div>
                     </div>
-                `).join('');
-            pendingList.innerHTML = pendingHtml || "暫無新留言。";
+                `).join('') || "暫無新留言。";
         }
     }
 
-    // 匿名送出
+    function loginAdmin() {
+        if(prompt("管理員密碼：") === PASS) {
+            isAdmin = true;
+            document.getElementById('adminArea').style.display = 'block';
+            document.getElementById('loginLabel').innerText = "✅ 管理員已登入";
+            alert("管理員模式已開啟，刪除按鈕已顯示。");
+            renderLists(); // 重要：登入後立刻重新渲染列表
+        } else {
+            alert("密碼錯誤");
+        }
+    }
+
+    function deleteQ(id) {
+        if (confirm("確定要刪除這則留言嗎？")) {
+            db.ref('qa_list/' + id).remove()
+                .then(() => alert("已成功刪除"))
+                .catch(err => alert("失敗：" + err));
+        }
+    }
+
     function postQ() {
         const el = document.getElementById('qInput');
         if(!el.value.trim()) return alert("請輸入內容");
         const ref = db.ref('qa_list').push();
         ref.set({ id: ref.key, question: el.value, answer: "" });
         el.value = "";
-        alert("提問已送出！請等待管理員審核回覆。");
+        alert("已成功送出提問，請靜候管理員審核回覆！");
     }
 
-    // 登入功能
-    function loginAdmin() {
-        const p = prompt("請輸入管理員密碼：");
-        if (p === PASS) {
-            isAdmin = true;
-            document.getElementById('adminArea').style.display = 'block';
-            db.ref('qa_list').once('value', (snap) => renderLists(snap.val()));
-            alert("登入成功，已開啟待審核清單。");
-        } else if (p !== null) {
-            alert("密碼錯誤！");
-        }
-    }
-
-    // 回覆並刊登
     function replyQ(id) {
-        const ans = prompt("請輸入回覆內容（送出後將立即刊登到首頁）：");
+        const ans = prompt("請輸入回覆內容：");
         if (ans && ans.trim() !== "") {
             db.ref('qa_list/' + id).update({ answer: ans });
         }
@@ -156,3 +155,5 @@
 </script>
 </body>
 </html>
+
+
