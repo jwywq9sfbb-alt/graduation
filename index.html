@@ -5,69 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>114級畢聯會 | 拾葉</title>
     <style>
-        /* --- 拾葉視覺風格 --- */
-        body { font-family: "Microsoft JhengHei", sans-serif; background: #f0f4f2; margin: 0; color: #2c3e50; line-height: 1.8; }
-        header { background: #3d5a45; color: white; padding: 3.5rem 1rem; text-align: center; position: relative; }
-        header h1 { letter-spacing: 3px; font-weight: 500; }
-        nav { display: flex; justify-content: center; background: #4a6d53; padding: 14px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        nav a { color: rgba(255,255,255,0.9); margin: 0 18px; text-decoration: none; font-weight: bold; font-size: 0.95rem; transition: 0.3s; }
-        nav a:hover { color: #8eb69b; }
-        .container { width: 90%; max-width: 950px; margin: 30px auto; }
-        h2 { color: #3d5a45; border-left: 4px solid #8eb69b; padding-left: 15px; margin-top: 60px; font-weight: 600; }
+        /* --- 基礎風格 --- */
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #f0f4f2; margin: 0; color: #2c3e50; line-height: 1.6; }
+        header { background: #3d5a45; color: white; padding: 3rem 1rem; text-align: center; position: relative; }
+        nav { display: flex; justify-content: center; background: #4a6d53; padding: 12px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        .container { width: 92%; max-width: 1000px; margin: 20px auto; }
+        h2 { color: #3d5a45; border-left: 5px solid #8eb69b; padding-left: 15px; margin-top: 50px; }
 
-        /* IG 按鈕：精緻化 */
-        .ig-btn-container { text-align: center; margin: 10px 0 50px 0; }
+        /* 管理員紅條標示 */
+        #admin-status { display: none; background: #e74c3c; color: white; text-align: center; padding: 8px; font-weight: bold; animation: blink 1.5s infinite; position: sticky; top: 0; z-index: 2000; }
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.7;} 100% {opacity: 1;} }
+
+        /* IG 大按鈕 */
+        .ig-btn-container { text-align: center; margin: 20px 0 40px 0; }
         .ig-large-btn {
             display: inline-flex; align-items: center;
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: white !important; padding: 12px 26px; border-radius: 50px;
-            text-decoration: none; font-weight: bold; font-size: 1rem;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1); transition: 0.4s;
+            color: white !important; padding: 15px 30px; border-radius: 50px;
+            text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
         }
-        .ig-large-btn img { width: 22px; height: 22px; margin-right: 12px; }
-        .ig-large-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .ig-large-btn img { width: 24px; height: 24px; margin-right: 10px; }
 
-        /* 照片牆與聲音牆 */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
-        .photo-item img { width: 100%; height: 220px; object-fit: cover; border-radius: 15px; transition: 0.5s; filter: grayscale(20%); }
-        .photo-item img:hover { filter: grayscale(0%); transform: scale(1.02); }
-        
-        .teacher-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 25px; }
-        .teacher-card { background: white; padding: 15px; border-radius: 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.04); transition: 0.3s; }
-        .teacher-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
-        .audio-btn { background: #4a6d53; color: white; border: none; padding: 10px; border-radius: 25px; cursor: pointer; width: 100%; font-weight: bold; font-size: 0.85rem; letter-spacing: 1px; }
+        /* 照片牆 & 老師牆 */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .photo-item img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; }
+        .teacher-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
+        .teacher-card { background: white; padding: 12px; border-radius: 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .teacher-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+        .audio-btn { background: #4a6d53; color: white; border: none; padding: 10px; border-radius: 20px; cursor: pointer; width: 100%; font-weight: bold; }
 
-        /* 留言板區 */
-        #qInput { width: 100%; height: 120px; padding: 15px; border-radius: 12px; border: 1px solid #e0e0e0; background: #fafafa; font-size: 1rem; resize: none; box-sizing: border-box; }
-        #qInput:focus { outline: none; border-color: #8eb69b; background: white; }
-        .post-btn { background: #3d5a45; color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 15px; transition: 0.3s; }
-        .post-btn:hover { background: #4a6d53; }
+        /* 地圖 */
+        #map-container { position: relative; display: inline-block; width: 100%; border-radius: 15px; overflow: hidden; border: 4px solid #3d5a45; }
+        .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 42px; height: 42px; cursor: pointer; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; z-index: 10; }
+        .map-point-btn span { position: absolute; top: -8px; right: -8px; background: #e67e22; color: white; font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; }
 
-        /* 地圖區域 */
-        #map-container { position: relative; width: 100%; border-radius: 20px; overflow: hidden; border: 5px solid #3d5a45; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 44px; height: 44px; cursor: pointer; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; z-index: 10; transition: 0.3s; }
-        .map-point-btn:hover { background: #fdfcf0; transform: translate(-50%, -50%) scale(1.1); }
-        .map-point-btn span { position: absolute; top: -10px; right: -10px; background: #e67e22; color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
-
-        /* Admin 隱藏入口 */
-        .admin-action { position: absolute; top: 15px; right: 20px; font-size: 0.75rem; color: rgba(255,255,255,0.3); cursor: pointer; text-decoration: none; }
+        .admin-login { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; color: rgba(255,255,255,0.4); cursor: pointer; }
     </style>
 </head>
 <body>
 
+<div id="admin-status">⚠️ 管理員模式已啟動 - 您現在可以回覆與刪除留言</div>
+
 <header>
-    <div id="adminBtn" class="admin-action" onclick="handleAdmin()">Admin</div>
+    <div class="admin-login" onclick="loginAdmin()">Admin</div>
     <h1>🍀 中信國際高中 114 級畢聯會</h1>
-    <p style="opacity: 0.85; font-style: italic; letter-spacing: 1px;">在散落的回憶裡拾起最初的幸運</p>
-    <div id="countdown-box" style="margin-top:15px; font-size: 0.95rem; color: #d4e7d9;">
-        離別的倒數：<span id="timer" style="font-weight: bold;">讀取時光中...</span>
-    </div>
+    <p style="opacity: 0.9; font-style: italic;">在散落的回憶裡拾起最初的幸運</p>
+    <div id="countdown-box" style="margin-top:10px;">畢業倒數：<span id="timer">計算中...</span></div>
 </header>
 
 <nav>
     <a href="#photos">拾葉瞬間</a>
-    <a href="#qa">留言提議</a>
-    <a href="#teachers">校園絮語</a>
+    <a href="#qa">留言詢問</a>
+    <a href="#teachers">恩師祝福</a>
     <a href="#map">回憶座標</a>
 </nav>
 
@@ -76,7 +66,7 @@
     <div class="ig-btn-container">
         <a href="https://www.instagram.com/ctbc114_gsa/" target="_blank" class="ig-large-btn">
             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG">
-            追蹤 114級畢聯會
+            追蹤 114級畢聯會 IG
         </a>
     </div>
 
@@ -86,39 +76,38 @@
     </section>
 
     <section id="qa">
-        <h2>📮 拾起心聲</h2>
-        <div id="adminArea" style="display:none; background:#fdfcf0; padding:20px; border-radius:15px; margin-bottom:25px; border:1px dashed #d4a373;">
-            <p style="margin-top:0; color:#856404;"><strong>🔒 管理員觀測站</strong></p>
+        <h2>📮 拾起心聲 匿名詢問</h2>
+        <div id="adminArea" style="display:none; background:#fffbe6; padding:15px; border-radius:10px; margin-bottom:20px; border:1px dashed #d4a373;">
+            <p><strong>🔒 管理員待處理區域</strong></p>
             <div id="pendingList"></div>
         </div>
-        
-        <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-            <textarea id="qInput" placeholder="寫下你想對 114 級說的話，或是給畢聯會的小建議..."></textarea>
-            <button class="post-btn" onclick="postQ()">封存並送出</button>
-            <div id="publicList" style="margin-top:30px;"></div>
+        <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+            <textarea id="qInput" style="width:100%; height:100px; padding:10px; border-radius:8px; border:1px solid #ddd; box-sizing: border-box;" placeholder="留下你想說的話..."></textarea>
+            <button style="background:#4a6d53; color:white; border:none; padding:12px; width:100%; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:10px;" onclick="postQ()">送出心聲</button>
+            <div id="publicList" style="margin-top:20px;"></div>
         </div>
     </section>
 
     <section id="teachers">
-        <h2>🎙️ 那些校園中零碎又熟悉的聲音</h2>
+        <h2>🎙️ 恩師祝福</h2>
         <div class="teacher-grid" id="teacherGrid"></div>
     </section>
 
     <section id="map">
         <h2>📍 拾葉地圖：校園座標</h2>
-        <div style="text-align: center; margin-top: 20px;">
+        <div style="text-align: center;">
             <div id="map-container">
-                <img src="photos/5.jpg" style="width: 100%; display: block;" alt="校園地圖">
-                <script>
-                    const points = [
-                        {id:6, t:20, l:15}, {id:7, t:20, l:35}, {id:8, t:20, l:55}, {id:9, t:20, l:75},
-                        {id:10, t:50, l:20}, {id:11, t:50, l:40}, {id:12, t:50, l:60}, {id:13, t:50, l:80},
-                        {id:14, t:80, l:30}, {id:15, t:80, l:70}
-                    ];
-                    points.forEach(p => {
-                        document.write(`<button class="map-point-btn" style="top:${p.t}%; left:${p.l}%;" onclick="showMapPhoto('photos/${p.id}.jpg', '回憶地點 ${p.id}')">🍀<span>${p.id}</span></button>`);
-                    });
-                </script>
+                <img src="photos/5.jpg" style="width: 100%; display: block;">
+                <button class="map-point-btn" style="top: 20%; left: 15%;" onclick="showMapPhoto('photos/6.jpg', '校園角落 1')">🍀<span>1</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 35%;" onclick="showMapPhoto('photos/7.jpg', '校園角落 2')">🍀<span>2</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 55%;" onclick="showMapPhoto('photos/8.jpg', '校園角落 3')">🍀<span>3</span></button>
+                <button class="map-point-btn" style="top: 20%; left: 75%;" onclick="showMapPhoto('photos/9.jpg', '校園角落 4')">🍀<span>4</span></button>
+                <button class="map-point-btn" style="top: 50%; left: 20%;" onclick="showMapPhoto('photos/10.jpg', '校園角落 5')">🍀<span>5</span></button>
+                <button class="map-point-btn" style="top: 50%; left: 40%;" onclick="showMapPhoto('photos/11.jpg', '校園角落 6')">🍀<span>6</span></button>
+                <button class="map-point-btn" style="top: 50%; left: 60%;" onclick="showMapPhoto('photos/12.jpg', '校園角落 7')">🍀<span>7</span></button>
+                <button class="map-point-btn" style="top: 50%; left: 80%;" onclick="showMapPhoto('photos/13.jpg', '校園角落 8')">🍀<span>8</span></button>
+                <button class="map-point-btn" style="top: 80%; left: 30%;" onclick="showMapPhoto('photos/14.jpg', '校園角落 9')">🍀<span>9</span></button>
+                <button class="map-point-btn" style="top: 80%; left: 70%;" onclick="showMapPhoto('photos/15.jpg', '校園角落 10')">🍀<span>10</span></button>
             </div>
         </div>
     </section>
@@ -138,64 +127,67 @@
     const db = firebase.database();
     let isAdmin = false;
 
-    // --- 視覺初始化 ---
+    // --- UI 渲染 ---
     document.getElementById('galleryGrid').innerHTML = [1,2,3,4].map(n => `<div class="photo-item"><img src="photos/${n}.jpg"></div>`).join('');
     document.getElementById('teacherGrid').innerHTML = [16,17,18,19,20,21,22,23,24,25].map(n => `
         <div class="teacher-card">
-            <img src="photos/${n}.jpg" onerror="this.src='https://via.placeholder.com/150?text=Voice'">
-            <button class="audio-btn" onclick="playAudio(${n})">🔊 聆聽回憶</button>
+            <img src="photos/${n}.jpg" onerror="this.src='https://via.placeholder.com/150?text=Teacher'">
+            <button class="audio-btn" onclick="playAudio(${n})">🔊 聽祝福</button>
             <audio id="audio-${n}" src="photos/${n}.mp3"></audio>
         </div>
     `).join('');
 
     function playAudio(id) {
         document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
-        document.getElementById(`audio-${id}`).play().catch(e => console.log("聲音還沒被拾起"));
+        document.getElementById(`audio-${id}`).play().catch(e => console.log("聲音未準備好"));
     }
 
-    function showMapPhoto(url, text) { window.open(url, '_blank'); }
+    function showMapPhoto(url, text) { alert(text); window.open(url, '_blank'); }
 
-    // --- 倒數時光 ---
+    // --- 倒數 ---
     function updateCountdown() {
         const target = new Date("June 9, 2026 00:00:00").getTime();
         const now = new Date().getTime();
         const gap = target - now;
-        if (gap <= 0) { document.getElementById("timer").innerText = "畢業快樂，願我們前程似錦。"; return; }
+        if (gap <= 0) { document.getElementById("timer").innerText = "畢業快樂！"; return; }
         const d = Math.floor(gap / 86400000);
         const h = Math.floor((gap % 86400000) / 3600000);
         const m = Math.floor((gap % 3600000) / 60000);
         const s = Math.floor((gap % 60000) / 1000);
-        document.getElementById("timer").innerText = `${d}天 ${h}時 ${m}分 ${s}秒`;
+        document.getElementById("timer").innerText = d + "天 " + h + "時 " + m + "分 " + s + "秒";
     }
     setInterval(updateCountdown, 1000);
+    updateCountdown();
 
-    // --- 留言板邏輯 ---
+    // --- 留言板邏輯 (修正後：核心渲染函數) ---
     function renderQA() {
         db.ref('qa_list').once('value', snap => {
             const data = snap.val();
             const publicList = document.getElementById('publicList');
             const pendingList = document.getElementById('pendingList');
-            if (!data) { publicList.innerHTML = "<p style='color:#999;'>暫時還沒有人說話...</p>"; pendingList.innerHTML = ""; return; }
+            if (!data) { publicList.innerHTML = "目前尚無回覆。"; pendingList.innerHTML = ""; return; }
 
             const items = Object.entries(data).reverse();
 
+            // 已回覆區
             publicList.innerHTML = items.filter(([k,v]) => v.answer).map(([k,v]) => `
-                <div style="border-bottom:1px solid #f0f0f0; padding:20px 0; position:relative;">
-                    <div style="color:#555;"><strong>問：</strong>${v.question}</div>
-                    <div style="background:#f9fdfa; padding:12px; border-left:3px solid #8eb69b; margin-top:10px; color:#3d5a45;">
-                        <strong>🌿 拾葉回覆：</strong>${v.answer}
+                <div style="border-bottom:1px solid #eee; padding:15px 0; position:relative;">
+                    <b>問：</b>${v.question}
+                    <div style="background:#f9fdfa; padding:10px; border-left:4px solid #8eb69b; margin-top:8px;">
+                        <b>🌿 回覆：</b>${v.answer}
                     </div>
-                    ${isAdmin ? `<button onclick="deleteQ('${k}')" style="background:#e74c3c; color:white; border:none; padding:4px 10px; border-radius:5px; cursor:pointer; position:absolute; right:0; top:20px; font-size:0.7rem;">刪除</button>` : ''}
+                    ${isAdmin ? `<button onclick="deleteQ('${k}')" style="background:#e74c3c; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; position:absolute; right:0; top:15px;">紅色刪除</button>` : ''}
                 </div>
-            `).join('');
+            `).join('') || "目前尚無回覆。";
 
+            // 管理待處理區
             if (isAdmin) {
                 pendingList.innerHTML = items.filter(([k,v]) => !v.answer).map(([k,v]) => `
-                    <div style="background:white; padding:12px; border-radius:8px; margin-bottom:12px; font-size:0.9rem; border-left:4px solid #e74c3c;">
+                    <div style="background:white; padding:10px; border-bottom:1px dashed #ccc; margin-bottom:10px;">
                         ${v.question}
-                        <div style="margin-top:10px;">
-                            <button onclick="replyQ('${k}')" style="background:#4a6d53; color:white; border:none; padding:5px 12px; border-radius:4px; cursor:pointer; font-size:0.8rem;">回覆</button>
-                            <button onclick="deleteQ('${k}')" style="background:#e74c3c; color:white; border:none; padding:5px 12px; border-radius:4px; cursor:pointer; margin-left:10px; font-size:0.8rem;">刪除</button>
+                        <div style="margin-top:8px;">
+                            <button onclick="replyQ('${k}')" style="background:#4a6d53; color:white; border:none; padding:4px 12px; border-radius:4px; cursor:pointer;">回覆</button>
+                            <button onclick="deleteQ('${k}')" style="background:#e74c3c; color:white; border:none; padding:4px 12px; border-radius:4px; cursor:pointer; margin-left:8px;">紅色刪除</button>
                         </div>
                     </div>
                 `).join('');
@@ -203,6 +195,7 @@
         });
     }
 
+    // 監聽變動就刷頁面
     db.ref('qa_list').on('value', renderQA);
 
     function postQ() {
@@ -210,38 +203,33 @@
         if (!input.value.trim()) return;
         db.ref('qa_list').push({ question: input.value, answer: "" });
         input.value = "";
-        alert("你的心情已被拾起，請靜候回音。");
+        alert("送出成功！");
     }
 
-    // --- 管理模式切換 ---
-    function handleAdmin() {
-        if (!isAdmin) {
-            if(prompt("請輸入管理者之鑰：") === "114gsa 0609") {
-                isAdmin = true;
-                document.getElementById('adminArea').style.display = 'block';
-                document.getElementById('adminBtn').innerText = "Logout";
-                alert("已進入管理模式");
-                renderQA();
-            }
-        } else {
-            isAdmin = false;
-            document.getElementById('adminArea').style.display = 'none';
-            document.getElementById('adminBtn').innerText = "Admin";
-            alert("已登出管理模式");
-            renderQA();
+    function loginAdmin() {
+        if(prompt("密碼：") === "114gsa 0609") {
+            isAdmin = true;
+            document.getElementById('adminArea').style.display = 'block';
+            document.getElementById('admin-status').style.display = 'block';
+            alert("管理者模式啟動，紅色刪除按鈕已就緒。");
+            renderQA(); // 強制刷一次把按鈕刷出來
         }
     }
 
     function replyQ(id) {
-        const a = prompt("輸入你的回音：");
+        const a = prompt("回覆：");
         if(a) db.ref('qa_list/' + id).update({ answer: a });
     }
 
     function deleteQ(id) {
-        if(confirm("確定要將這段回憶永久刪除嗎？")) {
-            db.ref('qa_list/' + id).remove().then(() => renderQA());
+        if(confirm("確定要刪除這條留言嗎？")) {
+            db.ref('qa_list/' + id).remove().then(() => {
+                alert("已刪除");
+                renderQA();
+            });
         }
     }
 </script>
 </body>
 </html>
+
