@@ -3,59 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>畢聯會服務站</title>
+    <title>中信國際高中114級畢聯會</title>
     <style>
-        body { font-family: "Microsoft JhengHei", sans-serif; background: #f4f7f6; margin: 0; color: #333; }
-        header { background: #2c3e50; color: white; padding: 2.5rem 1rem; text-align: center; position: relative; }
+        /* 主題顏色：拾葉綠 */
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #f0f4f2; margin: 0; color: #2c3e50; }
+        header { background: #3d5a45; color: white; padding: 2.5rem 1rem; text-align: center; position: relative; }
         .admin-login { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.2); color: white; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
-        nav { display: flex; justify-content: center; background: #34495e; padding: 10px; position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: center; background: #4a6d53; padding: 10px; position: sticky; top: 0; z-index: 1000; }
         nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
         .container { width: 90%; max-width: 1000px; margin: 20px auto; }
         
+        /* 倒數計時器樣式 */
+        #countdown-box { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px; margin-top: 15px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); }
+        #timer { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; }
+        .sub-slogan { font-size: 1rem; font-weight: normal; opacity: 0.9; margin-top: 10px; font-style: italic; }
+
         /* 照片牆 */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
         .photo-item { width: 100%; height: 180px; }
-        .photo-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
         /* QA 區 */
         .qa-container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         textarea { width: 100%; height: 100px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; resize: none; box-sizing: border-box; margin-bottom: 10px; }
-        .post-btn { background: #3498db; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
+        .post-btn { background: #4a6d53; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
         .qa-item { border-bottom: 1px solid #eee; padding: 20px 0; }
-        .answer { background: #f0f9ff; padding: 15px; border-left: 4px solid #27ae60; margin-top: 10px; border-radius: 4px; }
+        .answer { background: #f7faf8; padding: 15px; border-left: 4px solid #8eb69b; margin-top: 10px; border-radius: 4px; }
         .del-btn { background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
         
-        #adminArea { display: none; background: #fff3e0; padding: 20px; border-radius: 12px; border: 2px dashed #e67e22; margin-bottom: 30px; }
+        #adminArea { display: none; background: #fffbe6; padding: 20px; border-radius: 12px; border: 2px dashed #d4a373; margin-bottom: 30px; }
+        h2 { color: #3d5a45; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="admin-login" id="loginLabel" onclick="loginAdmin()">管理員登入</div>
-    <h1>🎓 畢聯會服務站</h1>
-    <p>回憶紀錄 ‧ 匿名提問</p>
+    <h1>🍀 中信國際高中114級畢聯會</h1>
+    <div class="sub-slogan">在散落的回憶裡拾起最初的幸運</div>
+    
+    <div id="countdown-box">
+        <div style="font-size: 0.9rem; margin-bottom: 5px; opacity: 0.9;">🍂 距離「拾葉」畢業典禮還有</div>
+        <div id="timer">
+            <span id="days">00</span>天 <span id="hours">00</span>時 <span id="minutes">00</span>分 <span id="seconds">00</span>秒
+        </div>
+    </div>
 </header>
 
-<nav><a href="#photos">照片牆</a><a href="#qa">提問專區</a></nav>
+<nav>
+    <a href="#photos">回憶照片牆</a>
+    <a href="#qa">匿名提議區</a>
+</nav>
 
 <div class="container">
     <section id="photos">
-        <h2 style="border-left: 5px solid #e67e22; padding-left: 15px;">📸 精彩紀錄</h2>
-        <div class="gallery-grid" id="galleryGrid">
-            </div>
+        <h2 style="border-left: 5px solid #8eb69b; padding-left: 15px;">🍃 拾葉・瞬間</h2>
+        <div class="gallery-grid" id="galleryGrid"></div>
     </section>
 
     <section id="qa" style="margin-top: 50px;">
-        <h2 style="border-left: 5px solid #3498db; padding-left: 15px;">💬 匿名提議區</h2>
+        <h2 style="border-left: 5px solid #8eb69b; padding-left: 15px;">📮 拾起心聲</h2>
         <div id="adminArea">
             <h3>🔒 管理模式：待審核內容</h3>
             <div id="pendingList">載入中...</div>
             <button onclick="location.reload()" style="margin-top:10px;">登出系統</button>
         </div>
         <div class="qa-container">
-            <textarea id="qInput" placeholder="留言後請靜候管理員審核回覆..."></textarea>
-            <button class="post-btn" onclick="postQ()">送出提議</button>
-            <h3 style="margin-top:30px;">💡 已刊登回覆</h3>
+            <textarea id="qInput" placeholder="在這裡留下你的提議或悄悄話..."></textarea>
+            <button class="post-btn" onclick="postQ()">送出心聲</button>
+            <h3 style="margin-top:30px;">💬 已回覆內容</h3>
             <div id="publicList">載入中...</div>
         </div>
     </section>
@@ -65,7 +81,6 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
 <script>
-    // 你的 Firebase 配置 (僅用於留言板)
     const firebaseConfig = {
         apiKey: "AIzaSyAPh-eTbUvGLFKFvTByfnGLJwja2bH4iKQ",
         authDomain: "graduation-cdb95.firebaseapp.com",
@@ -78,27 +93,43 @@
     const PASS = "114gsa 0609";
     let isAdmin = false;
 
-    // --- 照片功能：手動載入你 GitHub photos 資料夾的照片 ---
-    // 請確保你在 GitHub 的 photos 資料夾裡有 1.jpg, 2.jpg, 3.jpg, 4.jpg
     const myPhotos = [
-    "photos/1.jpg",
-    "photos/2.jpg",
-    "photos/3.jpg",
-    "photos/4.jpg"
-];
-
+        "photos/photos/1.jpg",
+        "photos/photos/2.jpg",
+        "photos/photos/3.jpg",
+        "photos/photos/4.jpg"
+    ];
 
     function renderPhotos() {
         const grid = document.getElementById('galleryGrid');
         grid.innerHTML = myPhotos.map(url => `
             <div class="photo-item">
-                <img src="${url}" onerror="this.src='https://via.placeholder.com/180?text=Loading+Fail'">
+                <img src="${url}" onerror="this.src='https://via.placeholder.com/180?text=Wait+Update'">
             </div>
         `).join('');
     }
-    renderPhotos();
 
-    // --- QA 功能 ---
+    function updateCountdown() {
+        const graduationDate = new Date("June 9, 2026 00:00:00").getTime();
+        const now = new Date().getTime();
+        const gap = graduationDate - now;
+
+        if (gap <= 0) {
+            document.getElementById("countdown-box").innerHTML = "🎉 畢業快樂！願每片葉子都帶給你幸運 🎉";
+            return;
+        }
+
+        const d = Math.floor(gap / (1000 * 60 * 60 * 24));
+        const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((gap % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = d;
+        document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
+        document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
+        document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+    }
+
     db.ref('qa_list').on('value', (snap) => {
         const data = snap.val();
         const publicList = document.getElementById('publicList');
@@ -109,7 +140,7 @@
         publicList.innerHTML = items.filter(i => i.answer !== "").map(i => `
             <div class="qa-item">
                 <div class="question">Q: ${i.question}</div>
-                <div class="answer"><strong>💡 畢聯會回覆：</strong>${i.answer}</div>
+                <div class="answer"><strong>🌿 拾葉者回覆：</strong>${i.answer}</div>
                 ${isAdmin ? `<button class="del-btn" onclick="deleteQA('${i.id}')">刪除此則</button>` : ''}
             </div>
         `).join('') || "目前尚無刊登。";
@@ -118,8 +149,8 @@
             pendingList.innerHTML = items.filter(i => i.answer === "").map(i => `
                 <div class="qa-item">
                     <div>${i.question}</div>
-                    <button style="background:#27ae60; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="replyQA('${i.id}')">回覆</button>
-                    <button class="del-btn" style="margin-top:0" onclick="deleteQA('${i.id}')">直接刪除</button>
+                    <button style="background:#4a6d53; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="replyQA('${i.id}')">回覆</button>
+                    <button class="del-btn" style="margin-top:0" onclick="deleteQA('${i.id}')">刪除</button>
                 </div>
             `).join('') || "沒有待處理留言。";
         }
@@ -129,9 +160,9 @@
         if(prompt("請輸入管理員密碼：") === PASS) {
             isAdmin = true;
             document.getElementById('adminArea').style.display = 'block';
-            document.getElementById('loginLabel').innerText = "✅ 管理模式";
+            document.getElementById('loginLabel').innerText = "✅ 拾葉管理中";
             renderPhotos();
-            alert("登入成功！");
+            alert("歡迎回來，管理員！");
         }
     }
 
@@ -141,7 +172,7 @@
         const ref = db.ref('qa_list').push();
         ref.set({ id: ref.key, question: el.value, answer: "" });
         el.value = "";
-        alert("提問已送出，請靜候審核！");
+        alert("心聲已拾起，請靜候回覆！");
     }
 
     function replyQA(id) {
@@ -150,8 +181,13 @@
     }
 
     function deleteQA(id) {
-        if (confirm("刪除此提問？")) db.ref('qa_list/' + id).remove();
+        if (confirm("確定要拋棄這片葉子嗎？")) db.ref('qa_list/' + id).remove();
     }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+    renderPhotos();
 </script>
 </body>
 </html>
+
