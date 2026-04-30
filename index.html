@@ -206,7 +206,7 @@
     }
     setInterval(updateA, 7000); updateA();
 
-    document.getElementById('teacherGrid').innerHTML = [1,2,3,4,5,6,7,8,9,10].map(n => `<div class="teacher-card"><img src="photos/c${n}.jpg"><button class="audio-btn" onclick="playAudio('c${n}')">🔊 聆聽回憶</button><audio id="audio-c${n}" src="photos/c${n}.mp3"></audio></div>`).join('');
+    document.getElementById('teacherGrid').innerHTML = [1,2,3,4,5,6,7,8,9,10].map(n => `<div class="teacher-card"><img src="photos/c${n}.jpg"><button class="audio-btn" onclick="playAudio('c${n}')">🔊 聆聽回憶</button><audio id="audio-c${n}" src="photos/c${n}.m4a"></audio></div>`).join('');
     function playAudio(id) { document.querySelectorAll('audio').forEach(a => {a.pause(); a.currentTime=0;}); document.getElementById(`audio-${id}`).play(); }
 
     function updateTime() {
