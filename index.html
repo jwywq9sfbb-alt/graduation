@@ -14,6 +14,13 @@
         .container { width: 90%; max-width: 950px; margin: 30px auto; }
         h2 { color: #3d5a45; border-left: 4px solid #8eb69b; padding-left: 15px; margin-top: 60px; font-weight: 600; }
 
+        /* 公佈欄樣式 */
+        .notice-board { background: #fff; border-radius: 20px; padding: 25px; margin-bottom: 40px; border-top: 6px solid #8eb69b; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .notice-item { border-bottom: 1px solid #eee; padding: 15px 0; display: flex; justify-content: space-between; align-items: flex-start; }
+        .notice-content { flex-grow: 1; }
+        .notice-date { font-size: 0.8rem; color: #8eb69b; font-weight: bold; margin-bottom: 5px; display: block; }
+        .notice-text { font-size: 1rem; color: #444; }
+
         /* IG 按鈕 */
         .ig-btn-container { text-align: center; margin: 10px 0 50px 0; }
         .ig-large-btn {
@@ -38,11 +45,11 @@
         /* 留言板 */
         #qInput { width: 100%; height: 120px; padding: 15px; border-radius: 12px; border: 1px solid #e0e0e0; background: #fafafa; box-sizing: border-box; resize: none; font-size: 1rem; }
         .post-btn { background: #3d5a45; color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 15px; }
+        .msg-time { font-size: 0.75rem; color: #999; margin-left: 10px; font-weight: normal; }
 
-        /* 地圖座標 (背景用b, 按鈕內容用c) */
+        /* 地圖座標 (b1背景, d1-10按鈕圖) */
         #map-container { position: relative; width: 100%; border-radius: 20px; overflow: hidden; border: 5px solid #3d5a45; }
         .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 44px; height: 44px; cursor: pointer; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; z-index: 10; transition: 0.3s; }
-        .map-point-btn:hover { background: #fdfcf0; transform: translate(-50%, -50%) scale(1.1); }
         .map-point-btn span { position: absolute; top: -10px; right: -10px; background: #e67e22; color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
 
         /* Admin 隱藏功能 */
@@ -55,10 +62,15 @@
     <div id="adminBtn" class="admin-action" onclick="handleAdmin()">Admin</div>
     <h1>🍀 中信國際高中 114 級畢聯會</h1>
     <p style="opacity: 0.85; font-style: italic; letter-spacing: 1px;">在散落的回憶裡拾起最初的幸運</p>
-    <div style="margin-top:15px; font-size: 0.95rem; color: #d4e7d9;">離別的倒數：<span id="timer" style="font-weight: bold;">讀取時光中...</span></div>
+    <div style="margin-top:15px; font-size: 0.95rem; color: #d4e7d9;">
+        離別的倒數：<span id="timer" style="font-weight: bold;">讀取中...</span>
+        <span style="margin-left: 20px; opacity: 0.8;">|</span>
+        <span style="margin-left: 20px;">拾葉人數：<span id="viewCount" style="font-weight: bold;">0</span></span>
+    </div>
 </header>
 
 <nav>
+    <a href="#notice">最新公告</a>
     <a href="#photos">拾葉瞬間</a>
     <a href="#qa">留言提議</a>
     <a href="#teachers">校園絮語</a>
@@ -73,6 +85,17 @@
             追蹤 114級畢聯會
         </a>
     </div>
+
+    <section id="notice">
+        <h2>📢 拾葉公告</h2>
+        <div class="notice-board">
+            <div id="adminNoticeArea" style="display:none; margin-bottom: 20px;">
+                <input type="text" id="noticeInput" placeholder="輸入公告內容..." style="width: 80%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                <button onclick="postNotice()" style="padding: 10px 20px; background: #3d5a45; color: white; border: none; border-radius: 8px; cursor: pointer;">發布</button>
+            </div>
+            <div id="noticeList">正在載入公告...</div>
+        </div>
+    </section>
 
     <section id="photos">
         <h2>🍃 拾葉・瞬間</h2>
@@ -101,9 +124,8 @@
         <h2>📍 拾葉地圖：校園座標</h2>
         <div style="text-align: center; margin-top: 20px;">
             <div id="map-container">
-                <img src="photos/b.jpg" style="width: 100%; display: block;" alt="地圖背景">
+                <img src="photos/b1.jpg" style="width: 100%; display: block;" alt="地圖背景">
                 <script>
-                    // 設定10個點位的座標 (百分比表示)，點擊後開啟對應的 c1.jpg ~ c10.jpg
                     const points = [
                         {id:1, t:15, l:20}, {id:2, t:25, l:45}, {id:3, t:18, l:70}, 
                         {id:4, t:45, l:15}, {id:5, t:50, l:40}, {id:6, t:42, l:80},
@@ -111,8 +133,7 @@
                         {id:10, t:90, l:45}
                     ];
                     points.forEach(p => {
-                        // 這裡會開啟 photos/c1.jpg, c2.jpg ...
-                        document.write(`<button class="map-point-btn" style="top:${p.t}%; left:${p.l}%;" onclick="window.open('photos/c${p.id}.jpg', '_blank')">🍀<span>${p.id}</span></button>`);
+                        document.write(`<button class="map-point-btn" style="top:${p.t}%; left:${p.l}%;" onclick="window.open('photos/d${p.id}.jpg', '_blank')">🍀<span>${p.id}</span></button>`);
                     });
                 </script>
             </div>
@@ -134,11 +155,49 @@
     const db = firebase.database();
     let isAdmin = false;
 
+    // --- 瀏覽人數 ---
+    db.ref('visitor_count').transaction(c => (c || 0) + 1);
+    db.ref('visitor_count').on('value', s => { document.getElementById('viewCount').innerText = s.val() || 0; });
+
+    // --- 公佈欄功能 ---
+    function renderNotices() {
+        db.ref('notices').on('value', s => {
+            const data = s.val();
+            const list = document.getElementById('noticeList');
+            if(!data) { list.innerHTML = "<p style='color:#999;'>尚無公告</p>"; return; }
+            const items = Object.entries(data).reverse();
+            list.innerHTML = items.map(([k, v]) => `
+                <div class="notice-item">
+                    <div class="notice-content">
+                        <span class="notice-date">${v.date}</span>
+                        <div class="notice-text">${v.text}</div>
+                    </div>
+                    ${isAdmin ? `<button onclick="deleteNotice('${k}')" style="background:none; border:none; color:#e74c3c; cursor:pointer;">刪除</button>` : ''}
+                </div>
+            `).join('');
+        });
+    }
+    renderNotices();
+
+    function postNotice() {
+        const txt = document.getElementById('noticeInput').value;
+        if(!txt.trim()) return;
+        const now = new Date();
+        const dateStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()}`;
+        db.ref('notices').push({ text: txt, date: dateStr });
+        document.getElementById('noticeInput').value = "";
+    }
+
+    function deleteNotice(id) {
+        if(confirm("確定刪除此公告？")) db.ref('notices/'+id).remove();
+    }
+
     // --- a區輪播 ---
     const photoGroups = [['a1', 'a2', 'a3', 'a4'], ['a5', 'a6', 'a7', 'a8']];
     let currentGroupIndex = 0;
     function updatePhotos() {
         const grid = document.getElementById('galleryGrid');
+        if(!grid) return;
         grid.style.opacity = 0;
         setTimeout(() => {
             const current = photoGroups[currentGroupIndex];
@@ -150,7 +209,7 @@
     setInterval(updatePhotos, 7000);
     updatePhotos();
 
-    // --- c區聲音牆與頭像 ---
+    // --- c區聲音牆 ---
     document.getElementById('teacherGrid').innerHTML = [1,2,3,4,5,6,7,8,9,10].map(n => `
         <div class="teacher-card">
             <img src="photos/c${n}.jpg" onerror="this.src='https://via.placeholder.com/150?text=Voice'">
@@ -161,23 +220,24 @@
 
     function playAudio(id) {
         document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
-        document.getElementById(`audio-${id}`).play().catch(e => console.log("聲音尚未被拾起"));
+        document.getElementById(`audio-${id}`).play().catch(e => console.log("聲音未就位"));
     }
 
-    // --- 倒數 ---
+    // --- 倒數計時 ---
     function updateCountdown() {
         const target = new Date("June 9, 2026 00:00:00").getTime();
         const now = new Date().getTime();
         const gap = target - now;
-        if (gap <= 0) { document.getElementById("timer").innerText = "畢業快樂。"; return; }
-        const d = Math.floor(gap / 86400000), h = Math.floor((gap % 86400000) / 3600000), m = Math.floor((gap % 3600000) / 60000), s = Math.floor((gap % 60000) / 1000);
-        document.getElementById("timer").innerText = `${d}天 ${h}時 ${m}分 ${s}秒`;
+        const timerEl = document.getElementById("timer");
+        if (gap <= 0) { timerEl.innerText = "畢業快樂。"; return; }
+        const d = Math.floor(gap/86400000), h = Math.floor((gap%86400000)/3600000), m = Math.floor((gap%3600000)/60000), s = Math.floor((gap%60000)/1000);
+        timerEl.innerText = `${d}天 ${h}時 ${m}分 ${s}秒`;
     }
     setInterval(updateCountdown, 1000);
 
-    // --- 留言板渲染 ---
+    // --- 留言板功能 ---
     function renderQA() {
-        db.ref('qa_list').once('value', snap => {
+        db.ref('qa_list').on('value', snap => {
             const data = snap.val();
             const publicList = document.getElementById('publicList');
             const pendingList = document.getElementById('pendingList');
@@ -185,7 +245,7 @@
             const items = Object.entries(data).reverse();
             publicList.innerHTML = items.filter(([k,v]) => v.answer).map(([k,v]) => `
                 <div style="border-bottom:1px solid #f0f0f0; padding:20px 0; position:relative;">
-                    <div style="color:#555;"><strong>問：</strong>${v.question}</div>
+                    <div style="color:#555;"><strong>問：</strong>${v.question} <span class="msg-time">${v.timestamp || ''}</span></div>
                     <div style="background:#f9fdfa; padding:12px; border-left:3px solid #8eb69b; margin-top:10px; color:#3d5a45;">
                         <strong>🌿 拾葉回覆：</strong>${v.answer}
                     </div>
@@ -195,7 +255,7 @@
             if (isAdmin) {
                 pendingList.innerHTML = items.filter(([k,v]) => !v.answer).map(([k,v]) => `
                     <div style="background:white; padding:12px; border-radius:8px; margin-bottom:12px; border-left:4px solid #e74c3c;">
-                        ${v.question}
+                        ${v.question} <span class="msg-time">${v.timestamp || ''}</span>
                         <div style="margin-top:10px;">
                             <button onclick="replyQ('${k}')" style="background:#4a6d53; color:white; border:none; padding:5px 12px; border-radius:4px; cursor:pointer;">回覆</button>
                             <button onclick="deleteQ('${k}')" style="background:#e74c3c; color:white; border:none; padding:5px 12px; border-radius:4px; cursor:pointer; margin-left:10px;">刪除</button>
@@ -205,31 +265,34 @@
             }
         });
     }
-    db.ref('qa_list').on('value', renderQA);
+    renderQA();
 
     function postQ() {
         const input = document.getElementById('qInput');
         if (!input.value.trim()) return;
-        db.ref('qa_list').push({ question: input.value, answer: "" });
+        const now = new Date();
+        const timeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${now.getMinutes().toString().padStart(2,'0')}`;
+        db.ref('qa_list').push({ question: input.value, answer: "", timestamp: timeStr });
         input.value = "";
         alert("你的心情已被拾起。");
     }
 
+    // --- 管理模式 ---
     function handleAdmin() {
         if (!isAdmin) {
             if(prompt("管理者之鑰：") === "114gsa 0609") {
                 isAdmin = true;
                 document.getElementById('adminArea').style.display = 'block';
+                document.getElementById('adminNoticeArea').style.display = 'block';
                 document.getElementById('adminBtn').innerText = "Logout";
-                alert("已登入管理員模式");
-                renderQA();
+                alert("管理員模式啟動");
             }
         } else {
             isAdmin = false;
             document.getElementById('adminArea').style.display = 'none';
+            document.getElementById('adminNoticeArea').style.display = 'none';
             document.getElementById('adminBtn').innerText = "Admin";
             alert("已登出");
-            renderQA();
         }
     }
 
@@ -239,7 +302,7 @@
     }
 
     function deleteQ(id) {
-        if(confirm("確定刪除？")) db.ref('qa_list/' + id).remove().then(() => renderQA());
+        if(confirm("確定刪除？")) db.ref('qa_list/' + id).remove();
     }
 </script>
 </body>
