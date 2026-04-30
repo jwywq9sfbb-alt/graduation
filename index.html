@@ -128,6 +128,17 @@
     <section id="teachers">
         <h2>🎙️ 那些校園中零碎又熟悉的聲音</h2>
         <div class="teacher-grid" id="teacherGrid"></div>
+        <div style="margin-top: 30px; text-align: center;">
+    <div id="hidden-memory" style="display: inline-block; background: #e8f5ed; padding: 20px; border-radius: 20px; border: 2px dashed #3d5a45; cursor: pointer; transition: 0.3s;" onclick="revealSecret()">
+        <img id="secret-img" src="photos/hidden.jpg" style="width: 150px; height: 150px; object-fit: cover; border-radius: 12px; filter: blur(5px);">
+        <p id="secret-text" style="font-weight: bold; color: #3d5a45; margin-top: 10px;">❓ 拾起隱藏版回憶</p>
+        <div id="secret-audio-area" style="display: none; margin-top: 10px;">
+            <button class="audio-btn" style="background: #e67e22;" onclick="playAudio('c11')">🔊 立即播放</button>
+            <audio id="audio-c11" src="photos/c11.m4a"></audio>
+        </div>
+    </div>
+</div>
+
     </section>
 
     <section id="map">
@@ -271,6 +282,20 @@
         }
     }
 // 【 插入結束 】
+function revealSecret() {
+    // 1. 去除模糊
+    document.getElementById('secret-img').style.filter = 'none';
+    // 2. 更換圖片 (如果你有點開後想換成的照片，可以改這裡)
+    // document.getElementById('secret-img').src = 'photos/c11.jpg'; 
+    // 3. 修改文字
+    document.getElementById('secret-text').innerText = '🎉 發現隱藏訊息！';
+    // 4. 顯示播放按鈕
+    document.getElementById('secret-audio-area').style.display = 'block';
+    // 5. 加上一點震動特效
+    document.getElementById('hidden-memory').style.transform = 'scale(1.05)';
+    document.getElementById('hidden-memory').style.borderStyle = 'solid';
+}
+
 
 </script> ```
 
