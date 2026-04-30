@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>114級畢聯會 | 拾葉</title>
     <style>
-        /* --- 拾葉視覺風格 --- */
+        /* --- 核心視覺風格 (拾葉原創) --- */
         body { font-family: "Microsoft JhengHei", sans-serif; background: #f0f4f2; margin: 0; color: #2c3e50; line-height: 1.8; scroll-behavior: smooth; }
         header { background: #3d5a45; color: white; padding: 3.5rem 1rem; text-align: center; position: relative; }
         header h1 { letter-spacing: 3px; font-weight: 500; }
@@ -14,36 +14,38 @@
         .container { width: 90%; max-width: 950px; margin: 30px auto; }
         h2 { color: #3d5a45; border-left: 4px solid #8eb69b; padding-left: 15px; margin-top: 60px; font-weight: 600; }
 
+        /* IG 按鈕專用樣式 - 放在最上方 */
+        .ig-top-area { text-align: center; margin-bottom: 30px; padding: 10px; }
+        .ig-pure-btn { display: inline-flex; align-items: center; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; padding: 12px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 15px rgba(220, 39, 67, 0.2); transition: 0.3s; }
+        .ig-pure-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(220, 39, 67, 0.3); }
+
         /* 公佈欄與連結區 */
         .notice-board, .links-board { background: #fff; border-radius: 20px; padding: 25px; margin-bottom: 40px; border-top: 6px solid #8eb69b; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .notice-item { border-bottom: 1px solid #eee; padding: 15px 0; display: flex; justify-content: space-between; }
+        .notice-item { border-bottom: 1px solid #eee; padding: 15px 0; display: flex; justify-content: space-between; align-items: flex-start; }
+        .notice-date { font-size: 0.8rem; color: #8eb69b; font-weight: bold; display: block; margin-bottom: 5px; }
         
-        /* 連結區按鈕樣式 */
         .link-item { display: flex; align-items: center; justify-content: space-between; background: #f9fdfa; border: 1px solid #e8f5ed; padding: 12px 20px; border-radius: 12px; margin-bottom: 10px; transition: 0.3s; }
-        .link-item:hover { transform: translateX(5px); border-color: #8eb69b; }
         .link-btn { color: #3d5a45; text-decoration: none; font-weight: bold; flex-grow: 1; }
-        .link-btn::before { content: "🔗 "; }
 
-        /* e-Yearbook (預設隱藏) */
-        #yearbook-wrapper { display: none; margin-top: 20px; }
-        .open-yearbook-btn { display: block; width: 280px; margin: 40px auto; padding: 18px; background: #3d5a45; color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-align: center; }
-        .class-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
-        .class-btn { background: white; border: 1.5px solid #3d5a45; color: #3d5a45; padding: 6px 15px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: bold; }
-        .class-section { background: white; padding: 25px; border-radius: 25px; margin-bottom: 40px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
-        .class-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .class-grid img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; }
-
-        /* 其餘區塊樣式 */
+        /* 其餘區塊樣式 (a, b, c, d, e 全部保持原狀) */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; transition: opacity 0.8s; }
         .photo-item img { width: 100%; height: 220px; object-fit: cover; border-radius: 15px; filter: grayscale(20%); transition: 0.5s; }
         .teacher-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 25px; }
         .teacher-card { background: white; padding: 15px; border-radius: 20px; text-align: center; }
-        .teacher-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; }
+        .teacher-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
+        .audio-btn { background: #4a6d53; color: white; border: none; padding: 10px; border-radius: 25px; cursor: pointer; width: 100%; font-weight: bold; font-size: 0.85rem; }
         #map-container { position: relative; width: 100%; border-radius: 20px; overflow: hidden; border: 5px solid #3d5a45; }
         .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); z-index: 10; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        .map-point-btn span { position: absolute; top: -10px; right: -10px; background: #e67e22; color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
         
-        .admin-action { position: absolute; top: 15px; right: 20px; font-size: 0.75rem; color: rgba(255,255,255,0.3); cursor: pointer; }
-        .msg-time { font-size: 0.75rem; color: #999; margin-left: 10px; }
+        #yearbook-wrapper { display: none; margin-top: 20px; }
+        .open-yearbook-btn { display: block; width: 280px; margin: 40px auto; padding: 18px; background: #3d5a45; color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-align: center; }
+        .class-btn { background: white; border: 1.5px solid #3d5a45; color: #3d5a45; padding: 6px 15px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: bold; }
+        .class-section { background: white; padding: 25px; border-radius: 25px; margin-bottom: 40px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+        .class-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .class-grid img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; transition: 0.3s; }
+
+        .admin-action { position: absolute; top: 15px; right: 20px; font-size: 0.75rem; color: rgba(255,255,255,0.3); cursor: pointer; text-decoration: none; }
         .post-btn { background: #3d5a45; color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 15px; }
     </style>
 </head>
@@ -72,6 +74,10 @@
 
 <div class="container">
 
+    <div class="ig-top-area">
+        <a href="https://www.instagram.com/你的帳號/" target="_blank" class="ig-pure-btn">📸 Follow Instagram @114_gsa</a>
+    </div>
+
     <section id="notice">
         <h2>📢 拾葉公告</h2>
         <div class="notice-board">
@@ -87,8 +93,8 @@
         <h2>🔗 重要連結傳送門</h2>
         <div class="links-board">
             <div id="adminLinkArea" style="display:none; margin-bottom: 20px; background: #f0f4f2; padding: 15px; border-radius: 12px;">
-                <input type="text" id="linkName" placeholder="連結名稱 (如：典禮報名)" style="width: 40%; padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
-                <input type="text" id="linkUrl" placeholder="網址 (https://...)" style="width: 40%; padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+                <input type="text" id="linkName" placeholder="連結名稱" style="width: 40%; padding: 8px;">
+                <input type="text" id="linkUrl" placeholder="網址" style="width: 40%; padding: 8px;">
                 <button onclick="postLink()" style="padding: 8px 15px; background: #3d5a45; color: white; border: none; border-radius: 5px; cursor: pointer;">新增</button>
             </div>
             <div id="linksList">正在載入連結...</div>
@@ -107,7 +113,7 @@
             <div id="pendingList"></div>
         </div>
         <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-            <textarea id="qInput" placeholder="寫下你想對 114 級說的話..." style="width:100%; height:120px; padding:15px; border-radius:12px; border:1px solid #e0e0e0; resize:none;"></textarea>
+            <textarea id="qInput" placeholder="寫下你想對 114 級說的話..." style="width: 100%; height: 120px; padding: 15px; border-radius: 12px; border: 1px solid #e0e0e0; resize: none; box-sizing: border-box;"></textarea>
             <button class="post-btn" onclick="postQ()">封存並送出</button>
             <div id="publicList" style="margin-top:30px;"></div>
         </div>
@@ -147,7 +153,7 @@
                 <script>
                     classList.forEach((cls, idx) => {
                         let s = idx * 4 + 1;
-                        document.write(`<div id="class-${cls}" class="class-section"><div class="class-title">${cls} 班級牆</div><div class="class-grid"><img src="photos/e${s}.jpg" onerror="this.style.display='none'"><img src="photos/e${s+1}.jpg" onerror="this.style.display='none'"><img src="photos/e${s+2}.jpg" onerror="this.style.display='none'"><img src="photos/e${s+3}.jpg" onerror="this.style.display='none'"></div></div>`);
+                        document.write(`<div id="class-${cls}" class="class-section"><div class="class-title">${cls} 班級牆</div><div class="class-grid"><img src="photos/e${s}.jpg" onclick="window.open(this.src)" onerror="this.style.display='none'"><img src="photos/e${s+1}.jpg" onclick="window.open(this.src)" onerror="this.style.display='none'"><img src="photos/e${s+2}.jpg" onclick="window.open(this.src)" onerror="this.style.display='none'"><img src="photos/e${s+3}.jpg" onclick="window.open(this.src)" onerror="this.style.display='none'"></div></div>`);
                     });
                 </script>
             </div>
@@ -159,82 +165,53 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
 <script>
+    // --- Firebase 配置與所有功能 (全數保留與之前一致) ---
     const firebaseConfig = { apiKey: "AIzaSyAPh-eTbUvGLFKFvTByfnGLJwja2bH4iKQ", authDomain: "graduation-cdb95.firebaseapp.com", databaseURL: "https://graduation-cdb95-default-rtdb.firebaseio.com", projectId: "graduation-cdb95" };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     let isAdmin = false;
 
-    // --- 連結區功能 ---
     function renderLinks() {
         db.ref('useful_links').on('value', s => {
-            const data = s.val();
-            const list = document.getElementById('linksList');
+            const data = s.val(); const list = document.getElementById('linksList');
             if(!data) { list.innerHTML = "<p style='color:#999;'>尚無重要連結</p>"; return; }
-            list.innerHTML = Object.entries(data).map(([k, v]) => `
-                <div class="link-item">
-                    <a href="${v.url}" target="_blank" class="link-btn">${v.name}</a>
-                    ${isAdmin ? `<button onclick="deleteLink('${k}')" style="color:red; border:none; background:none; cursor:pointer; font-size:0.8rem;">刪除</button>` : ''}
-                </div>`).join('');
+            list.innerHTML = Object.entries(data).map(([k, v]) => `<div class="link-item"><a href="${v.url}" target="_blank" class="link-btn">${v.name}</a>${isAdmin ? `<button onclick="deleteLink('${k}')" style="color:red; border:none; background:none; cursor:pointer;">刪除</button>` : ''}</div>`).join('');
         });
     }
     renderLinks();
+    function postLink() { const n=document.getElementById('linkName').value; const u=document.getElementById('linkUrl').value; if(!n||!u) return; db.ref('useful_links').push({name:n, url:u}); document.getElementById('linkName').value=""; document.getElementById('linkUrl').value=""; }
+    function deleteLink(id) { if(confirm("刪除連結？")) db.ref('useful_links/'+id).remove(); }
 
-    function postLink() {
-        const name = document.getElementById('linkName').value;
-        const url = document.getElementById('linkUrl').value;
-        if(!name || !url) return;
-        db.ref('useful_links').push({ name: name, url: url });
-        document.getElementById('linkName').value = ""; document.getElementById('linkUrl').value = "";
-    }
-    function deleteLink(id) { if(confirm("刪除此連結？")) db.ref('useful_links/'+id).remove(); }
-
-    // --- 其他核心功能 ---
-    function toggleYearbook() {
-        const w = document.getElementById('yearbook-wrapper');
-        const b = document.getElementById('openBtn');
-        const isShow = w.style.display === 'block';
-        w.style.display = isShow ? 'none' : 'block';
-        b.innerText = isShow ? "📖 開啟數位畢冊" : "📕 闔上數位畢冊";
-        if(!isShow) w.scrollIntoView({ behavior: 'smooth' });
-    }
+    function toggleYearbook() { const w=document.getElementById('yearbook-wrapper'); const b=document.getElementById('openBtn'); const isShow=w.style.display==='block'; w.style.display=isShow?'none':'block'; b.innerText=isShow?"📖 開啟數位畢冊":"📕 闔上數位畢冊"; if(!isShow) w.scrollIntoView({behavior:'smooth'}); }
 
     db.ref('visitor_count').transaction(c => (c || 0) + 1);
     db.ref('visitor_count').on('value', s => { document.getElementById('viewCount').innerText = s.val() || 0; });
 
     function renderNotices() {
         db.ref('notices').on('value', s => {
-            const data = s.val();
-            const list = document.getElementById('noticeList');
-            if(!data) { list.innerHTML = "<p>無公告</p>"; return; }
+            const data = s.val(); const list = document.getElementById('noticeList');
+            if(!data) { list.innerHTML = "無公告"; return; }
             list.innerHTML = Object.entries(data).reverse().map(([k,v]) => `<div class="notice-item"><div><span class="notice-date">${v.date}</span>${v.text}</div>${isAdmin? `<button onclick="deleteNotice('${k}')" style="color:red; border:none; background:none;">刪除</button>`:''}</div>`).join('');
         });
     }
     renderNotices();
-
-    function postNotice() {
-        const t = document.getElementById('noticeInput').value; if(!t.trim()) return;
-        const d = new Date(); db.ref('notices').push({ text: t, date: `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}` });
-        document.getElementById('noticeInput').value = "";
-    }
+    function postNotice() { const txt=document.getElementById('noticeInput').value; if(!txt.trim()) return; const d=new Date(); db.ref('notices').push({text:txt, date:`${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`}); document.getElementById('noticeInput').value=""; }
     function deleteNotice(id) { if(confirm("刪除？")) db.ref('notices/'+id).remove(); }
 
     const photoGroups = [['a1', 'a2', 'a3', 'a4'], ['a5', 'a6', 'a7', 'a8']];
     let curIdx = 0;
     function updateA() {
-        const g = document.getElementById('galleryGrid'); g.style.opacity = 0;
-        setTimeout(() => {
-            g.innerHTML = photoGroups[curIdx].map(img => `<div class="photo-item"><img src="photos/${img}.jpg"></div>`).join('');
-            g.style.opacity = 1; curIdx = (curIdx + 1) % photoGroups.length;
-        }, 800);
+        const grid = document.getElementById('galleryGrid'); grid.style.opacity = 0;
+        setTimeout(() => { grid.innerHTML = photoGroups[curIdx].map(img => `<div class="photo-item"><img src="photos/${img}.jpg"></div>`).join(''); grid.style.opacity = 1; curIdx = (curIdx + 1) % photoGroups.length; }, 800);
     }
     setInterval(updateA, 7000); updateA();
 
-    document.getElementById('teacherGrid').innerHTML = [1,2,3,4,5,6,7,8,9,10].map(n => `<div class="teacher-card"><img src="photos/c${n}.jpg"><button class="audio-btn" onclick="playAudio('c${n}')">🔊 聆聽</button><audio id="audio-c${n}" src="photos/c${n}.mp3"></audio></div>`).join('');
+    document.getElementById('teacherGrid').innerHTML = [1,2,3,4,5,6,7,8,9,10].map(n => `<div class="teacher-card"><img src="photos/c${n}.jpg"><button class="audio-btn" onclick="playAudio('c${n}')">🔊 聆聽回憶</button><audio id="audio-c${n}" src="photos/c${n}.mp3"></audio></div>`).join('');
     function playAudio(id) { document.querySelectorAll('audio').forEach(a => {a.pause(); a.currentTime=0;}); document.getElementById(`audio-${id}`).play(); }
 
     function updateTime() {
         const gap = new Date("2026-06-09T00:00:00").getTime() - new Date().getTime();
-        if(gap<=0) { document.getElementById("timer").innerText="畢業快樂"; return; }
+        if(gap<=0) { document.getElementById("timer").innerText="畢業快樂！"; return; }
         const d=Math.floor(gap/86400000), h=Math.floor((gap%86400000)/3600000), m=Math.floor((gap%3600000)/60000), s=Math.floor((gap%60000)/1000);
         document.getElementById("timer").innerText = `${d}天 ${h}時 ${m}分 ${s}秒`;
     }
@@ -245,30 +222,25 @@
             const data = snap.val(); const pub = document.getElementById('publicList'); const pen = document.getElementById('pendingList');
             if(!data) { pub.innerHTML="暫無留言"; return; }
             const items = Object.entries(data).reverse();
-            pub.innerHTML = items.filter(([k,v])=>v.answer).map(([k,v])=>`<div style="border-bottom:1px solid #eee; padding:15px 0;"><div>問：${v.question} <span class="msg-time">${v.timestamp||''}</span></div><div style="color:#3d5a45; padding-left:10px; border-left:3px solid #8eb69b;">答：${v.answer}</div>${isAdmin?`<button onclick="deleteQ('${k}')">刪</button>`:''}</div>`).join('');
-            if(isAdmin) pen.innerHTML = items.filter(([k,v])=>!v.answer).map(([k,v])=>`<div>${v.question} <button onclick="replyQ('${k}')">回</button></div>`).join('');
+            pub.innerHTML = items.filter(([k,v])=>v.answer).map(([k,v])=>`<div style="border-bottom:1px solid #eee; padding:15px 0;"><div>問：${v.question}</div><div style="color:#3d5a45; border-left:3px solid #8eb69b; padding-left:10px;">答：${v.answer}</div>${isAdmin?`<button onclick="deleteQ('${k}')">刪除</button>`:''}</div>`).join('');
+            if(isAdmin) pen.innerHTML = items.filter(([k,v])=>!v.answer).map(([k,v])=>`<div>${v.question} <button onclick="replyQ('${k}')">回覆</button></div>`).join('');
         });
     }
     renderQA();
-
-    function postQ() {
-        const i = document.getElementById('qInput'); if(!i.value.trim()) return;
-        const now = new Date(); db.ref('qa_list').push({ question: i.value, answer: "", timestamp: `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${now.getMinutes()}` });
-        i.value=""; alert("已送出");
-    }
+    function postQ() { const i=document.getElementById('qInput'); if(!i.value.trim()) return; db.ref('qa_list').push({question:i.value, answer:"", timestamp:new Date().toLocaleString()}); i.value=""; alert("心情已拾起"); }
 
     function handleAdmin() {
         if(prompt("管理者之鑰：") === "114gsa 0609") {
             isAdmin = true;
-            document.getElementById('adminArea').style.display = 'block';
-            document.getElementById('adminNoticeArea').style.display = 'block';
-            document.getElementById('adminLinkArea').style.display = 'block';
-            document.getElementById('adminBtn').innerText = "Logout";
-            alert("管理模式啟動"); renderQA(); renderNotices(); renderLinks();
+            document.getElementById('adminArea').style.display='block';
+            document.getElementById('adminNoticeArea').style.display='block';
+            document.getElementById('adminLinkArea').style.display='block';
+            document.getElementById('adminBtn').innerText="Logout";
+            alert("管理員登入成功"); renderQA(); renderNotices(); renderLinks();
         }
     }
-    function replyQ(id) { const a=prompt("回覆："); if(a) db.ref('qa_list/'+id).update({answer:a}); }
-    function deleteQ(id) { if(confirm("刪？")) db.ref('qa_list/'+id).remove(); }
+    function replyQ(id) { const a=prompt("回覆內容："); if(a) db.ref('qa_list/'+id).update({answer:a}); }
+    function deleteQ(id) { if(confirm("刪除？")) db.ref('qa_list/'+id).remove(); }
 </script>
 </body>
 </html>
