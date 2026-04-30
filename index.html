@@ -77,6 +77,12 @@
     <div class="ig-top-area">
         <a href="https://www.instagram.com/你的帳號/" target="_blank" class="ig-pure-btn">📸 Follow Instagram @114_gsa</a>
     </div>
+    <div style="text-align: center; margin: 20px 0;">
+    <button onclick="sharePage()" style="background: #8eb69b; color: white; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer;">
+        📤 分享給同學
+    </button>
+</div>
+
 
     <section id="notice">
         <h2>📢 拾葉公告</h2>
@@ -241,6 +247,39 @@
     }
     function replyQ(id) { const a=prompt("回覆內容："); if(a) db.ref('qa_list/'+id).update({answer:a}); }
     function deleteQ(id) { if(confirm("刪除？")) db.ref('qa_list/'+id).remove(); }
+    // 前：原本最後一個功能 deleteQ 的結尾
+    function deleteQ(id) { if(confirm("刪除？")) db.ref('qa_list/'+id).remove(); }
+
+// 【 插入這一段分享邏輯 】
+    async function sharePage() {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: '114級畢聯會 | 拾葉',
+                    text: '快來看看我們的 114 級畢業回憶網站！🍀',
+                    url: window.location.href
+                });
+            } catch (err) { console.log('Cancel:', err); }
+        } else {
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = window.location.href;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            alert('網址已複製到剪貼簿，快傳給同學！');
+        }
+    }
+// 【 插入結束 】
+
+</script> ```
+
+### 💡 懶人檢查法
+* **HTML 部份**：如果你沒看到按鈕，代表你可能插到了某個標籤裡面被藏起來了。
+* **JS 部份**：如果你點按鈕沒反應，通常是因為這段漏貼，或是沒有貼在最後一個 `</script>` 的「前面」。
+
+快去試試看吧！加上分享功能後，大家傳閱網址就方便多了。🍀
+
 </script>
 </body>
 </html>
