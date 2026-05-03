@@ -14,51 +14,77 @@
         .container { width: 90%; max-width: 950px; margin: 30px auto; }
         h2 { color: #3d5a45; border-left: 4px solid #8eb69b; padding-left: 15px; margin-top: 60px; font-weight: 600; }
 
-        /* IG 按鈕專用樣式 - 放在最上方 */
-        .ig-top-area { text-align: center; margin-bottom: 30px; padding: 10px; }
-        .ig-pure-btn { display: inline-flex; align-items: center; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; padding: 12px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 15px rgba(220, 39, 67, 0.2); transition: 0.3s; }
-        .ig-pure-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(220, 39, 67, 0.3); }
+        /* IG 與 分享按鈕樣式 */
+        .top-action-area { text-align: center; margin-bottom: 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .ig-pure-btn { display: inline-flex; align-items: center; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(220, 39, 67, 0.2); transition: 0.3s; }
+        .share-btn { background: #8eb69b; color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; }
+        .ig-pure-btn:hover, .share-btn:hover { transform: translateY(-3px); opacity: 0.9; }
 
         /* 公佈欄與連結區 */
         .notice-board, .links-board { background: #fff; border-radius: 20px; padding: 25px; margin-bottom: 40px; border-top: 6px solid #8eb69b; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .notice-item { border-bottom: 1px solid #eee; padding: 15px 0; display: flex; justify-content: space-between; align-items: flex-start; }
         .notice-date { font-size: 0.8rem; color: #8eb69b; font-weight: bold; display: block; margin-bottom: 5px; }
-        
-        .link-item { display: flex; align-items: center; justify-content: space-between; background: #f9fdfa; border: 1px solid #e8f5ed; padding: 12px 20px; border-radius: 12px; margin-bottom: 10px; transition: 0.3s; }
+        .link-item { display: flex; align-items: center; justify-content: space-between; background: #f9fdfa; border: 1px solid #e8f5ed; padding: 12px 20px; border-radius: 12px; margin-bottom: 10px; }
         .link-btn { color: #3d5a45; text-decoration: none; font-weight: bold; flex-grow: 1; }
 
-        /* 其餘區塊樣式 (a, b, c, d, e 全部保持原狀) */
+        /* 照片與聲音牆 */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; transition: opacity 0.8s; }
-        .photo-item img { width: 100%; height: 220px; object-fit: cover; border-radius: 15px; filter: grayscale(20%); transition: 0.5s; }
+        .photo-item img { width: 100%; height: 220px; object-fit: cover; border-radius: 15px; }
         .teacher-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 25px; }
-        .teacher-card { background: white; padding: 15px; border-radius: 20px; text-align: center; }
-        .teacher-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
+        .teacher-card { background: white; padding: 15px; border-radius: 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.04); }
+        .teacher-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 8px; }
+        .teacher-name { display: block; font-weight: bold; color: #3d5a45; margin-bottom: 10px; font-size: 1rem; }
         .audio-btn { background: #4a6d53; color: white; border: none; padding: 10px; border-radius: 25px; cursor: pointer; width: 100%; font-weight: bold; font-size: 0.85rem; }
-        #map-container { position: relative; width: 100%; border-radius: 20px; overflow: hidden; border: 5px solid #3d5a45; }
-        .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); z-index: 10; cursor: pointer; display: flex; justify-content: center; align-items: center; }
-        .map-point-btn span { position: absolute; top: -10px; right: -10px; background: #e67e22; color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
-        
-        #yearbook-wrapper { display: none; margin-top: 20px; }
-        .open-yearbook-btn { display: block; width: 280px; margin: 40px auto; padding: 18px; background: #3d5a45; color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-align: center; }
-        .class-btn { background: white; border: 1.5px solid #3d5a45; color: #3d5a45; padding: 6px 15px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: bold; }
-        .class-section { background: white; padding: 25px; border-radius: 25px; margin-bottom: 40px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
-        .class-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .class-grid img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; transition: 0.3s; }
 
-        .admin-action { position: absolute; top: 15px; right: 20px; font-size: 0.75rem; color: rgba(255,255,255,0.3); cursor: pointer; text-decoration: none; }
-        .post-btn { background: #3d5a45; color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 15px; }
+        /* 隱藏版彩蛋樣式 */
+        .hidden-memory-card { display: inline-block; background: #e8f5ed; padding: 25px; border-radius: 20px; border: 2px dashed #3d5a45; cursor: pointer; transition: 0.4s; margin-top: 30px; }
+        .hidden-memory-card img { width: 150px; height: 150px; object-fit: cover; border-radius: 12px; filter: blur(8px); transition: 0.6s; }
+
+        /* 地圖與畢冊 */
+        #map-container { position: relative; width: 100%; border-radius: 20px; overflow: hidden; border: 5px solid #3d5a45; }
+        .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        #yearbook-wrapper, #full-album-wrapper { display: none; margin-top: 20px; }
+        .open-yearbook-btn { display: block; width: 280px; margin: 40px auto; padding: 18px; background: #3d5a45; color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-align: center; }
+        .class-grid img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; }
+
+        .admin-action { position: absolute; top: 15px; right: 20px; font-size: 0.75rem; color: rgba(255,255,255,0.3); cursor: pointer; }
+
+        /* --- 驚喜功能：專屬樣式 --- */
+        #surpriseBtn { position: fixed; top: 15px; left: 15px; z-index: 2000; background: #8eb69b; color: white; border: none; border-radius: 50%; width: 42px; height: 42px; cursor: pointer; font-size: 22px; box-shadow: 0 2px 12px rgba(0,0,0,0.2); transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        #surpriseBtn:hover { transform: scale(1.1) rotate(15deg); background: #3d5a45; }
+
+        .avatar-pop {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            position: fixed;
+            object-fit: cover;
+            z-index: 1999;
+            pointer-events: none;
+            mix-blend-mode: multiply;
+            animation: popUp 2.5s ease-out forwards;
+        }
+
+        @keyframes popUp {
+            0% { transform: scale(0) translateY(100px) rotate(-25deg); opacity: 0; }
+            20% { transform: scale(1.2) translateY(-40px) rotate(10deg); opacity: 1; }
+            80% { transform: scale(1) translateY(-100px) rotate(0); opacity: 1; }
+            100% { transform: scale(0.7) translateY(-300px) rotate(25deg); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
+<!-- 驚喜按鈕 -->
+<button id="surpriseBtn" onclick="triggerSurprise()" title="拾起驚喜">✨</button>
+<div id="surpriseContainer"></div>
+
 <header>
     <div id="adminBtn" class="admin-action" onclick="handleAdmin()">Admin</div>
     <h1>🍀 中信國際高中 114 級畢聯會</h1>
-    <p style="opacity: 0.85; font-style: italic; letter-spacing: 1px;">在散落的回憶裡拾起最初的幸運</p>
+    <p style="opacity: 0.85; font-style: italic;">在散落的回憶裡拾起最初的幸運</p>
     <div style="margin-top:15px; font-size: 0.95rem; color: #d4e7d9;">
-        離別的倒數：<span id="timer" style="font-weight: bold;">讀取中...</span>
-        <span style="margin-left: 20px; opacity: 0.8;">|</span>
-        <span style="margin-left: 20px;">拾葉人數：<span id="viewCount" style="font-weight: bold;">0</span></span>
+        離別倒數：<span id="timer">讀取中...</span> | 拾葉人數：<span id="viewCount">0</span>
     </div>
 </header>
 
@@ -73,23 +99,17 @@
 </nav>
 
 <div class="container">
-
-    <div class="ig-top-area">
-        <a href="https://www.instagram.com/ctbc114_gsa/" target="_blank" class="ig-pure-btn">📸 Follow Instagram @114_gsa</a>
+    <div class="top-action-area">
+        <a href="https://www.instagram.com/你的帳號/" target="_blank" class="ig-pure-btn">📸 Follow Instagram @114_gsa</a>
+        <button onclick="sharePage()" class="share-btn">📤 分享給同學</button>
     </div>
-    <div style="text-align: center; margin: 20px 0;">
-    <button onclick="sharePage()" style="background: #8eb69b; color: white; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer;">
-        📤 分享給同學
-    </button>
-</div>
-
 
     <section id="notice">
         <h2>📢 拾葉公告</h2>
         <div class="notice-board">
             <div id="adminNoticeArea" style="display:none; margin-bottom: 20px;">
-                <input type="text" id="noticeInput" placeholder="輸入公告內容..." style="width: 75%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
-                <button onclick="postNotice()" style="padding: 10px 20px; background: #3d5a45; color: white; border: none; border-radius: 8px; cursor: pointer;">發布</button>
+                <input type="text" id="noticeInput" placeholder="輸入公告內容..." style="width: 70%; padding: 10px;">
+                <button onclick="postNotice()" style="padding: 10px; background: #3d5a45; color: white; border: none;">發布</button>
             </div>
             <div id="noticeList">正在載入公告...</div>
         </div>
@@ -98,10 +118,10 @@
     <section id="links">
         <h2>🔗 重要連結傳送門</h2>
         <div class="links-board">
-            <div id="adminLinkArea" style="display:none; margin-bottom: 20px; background: #f0f4f2; padding: 15px; border-radius: 12px;">
-                <input type="text" id="linkName" placeholder="連結名稱" style="width: 40%; padding: 8px;">
-                <input type="text" id="linkUrl" placeholder="網址" style="width: 40%; padding: 8px;">
-                <button onclick="postLink()" style="padding: 8px 15px; background: #3d5a45; color: white; border: none; border-radius: 5px; cursor: pointer;">新增</button>
+            <div id="adminLinkArea" style="display:none; margin-bottom: 20px;">
+                <input type="text" id="linkName" placeholder="名稱">
+                <input type="text" id="linkUrl" placeholder="網址">
+                <button onclick="postLink()">新增</button>
             </div>
             <div id="linksList">正在載入連結...</div>
         </div>
@@ -110,67 +130,68 @@
     <section id="photos">
         <h2>🍃 拾葉・瞬間</h2>
         <div class="gallery-grid" id="galleryGrid"></div>
+        <button class="open-yearbook-btn" id="albumBtn" onclick="toggleFullAlbum()" style="background: #8eb69b; margin-top: 20px;">🖼️ 查看完整相簿 (a1-a50)</button>
+        <div id="full-album-wrapper">
+            <div class="gallery-grid" id="fullAlbumGrid"></div>
+        </div>
     </section>
 
     <section id="qa">
         <h2>📮 拾起心聲</h2>
-        <div id="adminArea" style="display:none; background:#fdfcf0; padding:20px; border-radius:15px; margin-bottom:25px; border:1px dashed #d4a373;">
-            <p style="margin-top:0; color:#856404;"><strong>🔒 管理員回覆站</strong></p>
+        <div id="adminArea" style="display:none; background:#fdfcf0; padding:20px; border-radius:15px; margin-bottom:20px;">
+            <p style="margin:0; color:#856404; font-weight:bold;">🔒 待處理留言 (僅管理員可見)</p>
             <div id="pendingList"></div>
         </div>
-        <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-            <textarea id="qInput" placeholder="寫下你想對 114 級說的話..." style="width: 100%; height: 120px; padding: 15px; border-radius: 12px; border: 1px solid #e0e0e0; resize: none; box-sizing: border-box;"></textarea>
-            <button class="post-btn" onclick="postQ()">封存並送出</button>
-            <div id="publicList" style="margin-top:30px;"></div>
+        <div style="background: white; padding: 25px; border-radius: 20px;">
+            <textarea id="qInput" placeholder="寫下你想對 114 級說的話..." style="width: 100%; height: 100px; padding: 10px; border-radius: 10px;"></textarea>
+            <button class="post-btn" onclick="postQ()" style="width:100%; padding: 15px; background: #3d5a45; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px;">封存並送出</button>
+            <div id="publicList" style="margin-top:20px;"></div>
         </div>
     </section>
 
     <section id="teachers">
         <h2>🎙️ 那些校園中零碎又熟悉的聲音</h2>
         <div class="teacher-grid" id="teacherGrid"></div>
-        <div style="margin-top: 30px; text-align: center;">
-    <div id="hidden-memory" style="display: inline-block; background: #e8f5ed; padding: 20px; border-radius: 20px; border: 2px dashed #3d5a45; cursor: pointer; transition: 0.3s;" onclick="revealSecret()">
-        <img id="secret-img" src="photos/hidden.jpg" style="width: 150px; height: 150px; object-fit: cover; border-radius: 12px; filter: blur(5px);">
-        <p id="secret-text" style="font-weight: bold; color: #3d5a45; margin-top: 10px;">❓ 拾起隱藏版回憶</p>
-        <div id="secret-audio-area" style="display: none; margin-top: 10px;">
-            <button class="audio-btn" style="background: #e67e22;" onclick="playAudio('c11')">🔊 立即播放</button>
-            <audio id="audio-c11" src="photos/c11.m4a"></audio>
-        </div>
-    </div>
-</div>
-
-    </section>
-
-    <section id="map">
-        <h2>📍 拾葉地圖：校園座標</h2>
-        <div style="text-align: center; margin-top: 20px;">
-            <div id="map-container">
-                <img src="photos/b1.png" style="width: 100%; display: block;">
-                <script>
-                    const points = [{id:1, t:15, l:20}, {id:2, t:25, l:45}, {id:3, t:18, l:70}, {id:4, t:45, l:15}, {id:5, t:50, l:40}, {id:6, t:42, l:80}, {id:7, t:70, l:30}, {id:8, t:80, l:60}, {id:9, t:75, l:85}, {id:10, t:90, l:45}];
-                    points.forEach(p => {
-                        document.write(`<button class="map-point-btn" style="top:${p.t}%; left:${p.l}%;" onclick="window.open('photos/d${p.id}.jpg', '_blank')">🍀<span>${p.id}</span></button>`);
-                    });
-                </script>
+        
+        <div style="text-align: center;">
+            <div id="hidden-memory" class="hidden-memory-card" onclick="revealSecret()">
+                <img id="secret-img" src="photos/hidden.jpg" onerror="this.src='photos/b1.jpg'">
+                <p id="secret-text" style="font-weight: bold; color: #3d5a45; margin-top: 10px;">❓ 猜猜我是誰</p>
+                <div id="secret-audio-area" style="display: none; margin-top: 10px;">
+                    <button class="audio-btn" style="background: #e67e22;" onclick="playAudio('c11')">🔊 立即播放回憶</button>
+                    <audio id="audio-c11" src="photos/c11.m4a"></audio>
+                </div>
             </div>
         </div>
     </section>
 
+    <section id="map">
+        <h2>📍 拾葉地圖：校園座標</h2>
+        <div id="map-container">
+            <img src="photos/b1.jpg" style="width: 100%;">
+            <script>
+                const points = [{id:1, t:90, l:45}, {id:2, t:80, l:20}, {id:3, t:53, l:15}, {id:4, t:25, l:15}, {id:5, t:22, l:50}, {id:6, t:35, l:70}, {id:7, t:68, l:70}, {id:8, t:75, l:70}, {id:9, t:70, l:35}, {id:10, t:90, l:45}];
+                points.forEach(p => {
+                    document.write(`<button class="map-point-btn" style="top:${p.t}%; left:${p.l}%;" onclick="window.open('photos/d${p.id}.jpg', '_blank')">🍀</button>`);
+                });
+            </script>
+        </div>
+    </section>
+
     <section id="yearbook-section">
-        <button class="open-yearbook-btn" id="openBtn" onclick="toggleYearbook()">📖 開啟數位畢冊</button>
+        <button class="open-yearbook-btn" id="yearbookBtn" onclick="toggleYearbook()">📖 開啟數位畢冊</button>
         <div id="yearbook-wrapper">
-            <h2>📖 數位畢冊：班級回憶牆</h2>
-            <div class="class-nav">
+            <div class="class-nav" style="text-align: center; margin-bottom: 20px;">
                 <script>
                     const classList = ['J301','J302','J303','J304','J305','H301','H302','H303','H304','H305'];
-                    classList.forEach(c => document.write(`<a href="#class-${c}" class="class-btn">${c}</a>`));
+                    classList.forEach(c => document.write(`<a href="#class-${c}" style="margin: 5px; text-decoration: none; color: #3d5a45; font-weight: bold;">${c}</a> `));
                 </script>
             </div>
             <div id="yearbookContent">
                 <script>
                     classList.forEach((cls, idx) => {
                         let s = idx * 4 + 1;
-                        document.write(`<div id="class-${cls}" class="class-section"><div class="class-title">${cls} 班級牆</div><div class="class-grid"><img src="photos/e${s}.jpg" onclick="window.open(this.src)" onerror="this.style.display='none'"><img src="photos/e${s+1}.jpg" onclick="window.open(this.src)" onerror="this.style.display='none'"><img src="photos/e${s+2}.jpg" onclick="window.open(this.src)" onerror="this.style.display='none'"><img src="photos/e${s+3}.jpg" onclick="window.open(this.src)" onerror="this.style.display='none'"></div></div>`);
+                        document.write(`<div id="class-${cls}" style="margin-bottom: 30px;"><h3>${cls}</h3><div class="class-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;"><img src="photos/e${s}.jpg"><img src="photos/e${s+1}.jpg"><img src="photos/e${s+2}.jpg"><img src="photos/e${s+3}.jpg"></div></div>`);
                     });
                 </script>
             </div>
@@ -182,125 +203,179 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
 <script>
-    // --- Firebase 配置與所有功能 (全數保留與之前一致) ---
+    // --- Firebase 配置 ---
     const firebaseConfig = { apiKey: "AIzaSyAPh-eTbUvGLFKFvTByfnGLJwja2bH4iKQ", authDomain: "graduation-cdb95.firebaseapp.com", databaseURL: "https://graduation-cdb95-default-rtdb.firebaseio.com", projectId: "graduation-cdb95" };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     let isAdmin = false;
 
+    // --- 🚀 驚喜頭像邏輯 ---
+    function triggerSurprise() {
+        const container = document.getElementById('surpriseContainer');
+        const avatarSources = ['photos/head1.jpg', 'photos/head2.jpg', 'photos/head3.jpg']; 
+        
+        avatarSources.forEach((src, index) => {
+            setTimeout(() => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'avatar-pop';
+                const randomLeft = 15 + (index * 30) + (Math.random() * 10); 
+                img.style.left = randomLeft + '%';
+                img.style.bottom = '-120px'; 
+                container.appendChild(img);
+                setTimeout(() => img.remove(), 2500);
+            }, index * 350);
+        });
+    }
+
+    // --- 完整相簿切換 ---
+    function toggleFullAlbum() {
+        const w = document.getElementById('full-album-wrapper');
+        const grid = document.getElementById('fullAlbumGrid');
+        const btn = document.getElementById('albumBtn');
+        if (w.style.display === 'block') {
+            w.style.display = 'none';
+            btn.innerText = "🖼️ 查看完整相簿 (a1-a50)";
+        } else {
+            if (grid.innerHTML.trim() === "") {
+                let h = "";
+                for (let i = 1; i <= 50; i++) h += `<div class="photo-item"><img src="photos/a${i}.jpg" loading="lazy"></div>`;
+                grid.innerHTML = h;
+            }
+            w.style.display = 'block';
+            btn.innerText = "📕 合起完整相簿";
+        }
+    }
+
+    // --- 畢冊切換 ---
+    function toggleYearbook() {
+        const w = document.getElementById('yearbook-wrapper');
+        const btn = document.getElementById('yearbookBtn');
+        if (w.style.display === 'block') {
+            w.style.display = 'none';
+            btn.innerText = "📖 開啟數位畢冊";
+        } else {
+            w.style.display = 'block';
+            btn.innerText = "📕 合起數位畢冊";
+        }
+    }
+
+    // --- 照片輪播 ---
+    const groups = [['a1', 'a2', 'a3', 'a4'], ['a5', 'a6', 'a7', 'a8']];
+    let cur = 0;
+    function updateA() {
+        const g = document.getElementById('galleryGrid');
+        if(!g) return;
+        g.style.opacity = 0;
+        setTimeout(() => {
+            g.innerHTML = groups[cur].map(i => `<div class="photo-item"><img src="photos/${i}.jpg"></div>`).join('');
+            g.style.opacity = 1;
+            cur = (cur + 1) % groups.length;
+        }, 800);
+    }
+    setInterval(updateA, 7000); updateA();
+
+    // --- 揭曉隱藏版 ---
+    function revealSecret() {
+        document.getElementById('secret-img').style.filter = 'none';
+        document.getElementById('secret-text').innerText = '🎉 李南生 老師';
+        document.getElementById('secret-audio-area').style.display = 'block';
+        const card = document.getElementById('hidden-memory');
+        card.style.transform = 'scale(1.05)';
+        card.style.borderStyle = 'solid';
+        card.onclick = null;
+    }
+
+    // --- 老師牆渲染 (新增老師姓名清單) ---
+    const teacherNames = ["何嘉齊老師", "尤錦堂老師", "陳啟堯老師", "吳旻儕老師", "楊仁文老師", "黃卉妤老師", "林宜慧老師", "陳育芬老師", "顏淑雯老師", "楊金水老師"];
+    document.getElementById('teacherGrid').innerHTML = teacherNames.map((name, i) => {
+        const n = i + 1;
+        return `<div class="teacher-card">
+            <img src="photos/c${n}.jpg">
+            <span class="teacher-name">${name}</span>
+            <button class="audio-btn" onclick="playAudio('c${n}')">🔊 聆聽</button>
+            <audio id="audio-c${n}" src="photos/c${n}.m4a"></audio>
+        </div>`;
+    }).join('');
+
+    function playAudio(id) { document.querySelectorAll('audio').forEach(a => {a.pause(); a.currentTime=0;}); document.getElementById(`audio-${id}`).play(); }
+
+    // --- 倒數與人數 ---
+    function updateTime() {
+        const gap = new Date("2026-06-09T09:00:00").getTime() - new Date().getTime();
+        if(gap<=0) { document.getElementById("timer").innerText="畢業快樂"; return; }
+        const d=Math.floor(gap/86400000), h=Math.floor((gap%86400000)/3600000), m=Math.floor((gap%3600000)/60000), s=Math.floor((gap%60000)/1000);
+        document.getElementById("timer").innerText = `${d}天 ${h}:${m}:${s}`;
+    }
+    setInterval(updateTime, 1000);
+    db.ref('visitor_count').transaction(c => (c || 0) + 1);
+    db.ref('visitor_count').on('value', s => { document.getElementById('viewCount').innerText = s.val() || 0; });
+
+    // --- 公告功能 ---
+    function renderNotices() {
+        db.ref('notices').on('value', s => {
+            const data = s.val(); const list = document.getElementById('noticeList');
+            if(!data) { list.innerHTML = "目前尚無公告"; return; }
+            list.innerHTML = Object.entries(data).reverse().map(([k,v]) => `<div class="notice-item"><div><span class="notice-date">${v.date}</span>${v.text}</div>${isAdmin? `<button onclick="deleteNotice('${k}')" style="color:red; border:none; background:none; cursor:pointer;">刪除</button>`:''}</div>`).join('');
+        });
+    }
+    renderNotices();
+    function postNotice() { const t=document.getElementById('noticeInput').value; if(!t.trim()) return; db.ref('notices').push({text:t, date:new Date().toLocaleDateString()}); document.getElementById('noticeInput').value=""; }
+    function deleteNotice(id) { if(confirm("確定刪除公告？")) db.ref('notices/'+id).remove(); }
+
+    // --- 連結功能 ---
     function renderLinks() {
         db.ref('useful_links').on('value', s => {
             const data = s.val(); const list = document.getElementById('linksList');
-            if(!data) { list.innerHTML = "<p style='color:#999;'>尚無重要連結</p>"; return; }
+            if(!data) { list.innerHTML = "無連結"; return; }
             list.innerHTML = Object.entries(data).map(([k, v]) => `<div class="link-item"><a href="${v.url}" target="_blank" class="link-btn">${v.name}</a>${isAdmin ? `<button onclick="deleteLink('${k}')" style="color:red; border:none; background:none; cursor:pointer;">刪除</button>` : ''}</div>`).join('');
         });
     }
     renderLinks();
-    function postLink() { const n=document.getElementById('linkName').value; const u=document.getElementById('linkUrl').value; if(!n||!u) return; db.ref('useful_links').push({name:n, url:u}); document.getElementById('linkName').value=""; document.getElementById('linkUrl').value=""; }
-    function deleteLink(id) { if(confirm("刪除連結？")) db.ref('useful_links/'+id).remove(); }
+    function postLink() { const n=document.getElementById('linkName').value, u=document.getElementById('linkUrl').value; if(n&&u) { db.ref('useful_links').push({name:n, url:u}); document.getElementById('linkName').value=""; document.getElementById('linkUrl').value=""; } }
+    function deleteLink(id) { if(confirm("確定刪除連結？")) db.ref('useful_links/'+id).remove(); }
 
-    function toggleYearbook() { const w=document.getElementById('yearbook-wrapper'); const b=document.getElementById('openBtn'); const isShow=w.style.display==='block'; w.style.display=isShow?'none':'block'; b.innerText=isShow?"📖 開啟數位畢冊":"📕 闔上數位畢冊"; if(!isShow) w.scrollIntoView({behavior:'smooth'}); }
-
-    db.ref('visitor_count').transaction(c => (c || 0) + 1);
-    db.ref('visitor_count').on('value', s => { document.getElementById('viewCount').innerText = s.val() || 0; });
-
-    function renderNotices() {
-        db.ref('notices').on('value', s => {
-            const data = s.val(); const list = document.getElementById('noticeList');
-            if(!data) { list.innerHTML = "無公告"; return; }
-            list.innerHTML = Object.entries(data).reverse().map(([k,v]) => `<div class="notice-item"><div><span class="notice-date">${v.date}</span>${v.text}</div>${isAdmin? `<button onclick="deleteNotice('${k}')" style="color:red; border:none; background:none;">刪除</button>`:''}</div>`).join('');
-        });
-    }
-    renderNotices();
-    function postNotice() { const txt=document.getElementById('noticeInput').value; if(!txt.trim()) return; const d=new Date(); db.ref('notices').push({text:txt, date:`${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`}); document.getElementById('noticeInput').value=""; }
-    function deleteNotice(id) { if(confirm("刪除？")) db.ref('notices/'+id).remove(); }
-
-    const photoGroups = [['a1', 'a2', 'a3', 'a4'], ['a5', 'a6', 'a7', 'a8']];
-    let curIdx = 0;
-    function updateA() {
-        const grid = document.getElementById('galleryGrid'); grid.style.opacity = 0;
-        setTimeout(() => { grid.innerHTML = photoGroups[curIdx].map(img => `<div class="photo-item"><img src="photos/${img}.jpg"></div>`).join(''); grid.style.opacity = 1; curIdx = (curIdx + 1) % photoGroups.length; }, 800);
-    }
-    setInterval(updateA, 7000); updateA();
-
-    document.getElementById('teacherGrid').innerHTML = [1,2,3,4,5,6,7,8,9,10].map(n => `<div class="teacher-card"><img src="photos/c${n}.jpg"><button class="audio-btn" onclick="playAudio('c${n}')">🔊 聆聽回憶</button><audio id="audio-c${n}" src="photos/c${n}.m4a"></audio></div>`).join('');
-    function playAudio(id) { document.querySelectorAll('audio').forEach(a => {a.pause(); a.currentTime=0;}); document.getElementById(`audio-${id}`).play(); }
-
-    function updateTime() {
-        const gap = new Date("2026-06-09T00:00:00").getTime() - new Date().getTime();
-        if(gap<=0) { document.getElementById("timer").innerText="畢業快樂！"; return; }
-        const d=Math.floor(gap/86400000), h=Math.floor((gap%86400000)/3600000), m=Math.floor((gap%3600000)/60000), s=Math.floor((gap%60000)/1000);
-        document.getElementById("timer").innerText = `${d}天 ${h}時 ${m}分 ${s}秒`;
-    }
-    setInterval(updateTime, 1000);
-
+    // --- 留言板功能 ---
+    function postQ() { const i=document.getElementById('qInput'); if(!i.value.trim()) return; db.ref('qa_list').push({question:i.value, answer:"", timestamp:new Date().toLocaleString()}); i.value=""; alert("已送出"); }
     function renderQA() {
-        db.ref('qa_list').on('value', snap => {
-            const data = snap.val(); const pub = document.getElementById('publicList'); const pen = document.getElementById('pendingList');
-            if(!data) { pub.innerHTML="暫無留言"; return; }
+        db.ref('qa_list').on('value', s => {
+            const data = s.val(); const pubList = document.getElementById('publicList'); const penList = document.getElementById('pendingList');
+            if(!data) { pubList.innerHTML = "暫無留言"; if(penList) penList.innerHTML = ""; return; }
             const items = Object.entries(data).reverse();
-            pub.innerHTML = items.filter(([k,v])=>v.answer).map(([k,v])=>`<div style="border-bottom:1px solid #eee; padding:15px 0;"><div>問：${v.question}</div><div style="color:#3d5a45; border-left:3px solid #8eb69b; padding-left:10px;">答：${v.answer}</div>${isAdmin?`<button onclick="deleteQ('${k}')">刪除</button>`:''}</div>`).join('');
-            if(isAdmin) pen.innerHTML = items.filter(([k,v])=>!v.answer).map(([k,v])=>`<div>${v.question} <button onclick="replyQ('${k}')">回覆</button></div>`).join('');
+            pubList.innerHTML = items.filter(([k,v])=>v.answer).map(([k,v])=>`<div style="border-bottom:1px solid #eee; padding:10px 0;">問：${v.question}<br><span style="color:#3d5a45">答：${v.answer}</span>${isAdmin? `<br><button onclick="deleteQ('${k}')" style="color:red; border:none; background:none; cursor:pointer;">刪除</button>`:''}</div>`).join('');
+            if(isAdmin && penList) {
+                penList.innerHTML = items.filter(([k,v])=>!v.answer).map(([k,v])=>`<div style="padding:10px; border-bottom:1px solid #ddd;">${v.question} <br><button onclick="replyQ('${k}')">回覆</button> <button onclick="deleteQ('${k}')" style="color:red; margin-left:10px;">刪除</button></div>`).join('');
+            }
         });
     }
     renderQA();
-    function postQ() { const i=document.getElementById('qInput'); if(!i.value.trim()) return; db.ref('qa_list').push({question:i.value, answer:"", timestamp:new Date().toLocaleString()}); i.value=""; alert("心情已拾起"); }
+    function replyQ(id) { const a = prompt("回覆內容："); if(a) db.ref('qa_list/'+id).update({answer: a}); }
+    function deleteQ(id) { if(confirm("確定刪除？")) db.ref('qa_list/'+id).remove(); }
 
+    // --- 管理員權限 ---
     function handleAdmin() {
-        if(prompt("管理者之鑰：") === "114gsa 0609") {
-            isAdmin = true;
-            document.getElementById('adminArea').style.display='block';
-            document.getElementById('adminNoticeArea').style.display='block';
-            document.getElementById('adminLinkArea').style.display='block';
-            document.getElementById('adminBtn').innerText="Logout";
-            alert("管理員登入成功"); renderQA(); renderNotices(); renderLinks();
-        }
-    }
-    function replyQ(id) { const a=prompt("回覆內容："); if(a) db.ref('qa_list/'+id).update({answer:a}); }
-    function deleteQ(id) { if(confirm("刪除？")) db.ref('qa_list/'+id).remove(); }
-    // 前：原本最後一個功能 deleteQ 的結尾
-    function deleteQ(id) { if(confirm("刪除？")) db.ref('qa_list/'+id).remove(); }
-
-// 【 插入這一段分享邏輯 】
-    async function sharePage() {
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: '114級畢聯會 | 拾葉',
-                    text: '快來看看我們的 114 級畢業回憶網站！🍀',
-                    url: window.location.href
-                });
-            } catch (err) { console.log('Cancel:', err); }
+        if(isAdmin) {
+            isAdmin = false; document.getElementById('adminBtn').innerText = "Admin";
+            document.getElementById('adminArea').style.display = 'none';
+            document.getElementById('adminNoticeArea').style.display = 'none';
+            document.getElementById('adminLinkArea').style.display = 'none';
+            alert("已登出"); renderQA(); renderNotices(); renderLinks();
         } else {
-            const dummy = document.createElement('input');
-            document.body.appendChild(dummy);
-            dummy.value = window.location.href;
-            dummy.select();
-            document.execCommand('copy');
-            document.body.removeChild(dummy);
-            alert('網址已複製到剪貼簿，快傳給同學！');
+            if(prompt("請輸入管理密碼：") === "114gsa 0609") {
+                isAdmin = true; document.getElementById('adminBtn').innerText = "Logout";
+                document.getElementById('adminArea').style.display = 'block';
+                document.getElementById('adminNoticeArea').style.display = 'block';
+                document.getElementById('adminLinkArea').style.display = 'block';
+                alert("管理員模式啟動！"); renderQA(); renderNotices(); renderLinks();
+            }
         }
     }
-// 【 插入結束 】
-function revealSecret() {
-    // 1. 去除模糊
-    document.getElementById('secret-img').style.filter = 'none';
-    // 2. 更換圖片 (如果你有點開後想換成的照片，可以改這裡)
-    // document.getElementById('secret-img').src = 'photos/c11.jpg'; 
-    // 3. 修改文字
-    document.getElementById('secret-text').innerText = '🎉 發現隱藏訊息！';
-    // 4. 顯示播放按鈕
-    document.getElementById('secret-audio-area').style.display = 'block';
-    // 5. 加上一點震動特效
-    document.getElementById('hidden-memory').style.transform = 'scale(1.05)';
-    document.getElementById('hidden-memory').style.borderStyle = 'solid';
-}
 
-
-</script> ```
-
-
-
+    // --- 分享功能 ---
+    async function sharePage() {
+        if (navigator.share) { try { await navigator.share({ title: '114級畢聯會 | 拾葉', text: '快來看看我們的畢業回憶網站！🍀', url: window.location.href }); } catch (err) {} }
+        else { const el = document.createElement('input'); el.value = window.location.href; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); alert('網址已複製！'); }
+    }
 </script>
 </body>
 </html>
