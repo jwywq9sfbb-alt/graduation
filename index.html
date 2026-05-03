@@ -41,11 +41,10 @@
         .hidden-memory-card img { width: 150px; height: 150px; object-fit: cover; border-radius: 12px; filter: blur(8px); transition: 0.6s; }
 
         /* 地圖與畢冊 */
+               /* 地圖與畢冊 */
         #map-container { position: relative; width: 100%; border-radius: 20px; overflow: hidden; border: 5px solid #3d5a45; }
-        .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); cursor: pointer; display: flex; justify-content: center; align-items: center; }
-        #yearbook-wrapper, #full-album-wrapper { display: none; margin-top: 20px; }
-        .open-yearbook-btn { display: block; width: 280px; margin: 40px auto; padding: 18px; background: #3d5a45; color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-align: center; }
-        .class-grid img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; }
+        .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 26px; height: 26px; transform: translate(-50%, -50%); cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; }
+
 
         .admin-action { position: absolute; top: 15px; right: 20px; font-size: 0.75rem; color: rgba(255,255,255,0.3); cursor: pointer; }
 
@@ -168,9 +167,9 @@
     <section id="map">
         <h2>📍 拾葉地圖：校園座標</h2>
         <div id="map-container">
-            <img src="photos/b1.png" style="width: 100%;">
+            <img src="photos/b1.jpg" style="width: 100%;">
             <script>
-                const points = [{id:1, t:90, l:45}, {id:2, t:80, l:20}, {id:3, t:53, l:15}, {id:4, t:25, l:15}, {id:5, t:22, l:50}, {id:6, t:35, l:70}, {id:7, t:68, l:70}, {id:8, t:75, l:70}, {id:9, t:70, l:35}, {id:10, t:90, l:45}];
+                const points = [{id:1, t:90, l:45}, {id:2, t:82, l:20}, {id:3, t:53, l:18}, {id:4, t:35, l:19}, {id:5, t:22, l:50}, {id:6, t:35, l:70}, {id:7, t:65, l:70}, {id:8, t:75, l:70}, {id:9, t:70, l:35}, {id:10, t:90, l:100}];
                 points.forEach(p => {
                     document.write(`<button class="map-point-btn" style="top:${p.t}%; left:${p.l}%;" onclick="window.open('photos/d${p.id}.jpg', '_blank')">🍀</button>`);
                 });
