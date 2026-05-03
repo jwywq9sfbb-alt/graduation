@@ -1,3 +1,4 @@
+程式碼
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -139,9 +140,9 @@
         <!-- 左箭頭 -->
         <button class="nav-arrow" onclick="changeGroup(-1)">❮</button>
         
-        <!-- 照片顯示區域 -->
-        <div class="gallery-grid" id="galleryGrid" style="flex-grow: 1; margin: 0 15px;">
-            <!-- 照片會由 JS 動態生成 -->
+        <!-- 照片顯示區域：強制三列佈局 -->
+        <div class="gallery-grid" id="galleryGrid" style="flex-grow: 1; margin: 0 15px; min-height: 250px; grid-template-columns: repeat(3, 1fr);">
+            <!-- 照片由 JS 動態生成 -->
         </div>
         
         <!-- 右箭頭 -->
@@ -149,34 +150,55 @@
     </div>
 
     <!-- 頁碼顯示 -->
-    <div id="pageIndicator" style="text-align: center; color: #4a6d53; font-weight: bold; margin-bottom: 20px;">1 / 13</div>
+    <div id="pageIndicator" style="text-align: center; color: #4a6d53; font-weight: bold; margin-bottom: 20px; font-size: 1.1rem;">1 / 17</div>
 
-    <button class="open-yearbook-btn" id="albumBtn" onclick="toggleFullAlbum()" style="background: #8eb69b;">🖼️ 查看完整相簿 (列表模式)</button>
+    <button class="open-yearbook-btn" id="albumBtn" onclick="toggleFullAlbum()" style="background: #8eb69b; margin-top: 20px;">🖼️ 查看完整相簿 (列表模式)</button>
+    
     <div id="full-album-wrapper">
         <div class="gallery-grid" id="fullAlbumGrid"></div>
     </div>
 </section>
 
+
 <style>
     /* 箭頭按鈕樣式 */
-    .nav-arrow {
-        background: #3d5a45;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
-        cursor: pointer;
-        font-size: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: 0.3s;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        z-index: 10;
+   /* 箭頭按鈕樣式 */
+.nav-arrow {
+    background: #3d5a45;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 10;
+    flex-shrink: 0;
+}
+.nav-arrow:hover { background: #8eb69b; transform: scale(1.1); }
+.nav-arrow:active { transform: scale(0.9); }
+
+/* 手機版適應：確保三張並排時不會破版 */
+@media (max-width: 600px) {
+    #galleryGrid { 
+        grid-template-columns: repeat(3, 1fr) !important; 
+        gap: 8px !important; 
     }
-    .nav-arrow:hover { background: #8eb69b; transform: scale(1.1); }
-    .nav-arrow:active { transform: scale(0.9); }
+    .photo-item img { 
+        height: 120px !important; /* 縮小高度以維持比例 */
+    }
+    .nav-arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
+
 </style>
     <section id="qa">
         <h2>📮 拾起心聲</h2>
@@ -307,19 +329,19 @@ function triggerSurprise() {
         }
     }
 
-    // --- 照片輪播 ---
-   // --- 🍃 50張照片 分組切換邏輯 ---
-let currentGroupIndex = 0; // 當前組別索引 (從 0 開始)
-const photosPerPage = 4;   // 每組 4 張
+  // --- 🍃 50張照片 三張一組手動切換 ---
+let currentGroupIndex = 0; 
+const photosPerPage = 3;   // 每組 3 張
 const totalPhotos = 50;    // 總共 50 張 (a1-a50)
-const totalGroups = Math.ceil(totalPhotos / photosPerPage); // 總共 13 組
+const totalGroups = Math.ceil(totalPhotos / photosPerPage); // 總共 17 組
 
 function renderPhotoGroup() {
     const grid = document.getElementById('galleryGrid');
     const indicator = document.getElementById('pageIndicator');
     if (!grid) return;
 
-    grid.style.opacity = 0; // 先淡出
+    // 切換時的淡出效果
+    grid.style.opacity = 0;
 
     setTimeout(() => {
         let htmlContent = "";
@@ -327,14 +349,34 @@ function renderPhotoGroup() {
         const end = Math.min(start + photosPerPage - 1, totalPhotos);
 
         for (let i = start; i <= end; i++) {
-            htmlContent += `<div class="photo-item"><img src="photos/a${i}.jpg" loading="lazy" onerror="this.src='https://via.placeholder.com/220x220?text=Image+a${i}'"></div>`;
+            htmlContent += `<div class="photo-item"><img src="photos/a${i}.jpg" loading="lazy"></div>`;
         }
 
         grid.innerHTML = htmlContent;
-        indicator.innerText = `${currentGroupIndex + 1} / ${totalGroups}`;
-        grid.style.opacity = 1; // 再淡入
+        if (indicator) indicator.innerText = `${currentGroupIndex + 1} / ${totalGroups}`;
+        grid.style.opacity = 1; // 淡入
     }, 300);
 }
+
+// 箭頭按鈕點擊控制
+function changeGroup(direction) {
+    currentGroupIndex += direction;
+
+    // 循環跳轉邏輯
+    if (currentGroupIndex >= totalGroups) {
+        currentGroupIndex = 0;
+    } else if (currentGroupIndex < 0) {
+        currentGroupIndex = totalGroups - 1;
+    }
+
+    renderPhotoGroup();
+}
+
+// 確保網頁載入後執行第一次渲染
+document.addEventListener('DOMContentLoaded', () => {
+    renderPhotoGroup();
+});
+
 
 // 箭頭點擊控制
 function changeGroup(direction) {
