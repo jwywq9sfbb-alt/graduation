@@ -132,14 +132,52 @@
     </section>
 
     <section id="photos">
-        <h2>🍃 拾葉・瞬間</h2>
-        <div class="gallery-grid" id="galleryGrid"></div>
-        <button class="open-yearbook-btn" id="albumBtn" onclick="toggleFullAlbum()" style="background: #8eb69b; margin-top: 20px;">🖼️ 查看完整相簿 (a1-a50)</button>
-        <div id="full-album-wrapper">
-            <div class="gallery-grid" id="fullAlbumGrid"></div>
+    <h2>🍃 拾葉・瞬間</h2>
+    
+    <!-- 照片切換容器 -->
+    <div style="position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+        <!-- 左箭頭 -->
+        <button class="nav-arrow" onclick="changeGroup(-1)">❮</button>
+        
+        <!-- 照片顯示區域 -->
+        <div class="gallery-grid" id="galleryGrid" style="flex-grow: 1; margin: 0 15px;">
+            <!-- 照片會由 JS 動態生成 -->
         </div>
-    </section>
+        
+        <!-- 右箭頭 -->
+        <button class="nav-arrow" onclick="changeGroup(1)">❯</button>
+    </div>
 
+    <!-- 頁碼顯示 -->
+    <div id="pageIndicator" style="text-align: center; color: #4a6d53; font-weight: bold; margin-bottom: 20px;">1 / 13</div>
+
+    <button class="open-yearbook-btn" id="albumBtn" onclick="toggleFullAlbum()" style="background: #8eb69b;">🖼️ 查看完整相簿 (列表模式)</button>
+    <div id="full-album-wrapper">
+        <div class="gallery-grid" id="fullAlbumGrid"></div>
+    </div>
+</section>
+
+<style>
+    /* 箭頭按鈕樣式 */
+    .nav-arrow {
+        background: #3d5a45;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        cursor: pointer;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 10;
+    }
+    .nav-arrow:hover { background: #8eb69b; transform: scale(1.1); }
+    .nav-arrow:active { transform: scale(0.9); }
+</style>
     <section id="qa">
         <h2>📮 拾起心聲</h2>
         <div id="adminArea" style="display:none; background:#fdfcf0; padding:20px; border-radius:15px; margin-bottom:20px;">
@@ -270,19 +308,53 @@ function triggerSurprise() {
     }
 
     // --- 照片輪播 ---
-    const groups = [['a1', 'a2', 'a3', 'a4'], ['a5', 'a6', 'a7', 'a8']];
-    let cur = 0;
-    function updateA() {
-        const g = document.getElementById('galleryGrid');
-        if(!g) return;
-        g.style.opacity = 0;
-        setTimeout(() => {
-            g.innerHTML = groups[cur].map(i => `<div class="photo-item"><img src="photos/${i}.jpg"></div>`).join('');
-            g.style.opacity = 1;
-            cur = (cur + 1) % groups.length;
-        }, 800);
+   // --- 🍃 50張照片 分組切換邏輯 ---
+let currentGroupIndex = 0; // 當前組別索引 (從 0 開始)
+const photosPerPage = 4;   // 每組 4 張
+const totalPhotos = 50;    // 總共 50 張 (a1-a50)
+const totalGroups = Math.ceil(totalPhotos / photosPerPage); // 總共 13 組
+
+function renderPhotoGroup() {
+    const grid = document.getElementById('galleryGrid');
+    const indicator = document.getElementById('pageIndicator');
+    if (!grid) return;
+
+    grid.style.opacity = 0; // 先淡出
+
+    setTimeout(() => {
+        let htmlContent = "";
+        const start = currentGroupIndex * photosPerPage + 1;
+        const end = Math.min(start + photosPerPage - 1, totalPhotos);
+
+        for (let i = start; i <= end; i++) {
+            htmlContent += `<div class="photo-item"><img src="photos/a${i}.jpg" loading="lazy" onerror="this.src='https://via.placeholder.com/220x220?text=Image+a${i}'"></div>`;
+        }
+
+        grid.innerHTML = htmlContent;
+        indicator.innerText = `${currentGroupIndex + 1} / ${totalGroups}`;
+        grid.style.opacity = 1; // 再淡入
+    }, 300);
+}
+
+// 箭頭點擊控制
+function changeGroup(direction) {
+    currentGroupIndex += direction;
+
+    // 循環邏輯：最後一頁往後跳回第一頁，第一頁往前跳到最後一頁
+    if (currentGroupIndex >= totalGroups) {
+        currentGroupIndex = 0;
+    } else if (currentGroupIndex < 0) {
+        currentGroupIndex = totalGroups - 1;
     }
-    setInterval(updateA, 7000); updateA();
+
+    renderPhotoGroup();
+}
+
+// 初始化顯示第一組
+window.onload = function() {
+    renderPhotoGroup();
+    // 這裡可以保留你原本其他的 window.onload 內容 (如 updateTime 等)
+};
 
     // --- 揭曉隱藏版 ---
     function revealSecret() {
