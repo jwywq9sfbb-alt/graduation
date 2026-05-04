@@ -184,20 +184,23 @@
 .nav-arrow:active { transform: scale(0.9); }
 
 /* 手機版適應：確保三張並排時不會破版 */
-@media (max-width: 600px) {
-    #galleryGrid { 
-        grid-template-columns: repeat(3, 1fr) !important; 
-        gap: 8px !important; 
-    }
-    .photo-item img { 
-        height: 120px !important; /* 縮小高度以維持比例 */
-    }
-    .nav-arrow {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
-    }
-}
+        @media (max-width: 600px) {
+            /* 確保 3 張一列不被切到 */
+            .gallery-grid { 
+                grid-template-columns: repeat(3, 1fr) !important; 
+                gap: 5px !important; 
+            }
+            .photo-item img { 
+                height: auto !important;     /* 讓高度隨寬度自動縮放，不強制裁切 */
+                aspect-ratio: 1 / 1;         /* 強制維持正方形，如果你的照片是橫的，可以改 4/3 */
+                object-fit: contain;         /* 確保整張圖都縮放在格子內，不被裁切 */
+                background: #eee;            /* 墊個底色防止照片比例不同時穿幫 */
+                border-radius: 8px !important;
+            }
+            nav a { margin: 5px 8px; font-size: 0.8rem; }
+            header h1 { font-size: 1.5rem; }
+        }
+
 
 </style>
     <section id="qa">
