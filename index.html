@@ -184,34 +184,38 @@
 .nav-arrow:active { transform: scale(0.9); }
 
 /* 手機版適應：確保三張並排時不會破版 */
-              @media (max-width: 600px) {
-            /* 調整容器間距，讓空間留給圖片 */
-            .container { width: 95%; margin: 15px auto; }
+                    @media (max-width: 600px) {
+            /* 容器撐到最滿，讓照片左右不留白 */
+            .container { width: 98%; margin: 10px auto; }
             
-            /* 讓三張圖片稍微放大，縮小間隙 */
+            /* 改為一張一列，這就是最大的橫向顯示方式 */
             .gallery-grid { 
-                grid-template-columns: repeat(3, 1fr) !important; 
-                gap: 6px !important; 
+                grid-template-columns: 1fr !important; 
+                gap: 15px !important; 
             }
 
             .photo-item img { 
-                height: 140px !important;    /* 稍微拉高高度 */
-                object-fit: cover;           /* 使用 cover 填滿感較強 */
-                border-radius: 8px !important;
+                height: auto !important;     /* 高度自動 */
+                aspect-ratio: 16 / 9;         /* 標準橫向比例，保證不切到 */
+                object-fit: cover;           /* 填滿感 */
+                border-radius: 12px !important;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             }
 
-            /* 如果你希望圖片「真正變大」，建議改為兩列 (註解掉上面，改用下面這行) */
-            /* .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; } */
-
-            /* 導航箭頭縮小一點點，避免擠到圖片 */
+            /* 讓左右箭頭浮動在照片兩側，節省空間 */
             .nav-arrow { 
-                width: 35px; 
-                height: 35px; 
-                font-size: 16px; 
+                position: absolute;
+                background: rgba(61, 90, 69, 0.8); /* 半透明深綠 */
+                width: 40px;
+                height: 40px;
             }
-            
-            header { padding: 2.5rem 1rem; }
-            header h1 { font-size: 1.4rem; letter-spacing: 2px; }
+            .nav-arrow:first-child { left: 5px; }
+            .nav-arrow:last-child { right: 5px; }
+
+            /* 修正導航列文字大小，避免擠成一團 */
+            nav a { margin: 5px 6px; font-size: 0.75rem; }
+            header { padding: 2rem 1rem; }
+            header h1 { font-size: 1.3rem; }
         }
 
 
