@@ -1,4 +1,3 @@
-程式碼
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -57,30 +56,86 @@
         #surpriseBtn:hover { transform: scale(1.1) rotate(15deg); background: #3d5a45; }
 
         /* --- 驚喜功能：更新後的樣式 --- */
-.avatar-pop {
-    width: 130px; /* 稍微放大一點點 */
-    height: 130px;
-    border-radius: 50%;
-    position: fixed;
-    object-fit: cover;
-    z-index: 1999;
-    pointer-events: none;
-    /* 移除透明混合模式，確保照片清晰 */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* 加個小陰影增加立體感 */
-    animation: popUp 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
+        .avatar-pop {
+            width: 130px; 
+            height: 130px;
+            border-radius: 50%;
+            position: fixed;
+            object-fit: cover;
+            z-index: 1999;
+            pointer-events: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+            animation: popUp 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
 
-@keyframes popUp {
-    0% { transform: scale(0) translateY(100px) rotate(-25deg); opacity: 0; }
-    15% { transform: scale(1.1) translateY(-100px) rotate(10deg); opacity: 1; }
-    50% { transform: scale(1) translateY(-300px) rotate(0); opacity: 1; }
-    100% { transform: scale(0.8) translateY(-650px) rotate(35deg); opacity: 0; }
-}
+        @keyframes popUp {
+            0% { transform: scale(0) translateY(100px) rotate(-25deg); opacity: 0; }
+            15% { transform: scale(1.1) translateY(-100px) rotate(10deg); opacity: 1; }
+            50% { transform: scale(1) translateY(-300px) rotate(0); opacity: 1; }
+            100% { transform: scale(0.8) translateY(-650px) rotate(35deg); opacity: 0; }
+        }
+
+        /* --- 🎵 畢業歌聆聽區專屬視覺樣式 --- */
+        .song-board { background: white; border-radius: 20px; padding: 30px; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 6px solid #4a6d53; display: flex; flex-direction: column; align-items: center; }
+        .player-container { display: flex; align-items: center; gap: 30px; width: 100%; max-width: 600px; flex-wrap: wrap; justify-content: center; }
+        .disc-area { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
+        .disc-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid #3d5a45; box-shadow: 0 4px 10px rgba(0,0,0,0.15); animation: rotateDisc 8s linear infinite; animation-play-state: paused; }
+        @keyframes rotateDisc { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .player-controls { flex-grow: 1; min-width: 250px; }
+        .song-title { font-size: 1.3rem; font-weight: bold; color: #3d5a45; margin: 0 0 5px 0; text-align: left; }
+        .song-meta { font-size: 0.85rem; color: #7f8c8d; margin-bottom: 15px; }
+        .control-row { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+        .main-play-btn { background: #3d5a45; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; box-shadow: 0 3px 8px rgba(61,90,69,0.3); }
+        .main-play-btn:hover { background: #8eb69b; transform: scale(1.05); }
+        .progress-wrapper { flex-grow: 1; display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: #555; }
+        .progress-bar { flex-grow: 1; -webkit-appearance: none; appearance: none; height: 6px; background: #e0e0e0; border-radius: 3px; outline: none; cursor: pointer; }
+        .progress-bar::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #3d5a45; cursor: pointer; transition: 0.2s; }
+        .progress-bar::-webkit-slider-thumb:hover { transform: scale(1.2); background: #8eb69b; }
+        .lyrics-wrapper { width: 100%; max-width: 600px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+        .lyrics-toggle-btn { background: none; border: none; color: #4a6d53; font-weight: bold; cursor: pointer; display: block; margin: 0 auto; font-size: 0.95rem; transition: 0.3s; }
+        .lyrics-toggle-btn:hover { color: #8eb69b; }
+        .lyrics-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; text-align: center; color: #555; font-size: 0.95rem; line-height: 2.2; margin-top: 10px; }
+        .lyrics-content.open { max-height: 400px; overflow-y: auto; }
+
+        /* 箭頭按鈕樣式 */
+        .nav-arrow {
+            background: #3d5a45;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+            flex-shrink: 0;
+        }
+        .nav-arrow:hover { background: #8eb69b; transform: scale(1.1); }
+        .nav-arrow:active { transform: scale(0.9); }
+
+        /* 手機版適應：確保三張並排時不會破版 */
+        @media (max-width: 600px) {
+            .container { width: 98%; margin: 10px auto; }
+            .gallery-grid { grid-template-columns: 1fr !important; gap: 15px !important; }
+            .photo-item img { height: auto !important; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+            .nav-arrow { position: absolute; background: rgba(61, 90, 69, 0.8); width: 40px; height: 40px; }
+            .nav-arrow:first-child { left: 5px; }
+            .nav-arrow:last-child { right: 5px; }
+            nav a { margin: 5px 6px; font-size: 0.75rem; }
+            header { padding: 2rem 1rem; }
+            header h1 { font-size: 1.3rem; }
+            .player-container { flex-direction: column; gap: 15px; text-align: center; }
+            .song-title { text-align: center; }
+        }
     </style>
 </head>
 <body>
 
-<!-- 驚喜按鈕 -->
 <button id="surpriseBtn" onclick="triggerSurprise()" title="拾起驚喜">✨</button>
 <div id="surpriseContainer"></div>
 
@@ -96,6 +151,7 @@
 <nav>
     <a href="#notice">最新公告</a>
     <a href="#links">重要連結</a>
+    <a href="#song-section">畢業主題曲</a>
     <a href="#photos">拾葉瞬間</a>
     <a href="#qa">留言提議</a>
     <a href="#teachers">校園絮語</a>
@@ -132,95 +188,70 @@
         </div>
     </section>
 
-    <section id="photos">
-    <h2>🍃 拾葉・瞬間</h2>
-    
-    <!-- 照片切換容器 -->
-    <div style="position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-        <!-- 左箭頭 -->
-        <button class="nav-arrow" onclick="changeGroup(-1)">❮</button>
-        
-        <!-- 照片顯示區域：強制三列佈局 -->
-        <div class="gallery-grid" id="galleryGrid" style="flex-grow: 1; margin: 0 15px; min-height: 250px; grid-template-columns: repeat(3, 1fr);">
-            <!-- 照片由 JS 動態生成 -->
-        </div>
-        
-        <!-- 右箭頭 -->
-        <button class="nav-arrow" onclick="changeGroup(1)">❯</button>
-    </div>
-
-    <!-- 頁碼顯示 -->
-    <div id="pageIndicator" style="text-align: center; color: #4a6d53; font-weight: bold; margin-bottom: 20px; font-size: 1.1rem;">1 / 17</div>
-
-    <button class="open-yearbook-btn" id="albumBtn" onclick="toggleFullAlbum()" style="background: #8eb69b; margin-top: 20px;">🖼️ 查看完整相簿 (列表模式)</button>
-    
-    <div id="full-album-wrapper">
-        <div class="gallery-grid" id="fullAlbumGrid"></div>
-    </div>
-</section>
-
-
-<style>
-    /* 箭頭按鈕樣式 */
-   /* 箭頭按鈕樣式 */
-.nav-arrow {
-    background: #3d5a45;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    cursor: pointer;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    z-index: 10;
-    flex-shrink: 0;
-}
-.nav-arrow:hover { background: #8eb69b; transform: scale(1.1); }
-.nav-arrow:active { transform: scale(0.9); }
-
-/* 手機版適應：確保三張並排時不會破版 */
-                    @media (max-width: 600px) {
-            /* 容器撐到最滿，讓照片左右不留白 */
-            .container { width: 98%; margin: 10px auto; }
+    <section id="song-section">
+        <h2>🎵 114級畢業主題曲《拾葉》</h2>
+        <div class="song-board">
+            <div class="player-container">
+                <div class="disc-area">
+                    <img id="playerDisc" src="photos/b1.jpg" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300'" class="disc-img">
+                </div>
+                <div class="player-controls">
+                    <p class="song-title">拾葉</p>
+                    <p class="song-meta">中信國際高中 114級全體原創創作</p>
+                    <div class="control-row">
+                        <button id="playBtn" class="main-play-btn" onclick="toggleSong()">▶</button>
+                        <div class="progress-wrapper">
+                            <span id="currTime">00:00</span>
+                            <input type="range" id="songProgress" class="progress-bar" value="0" min="0" max="100" oninput="seekSong()">
+                            <span id="totalTime">00:00</span>
+                        </div>
+                    </div>
+                    <audio id="mainGradSong" src="photos/grad_song.mp3" ontimeupdate="updateProgress()" onloadedmetadata="initSongDuration()"></audio>
+                </div>
+            </div>
             
-            /* 改為一張一列，這就是最大的橫向顯示方式 */
-            .gallery-grid { 
-                grid-template-columns: 1fr !important; 
-                gap: 15px !important; 
-            }
+            <div class="lyrics-wrapper">
+                <button class="lyrics-toggle-btn" id="lyricsToggleBtn" onclick="toggleLyrics()">📜 展開歌詞</button>
+                <div id="lyricsContent" class="lyrics-content">
+                    <strong>《拾葉》</strong><br><br>
+                    詞／114級畢業歌團隊  曲／114級畢業歌團隊<br><br>
+                    (主歌一)<br>
+                    風吹過中信的走廊 樹影在黑板上搖晃<br>
+                    那一頁未完的篇章 寫滿了少年的瘋狂<br>
+                    還記得考場的緊張 還有你借我的肩膀<br>
+                    點點滴滴的日常 如今都成了行囊<br><br>
+                    (副歌)<br>
+                    讓我們在散落的回記裡拾起最初的幸運<br>
+                    這片四葉草見證過我們最純粹的心<br>
+                    就算未來的路佈滿風雨和未知風景<br>
+                    轉過身 抬起頭 踏上各自的遠行<br><br>
+                    (主歌二)<br>
+                    鳳凰花開得太匆忙 鐘聲敲響最後一堂<br>
+                    那些零碎熟悉的聲音 還在耳邊迴盪<br>
+                    謝謝你陪在我身旁 熬過那些迷惘夜光<br>
+                    明天起全新的戰場 我們各自發光<br><br>
+                    (尾奏)<br>
+                    珍重再見，114級，畢業快樂。
+                </div>
+            </div>
+        </div>
+    </section>
 
-            .photo-item img { 
-                height: auto !important;     /* 高度自動 */
-                aspect-ratio: 16 / 9;         /* 標準橫向比例，保證不切到 */
-                object-fit: cover;           /* 填滿感 */
-                border-radius: 12px !important;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            }
+    <section id="photos">
+        <h2>🍃 拾葉・瞬間</h2>
+        <div style="position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+            <button class="nav-arrow" onclick="changeGroup(-1)">❮</button>
+            <div class="gallery-grid" id="galleryGrid" style="flex-grow: 1; margin: 0 15px; min-height: 250px; grid-template-columns: repeat(3, 1fr);">
+                </div>
+            <button class="nav-arrow" onclick="changeGroup(1)">❯</button>
+        </div>
+        <div id="pageIndicator" style="text-align: center; color: #4a6d53; font-weight: bold; margin-bottom: 20px; font-size: 1.1rem;">1 / 17</div>
+        <button class="open-yearbook-btn" id="albumBtn" onclick="toggleFullAlbum()" style="background: #8eb69b; margin-top: 20px;">🖼️ 查看完整相簿 (列表模式)</button>
+        <div id="full-album-wrapper">
+            <div class="gallery-grid" id="fullAlbumGrid"></div>
+        </div>
+    </section>
 
-            /* 讓左右箭頭浮動在照片兩側，節省空間 */
-            .nav-arrow { 
-                position: absolute;
-                background: rgba(61, 90, 69, 0.8); /* 半透明深綠 */
-                width: 40px;
-                height: 40px;
-            }
-            .nav-arrow:first-child { left: 5px; }
-            .nav-arrow:last-child { right: 5px; }
-
-            /* 修正導航列文字大小，避免擠成一團 */
-            nav a { margin: 5px 6px; font-size: 0.75rem; }
-            header { padding: 2rem 1rem; }
-            header h1 { font-size: 1.3rem; }
-        }
-
-
-
-</style>
     <section id="qa">
         <h2>📮 拾起心聲</h2>
         <div id="adminArea" style="display:none; background:#fdfcf0; padding:20px; border-radius:15px; margin-bottom:20px;">
@@ -237,7 +268,6 @@
     <section id="teachers">
         <h2>🎙️ 那些校園中零碎又熟悉的聲音</h2>
         <div class="teacher-grid" id="teacherGrid"></div>
-        
         <div style="text-align: center;">
             <div id="hidden-memory" class="hidden-memory-card" onclick="revealSecret()">
                 <img id="secret-img" src="photos/hidden.jpg" onerror="this.src='photos/b1.jpg'">
@@ -295,28 +325,87 @@
     let isAdmin = false;
 
     // --- 🚀 驚喜頭像邏輯 ---
-   // --- 🚀 驚喜頭像邏輯 (更新版) ---
-function triggerSurprise() {
-    const container = document.getElementById('surpriseContainer');
-    // 這裡記得確認你的檔名是否正確
-    const avatarSources = ['photos/head1.jpg', 'photos/head2.jpg', 'photos/head3.jpg']; 
-    
-    avatarSources.forEach((src, index) => {
-        setTimeout(() => {
-            const img = document.createElement('img');
-            img.src = src;
-            img.className = 'avatar-pop';
-            // 隨機分布在螢幕寬度 10% ~ 80% 之間
-            const randomLeft = 10 + (Math.random() * 70); 
-            img.style.left = randomLeft + '%';
-            img.style.bottom = '-150px'; 
-            container.appendChild(img);
-            
-            // 動畫結束後移除元素避免佔用記憶體
-            setTimeout(() => img.remove(), 3000);
-        }, index * 400); // 每個頭像噴出的間隔稍微拉開
-    });
-}
+    function triggerSurprise() {
+        const container = document.getElementById('surpriseContainer');
+        const avatarSources = ['photos/head1.jpg', 'photos/head2.jpg', 'photos/head3.jpg']; 
+        
+        avatarSources.forEach((src, index) => {
+            setTimeout(() => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'avatar-pop';
+                const randomLeft = 10 + (Math.random() * 70); 
+                img.style.left = randomLeft + '%';
+                img.style.bottom = '-150px'; 
+                container.appendChild(img);
+                setTimeout(() => img.remove(), 3000);
+            }, index * 400);
+        });
+    }
+
+    // --- 🎵 畢業歌播放邏輯 ---
+    const mainSong = document.getElementById('mainGradSong');
+    const playBtn = document.getElementById('playBtn');
+    const disc = document.getElementById('playerDisc');
+    const progressBar = document.getElementById('songProgress');
+
+    function toggleSong() {
+        document.querySelectorAll('audio').forEach(a => {
+            if(a.id !== 'mainGradSong') { a.pause(); a.currentTime = 0; }
+        });
+
+        if (mainSong.paused) {
+            mainSong.play();
+            playBtn.innerText = "⏸";
+            disc.style.animationPlayState = "running";
+        } else {
+            mainSong.pause();
+            playBtn.innerText = "▶";
+            disc.style.animationPlayState = "paused";
+        }
+    }
+
+    // 初始化總長度
+    function initSongDuration() {
+        document.getElementById('totalTime').innerText = formatTime(mainSong.duration);
+    }
+
+    // 更新進度條與目前播放時間
+    function updateProgress() {
+        if (!isNaN(mainSong.duration)) {
+            const value = (mainSong.currentTime / mainSong.duration) * 100;
+            progressBar.value = value;
+            document.getElementById('currTime').innerText = formatTime(mainSong.currentTime);
+        }
+    }
+
+    // 手動拖曳進度條
+    function seekSong() {
+        const time = (progressBar.value / 100) * mainSong.duration;
+        mainSong.currentTime = time;
+    }
+
+    // 時間格式化 (mm:ss)
+    function formatTime(secs) {
+        let m = Math.floor(secs / 60);
+        let s = Math.floor(secs % 60);
+        if (m < 10) m = "0" + m;
+        if (s < 10) s = "0" + s;
+        return `${m}:${s}`;
+    }
+
+    // 歌詞摺疊面板
+    function toggleLyrics() {
+        const content = document.getElementById('lyricsContent');
+        const btn = document.getElementById('lyricsToggleBtn');
+        if (content.classList.contains('open')) {
+            content.classList.remove('open');
+            btn.innerText = "📜 展開歌詞";
+        } else {
+            content.classList.add('open');
+            btn.innerText = "📕 收合歌詞";
+        }
+    }
 
     // --- 完整相簿切換 ---
     function toggleFullAlbum() {
@@ -350,74 +439,43 @@ function triggerSurprise() {
         }
     }
 
-  // --- 🍃 50張照片 三張一組手動切換 ---
-let currentGroupIndex = 0; 
-const photosPerPage = 3;   // 每組 3 張
-const totalPhotos = 50;    // 總共 50 張 (a1-a50)
-const totalGroups = Math.ceil(totalPhotos / photosPerPage); // 總共 17 組
+    // --- 🍃 50張照片 三張一組手動切換 ---
+    let currentGroupIndex = 0; 
+    const photosPerPage = 3;   
+    const totalPhotos = 50;    
+    const totalGroups = Math.ceil(totalPhotos / photosPerPage); 
 
-function renderPhotoGroup() {
-    const grid = document.getElementById('galleryGrid');
-    const indicator = document.getElementById('pageIndicator');
-    if (!grid) return;
+    function renderPhotoGroup() {
+        const grid = document.getElementById('galleryGrid');
+        const indicator = document.getElementById('pageIndicator');
+        if (!grid) return;
 
-    // 切換時的淡出效果
-    grid.style.opacity = 0;
+        grid.style.opacity = 0;
 
-    setTimeout(() => {
-        let htmlContent = "";
-        const start = currentGroupIndex * photosPerPage + 1;
-        const end = Math.min(start + photosPerPage - 1, totalPhotos);
+        setTimeout(() => {
+            let htmlContent = "";
+            const start = currentGroupIndex * photosPerPage + 1;
+            const end = Math.min(start + photosPerPage - 1, totalPhotos);
 
-        for (let i = start; i <= end; i++) {
-            htmlContent += `<div class="photo-item"><img src="photos/a${i}.jpg" loading="lazy"></div>`;
+            for (let i = start; i <= end; i++) {
+                htmlContent += `<div class="photo-item"><img src="photos/a${i}.jpg" loading="lazy"></div>`;
+            }
+
+            grid.innerHTML = htmlContent;
+            if (indicator) indicator.innerText = `${currentGroupIndex + 1} / ${totalGroups}`;
+            grid.style.opacity = 1; 
+        }, 300);
+    }
+
+    function changeGroup(direction) {
+        currentGroupIndex += direction;
+        if (currentGroupIndex >= totalGroups) {
+            currentGroupIndex = 0;
+        } else if (currentGroupIndex < 0) {
+            currentGroupIndex = totalGroups - 1;
         }
-
-        grid.innerHTML = htmlContent;
-        if (indicator) indicator.innerText = `${currentGroupIndex + 1} / ${totalGroups}`;
-        grid.style.opacity = 1; // 淡入
-    }, 300);
-}
-
-// 箭頭按鈕點擊控制
-function changeGroup(direction) {
-    currentGroupIndex += direction;
-
-    // 循環跳轉邏輯
-    if (currentGroupIndex >= totalGroups) {
-        currentGroupIndex = 0;
-    } else if (currentGroupIndex < 0) {
-        currentGroupIndex = totalGroups - 1;
+        renderPhotoGroup();
     }
-
-    renderPhotoGroup();
-}
-
-// 確保網頁載入後執行第一次渲染
-document.addEventListener('DOMContentLoaded', () => {
-    renderPhotoGroup();
-});
-
-
-// 箭頭點擊控制
-function changeGroup(direction) {
-    currentGroupIndex += direction;
-
-    // 循環邏輯：最後一頁往後跳回第一頁，第一頁往前跳到最後一頁
-    if (currentGroupIndex >= totalGroups) {
-        currentGroupIndex = 0;
-    } else if (currentGroupIndex < 0) {
-        currentGroupIndex = totalGroups - 1;
-    }
-
-    renderPhotoGroup();
-}
-
-// 初始化顯示第一組
-window.onload = function() {
-    renderPhotoGroup();
-    // 這裡可以保留你原本其他的 window.onload 內容 (如 updateTime 等)
-};
 
     // --- 揭曉隱藏版 ---
     function revealSecret() {
@@ -442,7 +500,11 @@ window.onload = function() {
         </div>`;
     }).join('');
 
-    function playAudio(id) { document.querySelectorAll('audio').forEach(a => {a.pause(); a.currentTime=0;}); document.getElementById(`audio-${id}`).play(); }
+    function playAudio(id) { 
+        if(!mainSong.paused) { toggleSong(); }
+        document.querySelectorAll('audio').forEach(a => {a.pause(); a.currentTime=0;}); 
+        document.getElementById(`audio-${id}`).play(); 
+    }
 
     // --- 倒數與人數 ---
     function updateTime() {
@@ -452,6 +514,12 @@ window.onload = function() {
         document.getElementById("timer").innerText = `${d}天 ${h}:${m}:${s}`;
     }
     setInterval(updateTime, 1000);
+
+    window.onload = function() {
+        renderPhotoGroup();
+        updateTime();
+    };
+
     db.ref('visitor_count').transaction(c => (c || 0) + 1);
     db.ref('visitor_count').on('value', s => { document.getElementById('viewCount').innerText = s.val() || 0; });
 
@@ -481,12 +549,17 @@ window.onload = function() {
 
     // --- 留言板功能 ---
     function postQ() { const i=document.getElementById('qInput'); if(!i.value.trim()) return; db.ref('qa_list').push({question:i.value, answer:"", timestamp:new Date().toLocaleString()}); i.value=""; alert("已送出"); }
+    
+    // --- 💥 核心修改點：公開留言區渲染 (加入時間顯示) ---
     function renderQA() {
         db.ref('qa_list').on('value', s => {
             const data = s.val(); const pubList = document.getElementById('publicList'); const penList = document.getElementById('pendingList');
             if(!data) { pubList.innerHTML = "暫無留言"; if(penList) penList.innerHTML = ""; return; }
             const items = Object.entries(data).reverse();
-            pubList.innerHTML = items.filter(([k,v])=>v.answer).map(([k,v])=>`<div style="border-bottom:1px solid #eee; padding:10px 0;">問：${v.question}<br><span style="color:#3d5a45">答：${v.answer}</span>${isAdmin? `<br><button onclick="deleteQ('${k}')" style="color:red; border:none; background:none; cursor:pointer;">刪除</button>`:''}</div>`).join('');
+            
+            // 這裡直接輸出時間戳記 (如果是早期沒抓到時間的資料會顯示「早期留言」)
+            pubList.innerHTML = items.filter(([k,v])=>v.answer).map(([k,v])=>`<div style="border-bottom:1px solid #eee; padding:10px 0;"><span style="font-size: 0.8rem; color: #8eb69b; display: block; margin-bottom: 2px;">🕒 ${v.timestamp || '早期留言'}</span>問：${v.question}<br><span style="color:#3d5a45">答：${v.answer}</span>${isAdmin? `<br><button onclick="deleteQ('${k}')" style="color:red; border:none; background:none; cursor:pointer;">刪除</button>`:''}</div>`).join('');
+            
             if(isAdmin && penList) {
                 penList.innerHTML = items.filter(([k,v])=>!v.answer).map(([k,v])=>`<div style="padding:10px; border-bottom:1px solid #ddd;">${v.question} <br><button onclick="replyQ('${k}')">回覆</button> <button onclick="deleteQ('${k}')" style="color:red; margin-left:10px;">刪除</button></div>`).join('');
             }
@@ -496,7 +569,7 @@ window.onload = function() {
     function replyQ(id) { const a = prompt("回覆內容："); if(a) db.ref('qa_list/'+id).update({answer: a}); }
     function deleteQ(id) { if(confirm("確定刪除？")) db.ref('qa_list/'+id).remove(); }
 
-    // --- 管理員權限 ---
+    // --- 管理員權權限 ---
     function handleAdmin() {
         if(isAdmin) {
             isAdmin = false; document.getElementById('adminBtn').innerText = "Admin";
