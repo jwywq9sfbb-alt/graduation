@@ -75,6 +75,28 @@
             100% { transform: scale(0.8) translateY(-650px) rotate(35deg); opacity: 0; }
         }
 
+        /* --- 🎵 畢業歌聆聽區專屬視覺樣式 --- */
+        .song-board { background: white; border-radius: 20px; padding: 30px; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 6px solid #4a6d53; display: flex; flex-direction: column; align-items: center; }
+        .player-container { display: flex; align-items: center; gap: 30px; width: 100%; max-width: 600px; flex-wrap: wrap; justify-content: center; }
+        .disc-area { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
+        .disc-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid #3d5a45; box-shadow: 0 4px 10px rgba(0,0,0,0.15); animation: rotateDisc 8s linear infinite; animation-play-state: paused; }
+        @keyframes rotateDisc { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .player-controls { flex-grow: 1; min-width: 250px; }
+        .song-title { font-size: 1.3rem; font-weight: bold; color: #3d5a45; margin: 0 0 5px 0; text-align: left; }
+        .song-meta { font-size: 0.85rem; color: #7f8c8d; margin-bottom: 15px; }
+        .control-row { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+        .main-play-btn { background: #3d5a45; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; box-shadow: 0 3px 8px rgba(61,90,69,0.3); }
+        .main-play-btn:hover { background: #8eb69b; transform: scale(1.05); }
+        .progress-wrapper { flex-grow: 1; display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: #555; }
+        .progress-bar { flex-grow: 1; -webkit-appearance: none; appearance: none; height: 6px; background: #e0e0e0; border-radius: 3px; outline: none; cursor: pointer; }
+        .progress-bar::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #3d5a45; cursor: pointer; transition: 0.2s; }
+        .progress-bar::-webkit-slider-thumb:hover { transform: scale(1.2); background: #8eb69b; }
+        .lyrics-wrapper { width: 100%; max-width: 600px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+        .lyrics-toggle-btn { background: none; border: none; color: #4a6d53; font-weight: bold; cursor: pointer; display: block; margin: 0 auto; font-size: 0.95rem; transition: 0.3s; }
+        .lyrics-toggle-btn:hover { color: #8eb69b; }
+        .lyrics-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; text-align: center; color: #555; font-size: 0.95rem; line-height: 2.2; margin-top: 10px; }
+        .lyrics-content.open { max-height: 400px; overflow-y: auto; }
+
         /* 箭頭按鈕樣式 */
         .nav-arrow {
             background: #3d5a45;
@@ -107,6 +129,8 @@
             nav a { margin: 5px 6px; font-size: 0.75rem; }
             header { padding: 2rem 1rem; }
             header h1 { font-size: 1.3rem; }
+            .player-container { flex-direction: column; gap: 15px; text-align: center; }
+            .song-title { text-align: center; }
         }
     </style>
 </head>
@@ -127,6 +151,7 @@
 <nav>
     <a href="#notice">最新公告</a>
     <a href="#links">重要連結</a>
+    <a href="#song-section">畢業主題曲</a>
     <a href="#photos">拾葉瞬間</a>
     <a href="#qa">留言提議</a>
     <a href="#teachers">校園絮語</a>
@@ -160,6 +185,55 @@
                 <button onclick="postLink()">新增</button>
             </div>
             <div id="linksList">正在載入連結...</div>
+        </div>
+    </section>
+
+    <section id="song-section">
+        <h2>🎵 114級畢業主題曲《拾葉》</h2>
+        <div class="song-board">
+            <div class="player-container">
+                <div class="disc-area">
+                    <img id="playerDisc" src="photos/b1.jpg" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300'" class="disc-img">
+                </div>
+                <div class="player-controls">
+                    <p class="song-title">拾葉</p>
+                    <p class="song-meta">中信國際高中 114級全體原創創作</p>
+                    <div class="control-row">
+                        <button id="playBtn" class="main-play-btn" onclick="toggleSong()">▶</button>
+                        <div class="progress-wrapper">
+                            <span id="currTime">00:00</span>
+                            <input type="range" id="songProgress" class="progress-bar" value="0" min="0" max="100" oninput="seekSong()">
+                            <span id="totalTime">00:00</span>
+                        </div>
+                    </div>
+                    <audio id="mainGradSong" src="photos/grad_song.mp3" ontimeupdate="updateProgress()" onloadedmetadata="initSongDuration()"></audio>
+                </div>
+            </div>
+            
+            <div class="lyrics-wrapper">
+                <button class="lyrics-toggle-btn" id="lyricsToggleBtn" onclick="toggleLyrics()">📜 展開歌詞</button>
+                <div id="lyricsContent" class="lyrics-content">
+                    <strong>《拾葉》</strong><br><br>
+                    詞／114級畢業歌團隊  曲／114級畢業歌團隊<br><br>
+                    (主歌一)<br>
+                    風吹過中信的走廊 樹影在黑板上搖晃<br>
+                    那一頁未完的篇章 寫滿了少年的瘋狂<br>
+                    還記得考場的緊張 還有你借我的肩膀<br>
+                    點點滴滴的日常 如今都成了行囊<br><br>
+                    (副歌)<br>
+                    讓我們在散落的回記裡拾起最初的幸運<br>
+                    這片四葉草見證過我們最純粹的心<br>
+                    就算未來的路佈滿風雨和未知風景<br>
+                    轉過身 抬起頭 踏上各自的遠行<br><br>
+                    (主歌二)<br>
+                    鳳凰花開得太匆忙 鐘聲敲響最後一堂<br>
+                    那些零碎熟悉的聲音 還在耳邊迴盪<br>
+                    謝謝你陪在我身旁 熬過那些迷惘夜光<br>
+                    明天起全新的戰場 我們各自發光<br><br>
+                    (尾奏)<br>
+                    珍重再見，114級，畢業快樂。
+                </div>
+            </div>
         </div>
     </section>
 
@@ -269,6 +343,70 @@
         });
     }
 
+    // --- 🎵 畢業歌播放邏輯 ---
+    const mainSong = document.getElementById('mainGradSong');
+    const playBtn = document.getElementById('playBtn');
+    const disc = document.getElementById('playerDisc');
+    const progressBar = document.getElementById('songProgress');
+
+    function toggleSong() {
+        document.querySelectorAll('audio').forEach(a => {
+            if(a.id !== 'mainGradSong') { a.pause(); a.currentTime = 0; }
+        });
+
+        if (mainSong.paused) {
+            mainSong.play();
+            playBtn.innerText = "⏸";
+            disc.style.animationPlayState = "running";
+        } else {
+            mainSong.pause();
+            playBtn.innerText = "▶";
+            disc.style.animationPlayState = "paused";
+        }
+    }
+
+    // 初始化總長度
+    function initSongDuration() {
+        document.getElementById('totalTime').innerText = formatTime(mainSong.duration);
+    }
+
+    // 更新進度條與目前播放時間
+    function updateProgress() {
+        if (!isNaN(mainSong.duration)) {
+            const value = (mainSong.currentTime / mainSong.duration) * 100;
+            progressBar.value = value;
+            document.getElementById('currTime').innerText = formatTime(mainSong.currentTime);
+        }
+    }
+
+    // 手動拖曳進度條
+    function seekSong() {
+        const time = (progressBar.value / 100) * mainSong.duration;
+        mainSong.currentTime = time;
+    }
+
+    // 時間格式化 (mm:ss)
+    function formatTime(secs) {
+        let m = Math.floor(secs / 60);
+        let s = Math.floor(secs % 60);
+        if (m < 10) m = "0" + m;
+        if (s < 10) s = "0" + s;
+        return `${m}:${s}`;
+    }
+
+    // 歌詞摺疊面板
+    function toggleLyrics() {
+        const content = document.getElementById('lyricsContent');
+        const btn = document.getElementById('lyricsToggleBtn');
+        if (content.classList.contains('open')) {
+            content.classList.remove('open');
+            btn.innerText = "📜 展開歌詞";
+        } else {
+            content.classList.add('open');
+            btn.innerText = "📕 收合歌詞";
+        }
+    }
+
     // --- 完整相簿切換 ---
     function toggleFullAlbum() {
         const w = document.getElementById('full-album-wrapper');
@@ -363,6 +501,7 @@
     }).join('');
 
     function playAudio(id) { 
+        if(!mainSong.paused) { toggleSong(); }
         document.querySelectorAll('audio').forEach(a => {a.pause(); a.currentTime=0;}); 
         document.getElementById(`audio-${id}`).play(); 
     }
@@ -411,18 +550,18 @@
     // --- 留言板功能 ---
     function postQ() { const i=document.getElementById('qInput'); if(!i.value.trim()) return; db.ref('qa_list').push({question:i.value, answer:"", timestamp:new Date().toLocaleString()}); i.value=""; alert("已送出"); }
     
+    // --- 💥 核心修改點：公開留言區渲染 (加入時間顯示) ---
     function renderQA() {
         db.ref('qa_list').on('value', s => {
             const data = s.val(); const pubList = document.getElementById('publicList'); const penList = document.getElementById('pendingList');
             if(!data) { pubList.innerHTML = "暫無留言"; if(penList) penList.innerHTML = ""; return; }
             const items = Object.entries(data).reverse();
             
-            // 前台公開留言區 (已回覆)
+            // 這裡直接輸出時間戳記 (如果是早期沒抓到時間的資料會顯示「早期留言」)
             pubList.innerHTML = items.filter(([k,v])=>v.answer).map(([k,v])=>`<div style="border-bottom:1px solid #eee; padding:10px 0;"><span style="font-size: 0.8rem; color: #8eb69b; display: block; margin-bottom: 2px;">🕒 ${v.timestamp || '早期留言'}</span>問：${v.question}<br><span style="color:#3d5a45">答：${v.answer}</span>${isAdmin? `<br><button onclick="deleteQ('${k}')" style="color:red; border:none; background:none; cursor:pointer;">刪除</button>`:''}</div>`).join('');
             
-            // 後台待處理留言區 (未回覆)
             if(isAdmin && penList) {
-                penList.innerHTML = items.filter(([k,v])=>!v.answer).map(([k,v])=>`<div style="padding:12px; border-bottom:1px solid #ddd; background: #fff; margin-bottom: 5px; border-radius: 8px;"><span style="font-size: 0.75rem; color: #8eb69b; display: block; margin-bottom: 4px;">🕒 留言時間：${v.timestamp || '早期留言'}</span><strong style="color:#333;">未回覆提議：</strong>${v.question} <br style="margin-bottom:8px;"><button onclick="replyQ('${k}')" style="margin-top:5px; padding: 3px 10px;">回覆</button> <button onclick="deleteQ('${k}')" style="color:red; margin-left:10px; padding: 3px 10px;">刪除</button></div>`).join('');
+                penList.innerHTML = items.filter(([k,v])=>!v.answer).map(([k,v])=>`<div style="padding:10px; border-bottom:1px solid #ddd;">${v.question} <br><button onclick="replyQ('${k}')">回覆</button> <button onclick="deleteQ('${k}')" style="color:red; margin-left:10px;">刪除</button></div>`).join('');
             }
         });
     }
@@ -430,7 +569,7 @@
     function replyQ(id) { const a = prompt("回覆內容："); if(a) db.ref('qa_list/'+id).update({answer: a}); }
     function deleteQ(id) { if(confirm("確定刪除？")) db.ref('qa_list/'+id).remove(); }
 
-    // --- 管理員權限 ---
+    // --- 管理員權權限 ---
     function handleAdmin() {
         if(isAdmin) {
             isAdmin = false; document.getElementById('adminBtn').innerText = "Admin";
@@ -457,4 +596,3 @@
 </script>
 </body>
 </html>
-
