@@ -40,11 +40,11 @@
         .hidden-memory-card { display: inline-block; background: #e8f5ed; padding: 25px; border-radius: 20px; border: 2px dashed #3d5a45; cursor: pointer; transition: 0.4s; margin-top: 30px; }
         .hidden-memory-card img { width: 150px; height: 150px; object-fit: cover; border-radius: 12px; filter: blur(8px); transition: 0.6s; }
 
-        /* 地圖區域：僅縮小地圖點位按鈕 (44px -> 26px) */
+        /* 地圖區域：僅縮小地圖點位按鈕 */
         #map-container { position: relative; width: 100%; border-radius: 20px; overflow: hidden; border: 5px solid #3d5a45; }
         .map-point-btn { position: absolute; background: white; border: 2px solid #3d5a45; border-radius: 50%; width: 26px; height: 26px; transform: translate(-50%, -50%); cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; }
         
-        /* 畢冊按鈕恢復原本的大型樣式 (280px) */
+        /* 畢冊按鈕 */
         #yearbook-wrapper, #full-album-wrapper { display: none; margin-top: 20px; }
         .open-yearbook-btn { display: block; width: 280px; margin: 40px auto; padding: 18px; background: #3d5a45; color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-align: center; }
         .class-grid img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; }
@@ -118,7 +118,7 @@
         .nav-arrow:hover { background: #8eb69b; transform: scale(1.1); }
         .nav-arrow:active { transform: scale(0.9); }
 
-        /* 手機版適應：確保三張並排時不會破版 */
+        /* 手機版適應 */
         @media (max-width: 600px) {
             .container { width: 98%; margin: 10px auto; }
             .gallery-grid { grid-template-columns: 1fr !important; gap: 15px !important; }
@@ -214,24 +214,39 @@
                 <button class="lyrics-toggle-btn" id="lyricsToggleBtn" onclick="toggleLyrics()">📜 展開歌詞</button>
                 <div id="lyricsContent" class="lyrics-content">
                     <strong>《拾葉》</strong><br><br>
-                    詞／114級畢業歌團隊  曲／114級畢業歌團隊<br><br>
+                    
                     (主歌一)<br>
-                    風吹過中信的走廊 樹影在黑板上搖晃<br>
-                    那一頁未完的篇章 寫滿了少年的瘋狂<br>
-                    還記得考場的緊張 還有你借我的肩膀<br>
-                    點點滴滴的日常 如今都成了行囊<br><br>
-                    (副歌)<br>
-                    讓我們在散落的回記裡拾起最初的幸運<br>
-                    這片四葉草見證過我們最純粹的心<br>
-                    就算未來的路佈滿風雨和未知風景<br>
-                    轉過身 抬起頭 踏上各自的遠行<br><br>
+                    翻開地圖 算不出城市間的距離<br>
+                    走進校園 誰預知了未來的交集<br>
+                    那年九月 我們像散落各地的種子<br>
+                    被風吹進 同一個班級 寫第一行字<br><br>
+                    
                     (主歌二)<br>
-                    鳳凰花開得太匆忙 鐘聲敲響最後一堂<br>
-                    那些零碎熟悉的聲音 還在耳邊迴盪<br>
-                    謝謝你陪在我身旁 熬過那些迷惘夜光<br>
-                    明天起全新的戰場 我們各自發光<br><br>
+                    考卷的摺痕 藏著只有我們懂的冷笑話<br>
+                    福利社門口 揮灑著青春 剩餘的抵押<br>
+                    原本平行的 兩百個日子 乘以三<br>
+                    怎麼就變成了 捨不得拆分的答案<br><br>
+                    
+                    (副歌)<br>
+                    有人說 遇見四葉草是天大的運氣<br>
+                    要在幾十萬片綠意裡尋找唯一的你<br>
+                    我低頭 攤開手心 數著三年的點滴<br>
+                    原來每一片落葉 都是幸福的伏筆<br>
+                    你就是那二十萬分之一的奇蹟<br>
+                    在平凡的三三年裡 拾起最美的相遇<br>
+                    我們像幸運草 緊緊相依 永不分離<br>
+                    帶著這份 萬分之一的勇氣 奔向未來領地<br><br>
+                    
+                    (橋段)<br>
+                    世界很寬 人海很擠 我們會暫時消失在彼此的視線裡<br>
+                    但請別忘記 拾葉時說過的約定<br>
+                    有一份幸運 將永遠刻在我們的青春紀念冊裡<br><br>
+                    
                     (尾奏)<br>
-                    珍重再見，114級，畢業快樂。
+                    拾起一片葉子放在心底<br>
+                    這是二十萬分之一的幸運<br>
+                    這是二十萬分之一的奇蹟<br>
+                    剛好是你遇見了我而已
                 </div>
             </div>
         </div>
@@ -241,8 +256,7 @@
         <h2>🍃 拾葉・瞬間</h2>
         <div style="position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
             <button class="nav-arrow" onclick="changeGroup(-1)">❮</button>
-            <div class="gallery-grid" id="galleryGrid" style="flex-grow: 1; margin: 0 15px; min-height: 250px; grid-template-columns: repeat(3, 1fr);">
-                </div>
+            <div class="gallery-grid" id="galleryGrid" style="flex-grow: 1; margin: 0 15px; min-height: 250px; grid-template-columns: repeat(3, 1fr);"></div>
             <button class="nav-arrow" onclick="changeGroup(1)">❯</button>
         </div>
         <div id="pageIndicator" style="text-align: center; color: #4a6d53; font-weight: bold; margin-bottom: 20px; font-size: 1.1rem;">1 / 17</div>
@@ -365,12 +379,10 @@
         }
     }
 
-    // 初始化總長度
     function initSongDuration() {
         document.getElementById('totalTime').innerText = formatTime(mainSong.duration);
     }
 
-    // 更新進度條與目前播放時間
     function updateProgress() {
         if (!isNaN(mainSong.duration)) {
             const value = (mainSong.currentTime / mainSong.duration) * 100;
@@ -379,13 +391,11 @@
         }
     }
 
-    // 手動拖曳進度條
     function seekSong() {
         const time = (progressBar.value / 100) * mainSong.duration;
         mainSong.currentTime = time;
     }
 
-    // 時間格式化 (mm:ss)
     function formatTime(secs) {
         let m = Math.floor(secs / 60);
         let s = Math.floor(secs % 60);
@@ -394,7 +404,6 @@
         return `${m}:${s}`;
     }
 
-    // 歌詞摺疊面板
     function toggleLyrics() {
         const content = document.getElementById('lyricsContent');
         const btn = document.getElementById('lyricsToggleBtn');
@@ -550,14 +559,12 @@
     // --- 留言板功能 ---
     function postQ() { const i=document.getElementById('qInput'); if(!i.value.trim()) return; db.ref('qa_list').push({question:i.value, answer:"", timestamp:new Date().toLocaleString()}); i.value=""; alert("已送出"); }
     
-    // --- 💥 核心修改點：公開留言區渲染 (加入時間顯示) ---
     function renderQA() {
         db.ref('qa_list').on('value', s => {
             const data = s.val(); const pubList = document.getElementById('publicList'); const penList = document.getElementById('pendingList');
             if(!data) { pubList.innerHTML = "暫無留言"; if(penList) penList.innerHTML = ""; return; }
             const items = Object.entries(data).reverse();
             
-            // 這裡直接輸出時間戳記 (如果是早期沒抓到時間的資料會顯示「早期留言」)
             pubList.innerHTML = items.filter(([k,v])=>v.answer).map(([k,v])=>`<div style="border-bottom:1px solid #eee; padding:10px 0;"><span style="font-size: 0.8rem; color: #8eb69b; display: block; margin-bottom: 2px;">🕒 ${v.timestamp || '早期留言'}</span>問：${v.question}<br><span style="color:#3d5a45">答：${v.answer}</span>${isAdmin? `<br><button onclick="deleteQ('${k}')" style="color:red; border:none; background:none; cursor:pointer;">刪除</button>`:''}</div>`).join('');
             
             if(isAdmin && penList) {
@@ -569,7 +576,7 @@
     function replyQ(id) { const a = prompt("回覆內容："); if(a) db.ref('qa_list/'+id).update({answer: a}); }
     function deleteQ(id) { if(confirm("確定刪除？")) db.ref('qa_list/'+id).remove(); }
 
-    // --- 管理員權權限 ---
+    // --- 管理員權限 ---
     function handleAdmin() {
         if(isAdmin) {
             isAdmin = false; document.getElementById('adminBtn').innerText = "Admin";
@@ -583,15 +590,21 @@
                 document.getElementById('adminArea').style.display = 'block';
                 document.getElementById('adminNoticeArea').style.display = 'block';
                 document.getElementById('adminLinkArea').style.display = 'block';
-                alert("管理員模式啟動！"); renderQA(); renderNotices(); renderLinks();
+                alert("管理員登入成功"); renderQA(); renderNotices(); renderLinks();
+            } else {
+                alert("密碼錯誤");
             }
         }
     }
-
+    
     // --- 分享功能 ---
-    async function sharePage() {
-        if (navigator.share) { try { await navigator.share({ title: '114級畢聯會 | 拾葉', text: '快來看看我們的畢業回憶網站！🍀', url: window.location.href }); } catch (err) {} }
-        else { const el = document.createElement('input'); el.value = window.location.href; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); alert('網址已複製！'); }
+    function sharePage() {
+        if (navigator.share) {
+            navigator.share({ title: '114級畢聯會 | 拾葉', url: window.location.href }).catch(console.error);
+        } else {
+            navigator.clipboard.writeText(window.location.href);
+            alert("網頁網址已複製到剪貼簿，趕快分享給同學吧！");
+        }
     }
 </script>
 </body>
