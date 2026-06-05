@@ -14,11 +14,22 @@
         .container { width: 90%; max-width: 950px; margin: 30px auto; }
         h2 { color: #3d5a45; border-left: 4px solid #8eb69b; padding-left: 15px; margin-top: 60px; font-weight: 600; }
 
-        /* IG 與 分享按鈕樣式 */
-        .top-action-area { text-align: center; margin-bottom: 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        /* 按鈕區域樣式 */
+        .top-action-area { text-align: center; margin-bottom: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .blue-action-area { text-align: center; margin-bottom: 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        
         .ig-pure-btn { display: inline-flex; align-items: center; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(220, 39, 67, 0.2); transition: 0.3s; }
         .share-btn { background: #8eb69b; color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; }
-        .ig-pure-btn:hover, .share-btn:hover { transform: translateY(-3px); opacity: 0.9; }
+        
+        /* 🎨 新增的質感藍色按鈕樣式 */
+        .blue-btn { background: #2f6690; color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(47, 102, 144, 0.3); transition: 0.3s; }
+        .ig-pure-btn:hover, .share-btn:hover, .blue-btn:hover { transform: translateY(-3px); opacity: 0.9; }
+
+        /* 📸 新增的彈出照片展示區 */
+        .info-photo-viewer { display: none; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); margin-bottom: 30px; border-top: 6px solid #2f6690; text-align: center; }
+        .info-photo-viewer img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 10px 0; }
+        .award-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 10px; }
+        @media (max-width: 600px) { .award-grid { grid-template-columns: 1fr; } }
 
         /* 公佈欄與連結區 */
         .notice-board, .links-board { background: #fff; border-radius: 20px; padding: 25px; margin-bottom: 40px; border-top: 6px solid #8eb69b; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
@@ -56,24 +67,8 @@
         #surpriseBtn:hover { transform: scale(1.1) rotate(15deg); background: #3d5a45; }
 
         /* --- 驚喜功能：更新後的樣式 --- */
-        .avatar-pop {
-            width: 130px; 
-            height: 130px;
-            border-radius: 50%;
-            position: fixed;
-            object-fit: cover;
-            z-index: 1999;
-            pointer-events: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
-            animation: popUp 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-
-        @keyframes popUp {
-            0% { transform: scale(0) translateY(100px) rotate(-25deg); opacity: 0; }
-            15% { transform: scale(1.1) translateY(-100px) rotate(10deg); opacity: 1; }
-            50% { transform: scale(1) translateY(-300px) rotate(0); opacity: 1; }
-            100% { transform: scale(0.8) translateY(-650px) rotate(35deg); opacity: 0; }
-        }
+        .avatar-pop { width: 130px; height: 130px; border-radius: 50%; position: fixed; object-fit: cover; z-index: 1999; pointer-events: none; box-shadow: 0 4px 15px rgba(0,0,0,0.15); animation: popUp 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+        @keyframes popUp { 0% { transform: scale(0) translateY(100px) rotate(-25deg); opacity: 0; } 15% { transform: scale(1.1) translateY(-100px) rotate(10deg); opacity: 1; } 50% { transform: scale(1) translateY(-300px) rotate(0); opacity: 1; } 100% { transform: scale(0.8) translateY(-650px) rotate(35deg); opacity: 0; } }
 
         /* --- 🎵 畢業歌聆聽區專屬視覺樣式 --- */
         .song-board { background: white; border-radius: 20px; padding: 30px; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 6px solid #4a6d53; display: flex; flex-direction: column; align-items: center; }
@@ -98,23 +93,7 @@
         .lyrics-content.open { max-height: 400px; overflow-y: auto; }
 
         /* 箭頭按鈕樣式 */
-        .nav-arrow {
-            background: #3d5a45;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            cursor: pointer;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            z-index: 10;
-            flex-shrink: 0;
-        }
+        .nav-arrow { background: #3d5a45; color: white; border: none; border-radius: 50%; width: 45px; height: 45px; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 10; flex-shrink: 0; }
         .nav-arrow:hover { background: #8eb69b; transform: scale(1.1); }
         .nav-arrow:active { transform: scale(0.9); }
 
@@ -160,9 +139,33 @@
 </nav>
 
 <div class="container">
+    <!-- 第一排：原本的按鈕 -->
     <div class="top-action-area">
         <a href="https://www.instagram.com/ctbc114_gsa/" target="_blank" class="ig-pure-btn">📸 Follow Instagram @114_gsa</a>
         <button onclick="sharePage()" class="share-btn">📤 分享給同學</button>
+    </div>
+
+    <!-- 🟦 第二排：新增的兩個藍色按鈕 -->
+    <div class="blue-action-area">
+        <button onclick="toggleInfoSection('processViewer')" class="blue-btn">📅 畢業典禮流程表</button>
+        <button onclick="toggleInfoSection('awardViewer')" class="blue-btn">🏆 畢業頒獎名單</button>
+    </div>
+
+    <!-- 📸 流程表照片區 (預設隱藏) -->
+    <div id="processViewer" class="info-photo-viewer">
+        <h3 style="color:#2f6690; margin-top:0;">📅 畢業典禮流程表</h3>
+        <img src="photos/process1.jpg" alt="畢業流程表">
+    </div>
+
+    <!-- 📸 頒獎名單四張照片區 (預設隱藏，使用 2x2 格線排版) -->
+    <div id="awardViewer" class="info-photo-viewer">
+        <h3 style="color:#2f6690; margin-top:0;">🏆 畢業頒獎名單</h3>
+        <div class="award-grid">
+            <img src="photos/award1.jpg" alt="頒獎名單 1">
+            <img src="photos/award2.jpg" alt="頒獎名單 2">
+            <img src="photos/award3.jpg" alt="頒獎名單 3">
+            <img src="photos/award4.jpg" alt="頒獎名單 4">
+        </div>
     </div>
 
     <section id="notice">
@@ -197,7 +200,7 @@
                 </div>
                 <div class="player-controls">
                     <p class="song-title">拾葉</p>
-                    <p class="song-meta">中信國際高中 114級畢聯會</p>
+                    <p class="song-meta">中信國際高中 114級全體原創創作</p>
                     <div class="control-row">
                         <button id="playBtn" class="main-play-btn" onclick="toggleSong()">▶</button>
                         <div class="progress-wrapper">
@@ -215,34 +218,34 @@
                 <div id="lyricsContent" class="lyrics-content">
                     <strong>《拾葉》</strong><br><br>
                     
-                             <br>
+                    (主歌一)<br>
                     翻開地圖 算不出城市間的距離<br>
                     走進校園 誰預知了未來的交集<br>
                     那年九月 我們像散落各地的種子<br>
                     被風吹進 同一個班級 寫第一行字<br><br>
                     
-                            <br>
+                    (主歌二)<br>
                     考卷的摺痕 藏著只有我們懂的冷笑話<br>
                     福利社門口 揮灑著青春 剩餘的抵押<br>
                     原本平行的 兩百個日子 乘以三<br>
-                    怎麼就變成了 捨不得拆分的答案<br><br>
+                    安排就變成了 捨不得拆分的答案<br><br>
                     
-                              <br>
+                    (副歌)<br>
                     有人說 遇見四葉草是天大的運氣<br>
                     要在幾十萬片綠意裡尋找唯一的你<br>
                     我低頭 攤開手心 數著三年的點滴<br>
                     原來每一片落葉 都是幸福的伏筆<br>
                     你就是那二十萬分之一的奇蹟<br>
-                    在平凡的三三年裡 拾起最美的相遇<br>
+                    在平凡的三年裡 拾起最美的相遇<br>
                     我們像幸運草 緊緊相依 永不分離<br>
                     帶著這份 萬分之一的勇氣 奔向未來領地<br><br>
                     
-                              <br>
+                    (橋段)<br>
                     世界很寬 人海很擠 我們會暫時消失在彼此的視線裡<br>
                     但請別忘記 拾葉時說過的約定<br>
                     有一份幸運 將永遠刻在我們的青春紀念冊裡<br><br>
                     
-                               <br>
+                    (尾奏)<br>
                     拾起一片葉子放在心底<br>
                     這是二十萬分之一的幸運<br>
                     這是二十萬分之一的奇蹟<br>
@@ -337,6 +340,19 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     let isAdmin = false;
+
+    // --- 📅 🏆 流程表與頒獎名單切換邏輯 ---
+    function toggleInfoSection(targetId) {
+        const viewer = document.getElementById(targetId);
+        if (viewer.style.display === "block") {
+            viewer.style.display = "none";
+        } else {
+            // 先隱藏另一個，避免畫面太擠
+            document.getElementById('processViewer').style.display = "none";
+            document.getElementById('awardViewer').style.display = "none";
+            viewer.style.display = "block";
+        }
+    }
 
     // --- 🚀 驚喜頭像邏輯 ---
     function triggerSurprise() {
